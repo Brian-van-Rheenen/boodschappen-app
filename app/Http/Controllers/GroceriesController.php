@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\boodschappen;
+use App\groceries;
 use Illuminate\Http\Request;
 
-class BoodschappenController extends Controller
+class GroceriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class BoodschappenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\boodschappen  $boodschappen
+     * @param  \App\groceries  $groceries
      * @return \Illuminate\Http\Response
      */
-    public function show(boodschappen $boodschappen)
+    public function show(groceries $groceries)
     {
         //
     }
@@ -52,10 +52,10 @@ class BoodschappenController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\boodschappen  $boodschappen
+     * @param  \App\groceries  $groceries
      * @return \Illuminate\Http\Response
      */
-    public function edit(boodschappen $boodschappen)
+    public function edit(groceries $groceries)
     {
         //
     }
@@ -64,10 +64,10 @@ class BoodschappenController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\boodschappen  $boodschappen
+     * @param  \App\groceries  $groceries
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, boodschappen $boodschappen)
+    public function update(Request $request, groceries $groceries)
     {
         //
     }
@@ -75,10 +75,10 @@ class BoodschappenController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\boodschappen  $boodschappen
+     * @param  \App\groceries  $groceries
      * @return \Illuminate\Http\Response
      */
-    public function destroy(boodschappen $boodschappen)
+    public function destroy(groceries $groceries)
     {
         //
     }
