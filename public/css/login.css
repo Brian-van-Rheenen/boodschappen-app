@@ -1,0 +1,42 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header {
+  height: auto;
+  width: 100%;
+}
+
+.header img {
+  display: block;
+  margin: auto;
+}
+
+#key {
+  display: block;
+  width: 200px;
+  margin: auto;
+  padding-top: 40px;
+}
+
+.login-form {
+  padding: 40px;
+}
+
+.btn-primary {
+  width: 100%;
+  background-color: #d07e20;
+  border-color: #c6781d;
+}
+
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active:hover {
+  background: #c4761d;
+  border-color: #c6781d;
+}
+
