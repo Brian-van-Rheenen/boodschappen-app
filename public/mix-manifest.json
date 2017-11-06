@@ -1,4 +1,8 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/login.css": "/css/login.css"
+    "/js/groceries.js": "/js/groceries.js",
+    "/css/login.css": "/css/login.css",
+    "/css/groceries.css": "/css/groceries.css",
+    "/js/buttons.js": "/js/buttons.js",
+    "/js/axios.js": "/js/axios.js",
+    "/js/addItem.js": "/js/addItem.js"
 }

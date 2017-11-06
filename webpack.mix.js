@@ -11,6 +11,11 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
+mix.js('resources/assets/js/groceries.js', 'public/js')
+   .js('resources/assets/js/buttons.js', 'public/js')
+   .js('resources/assets/js/addItem.js', 'public/js')
+   .js('resources/assets/js/axios.js', 'public/js')
    .sass('resources/assets/sass/login.scss', 'public/css')
+   .sass('resources/assets/sass/groceries.scss', 'public/css')
+   .copy('resources/assets/css/', 'public/css')
    .copy('resources/assets/images', 'public/images', false);
