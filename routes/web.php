@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-})->name('login');
+Route::get('/', 'SessionsController@index')->name('login');
 Route::post('/login', 'SessionsController@store');
 Route::get('/boodschappen', 'GroceriesController@index')->name('home');
+Route::post('/boodschappen', 'GroceriesController@store');
