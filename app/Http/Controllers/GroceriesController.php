@@ -27,10 +27,28 @@ class GroceriesController extends Controller
             'quantity' => 'required'
         ]);
 
-        $grocery = new Groceries(request(['description', 'quantity']), 'false');
+        $grocery = new Groceries(request(['description', 'quantity', 'completed']));
         $grocery->save();
 
-        // And then redirect to the home page
-        return redirect('/boodschappen');
+        return $grocery;
+    }
+    public function findById($id)
+    {
+        $grocery = Groceries::find($id);
+        return $grocery;
+    }
+    public function update($id)
+    {
+        $grocery = Groceries::find($id);
+        $grocery->completed = request()->completed;
+        $grocery->save();
+
+        return $grocery;
+    }
+    public function reset()
+    {
+        Groceries::truncate();
+
+        return 'reset';
     }
 }

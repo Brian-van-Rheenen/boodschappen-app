@@ -216,10 +216,10 @@ module.exports = __webpack_require__(15);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_message__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_message___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_message__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_addItem__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_addItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_addItem__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_listGroupItem__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_message__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_message___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_message__);
 
 
 
@@ -228,20 +228,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#content',
     components: {
-        Message: __WEBPACK_IMPORTED_MODULE_1__components_message___default.a,
-        Additem: __WEBPACK_IMPORTED_MODULE_2__components_addItem___default.a
+        Listgroupitem: __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem___default.a,
+        Message: __WEBPACK_IMPORTED_MODULE_2__components_message___default.a
     },
     data: {
+        groceries: groceries,
         description: '',
         quantity: ''
     },
     methods: {
-        onSubmit: function onSubmit(e) {
-            axios.post(e.target.action, this.$data).then(this.onSuccess);
+        addItem: function addItem(e) {
+            var _this = this;
+
+            axios.post(e.target.action, this.$data).then(function (res) {
+                console.log(res.data);
+                _this.groceries.push(res.data);
+                _this.description = '';
+                _this.quantity = '';
+            });
         },
-        onSuccess: function onSuccess(response) {
-            this.description = '';
-            this.quantity = '';
+        resetItems: function resetItems() {
+            var _this2 = this;
+
+            axios.post('/boodschappen/reset').then(function (res) {
+                _this2.groceries = [];
+            });
         }
     }
 });
@@ -11283,6 +11294,155 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
+Component.options.__file = "resources/assets/js/components/listGroupItem.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d3705248", Component.options)
+  } else {
+    hotAPI.reload("data-v-d3705248", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'listGroupItem',
+    props: ['groceries'],
+    computed: {
+        sortedGroceries: function sortedGroceries() {
+            return this.groceries.sort(function (a, b) {
+                return a.completed - a.created_at || b.completed - b.created_at;
+            });
+        }
+    },
+    methods: {
+        completed: function completed(id) {
+            var groceries = this.groceries;
+            var index = groceries.findIndex(function (x) {
+                return x.id == id;
+            });
+
+            if (groceries[index].completed == 0) {
+                var completed = 1;
+            } else {
+                var completed = 0;
+            }
+
+            axios.post('/boodschappen/' + id + '/update', {
+
+                completed: completed
+            }).then(function (res) {
+
+                groceries[index].completed = completed;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    _vm._l(_vm.sortedGroceries, function(item) {
+      return _c(
+        "li",
+        { staticClass: "list-group-item", class: { done: item.completed } },
+        [
+          _c(
+            "span",
+            { staticClass: "hoeveelheid", class: { checked: item.completed } },
+            [_vm._v(_vm._s(item.quantity) + "x")]
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            { staticClass: "items", class: { checked: item.completed } },
+            [_vm._v(_vm._s(item.description))]
+          ),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "fa fa-check complete",
+            class: { completed: item.completed },
+            on: {
+              click: function($event) {
+                _vm.completed(item.id)
+              }
+            }
+          })
+        ]
+      )
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-d3705248", module.exports)
+  }
+}
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(12)
+/* template */
+var __vue_template__ = __webpack_require__(13)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
 Component.options.__file = "resources/assets/js/components/message.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
@@ -11306,7 +11466,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11353,97 +11513,108 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "shadow" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "messageContainer" }, [
+      _c("div", { staticClass: "message resetItems" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "buttonContainer" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success confirmationButton",
+              attrs: { type: "button" },
+              on: { click: this.$root.resetItems }
+            },
+            [_vm._v("Ja!")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger confirmationButton",
+              attrs: { type: "button" }
+            },
+            [_vm._v("Nee!")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(2)
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "shadow" }),
+    return _c("div", { staticClass: "messageHeader red" }, [
+      _c("i", { staticClass: "fa fa-times circle" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "messageDescription" }, [
+      _c("span", { staticClass: "title" }, [_vm._v("Reset?")]),
       _vm._v(" "),
-      _c("div", { staticClass: "messageContainer" }, [
-        _c("div", { staticClass: "message resetItems" }, [
-          _c("div", { staticClass: "messageHeader red" }, [
-            _c("i", { staticClass: "fa fa-times circle" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "messageDescription" }, [
-            _c("span", { staticClass: "title" }, [_vm._v("Reset?")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description" }, [
-              _vm._v(
-                "Weet je zeker dat je alle boodschappen wilt resetten? Dit "
-              ),
-              _c("strong", [_vm._v("verwijdert")]),
-              _vm._v(" ze allemaal.")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "buttonContainer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success confirmationButton",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Ja!")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger confirmationButton",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Nee!")]
-            )
-          ])
-        ]),
+      _c("span", { staticClass: "description" }, [
+        _vm._v("Weet je zeker dat je alle boodschappen wilt resetten? Dit "),
+        _c("strong", [_vm._v("verwijdert")]),
+        _vm._v(" ze allemaal.")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "message saveItems" }, [
+      _c("div", { staticClass: "messageHeader green" }, [
+        _c("i", { staticClass: "fa fa-check circle" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "messageDescription" }, [
+        _c("span", { staticClass: "title" }, [_vm._v("Opslaan?")]),
         _vm._v(" "),
-        _c("div", { staticClass: "message saveItems" }, [
-          _c("div", { staticClass: "messageHeader green" }, [
-            _c("i", { staticClass: "fa fa-check circle" })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "messageDescription" }, [
-            _c("span", { staticClass: "title" }, [_vm._v("Opslaan?")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "description" }, [
-              _vm._v(
-                "Weet je zeker dat je alle boodschappen wilt opslaan? Dit is niet terug te draaien."
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "buttonContainer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success confirmationButton",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Ja!")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger confirmationButton",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Nee!")]
-            )
-          ])
+        _c("span", { staticClass: "description" }, [
+          _vm._v(
+            "Weet je zeker dat je alle boodschappen wilt opslaan? Dit is niet terug te draaien."
+          )
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "buttonContainer" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success confirmationButton",
+            attrs: { type: "button" }
+          },
+          [_vm._v("Ja!")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger confirmationButton",
+            attrs: { type: "button" }
+          },
+          [_vm._v("Nee!")]
+        )
       ])
     ])
   }
@@ -11454,140 +11625,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-f9761ba2", module.exports)
-  }
-}
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(12)
-/* template */
-var __vue_template__ = __webpack_require__(13)
-/* template functional */
-  var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/addItem.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-79269a08", Component.options)
-  } else {
-    hotAPI.reload("data-v-79269a08", Component.options)
-' + '  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'additem',
-    data: function data() {
-        return {};
-    }
-});
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      directives: [{ name: "ajax", rawName: "v-ajax" }],
-      staticClass: "addNewItem",
-      attrs: { method: "POST", action: "/boodschappen" }
-    },
-    [
-      _c("input", {
-        staticClass: "newItem",
-        attrs: {
-          type: "text",
-          name: "description",
-          placeholder: "Voeg toe",
-          required: ""
-        }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "quantity",
-        attrs: {
-          type: "number",
-          name: "quantity",
-          placeholder: "1",
-          required: ""
-        }
-      }),
-      _vm._v(" "),
-      _vm._m(0)
-    ]
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "btn btn-success addItemButton",
-        attrs: { type: "submit" }
-      },
-      [_c("i", { staticClass: "fa fa-plus addItemIcon" })]
-    )
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-79269a08", module.exports)
   }
 }
 

@@ -1,26 +1,32 @@
 import Vue from 'vue';
 
+import Listgroupitem from './components/listGroupItem'
 import Message from './components/message';
-import Additem from './components/addItem';
 
 new Vue({
     el: '#content',
     components: {
-        Message,
-        Additem
+        Listgroupitem,
+        Message
     },
     data: {
+        groceries: groceries,
         description: '',
         quantity: ''
     },
     methods: {
-        onSubmit(e) {
-            axios.post(e.target.action, this.$data).then(this.onSuccess);
+        addItem(e) {
+            axios.post(e.target.action, this.$data).then((res) => {
+                console.log(res.data);
+                this.groceries.push(res.data);
+                this.description = '';
+                this.quantity = '';
+            });
         },
-
-        onSuccess(response) {
-            this.description = '';
-            this.quantity = '';
+        resetItems() {
+            axios.post('/boodschappen/reset').then((res) => {
+                this.groceries = [];
+            });
         }
     }
 });

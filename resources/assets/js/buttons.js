@@ -8,6 +8,14 @@ $(document).ready(function(){
         }
     })*/
 
+    $(document).on('click', '.complete', function()
+    {
+        $(this).toggleClass('completed');
+        $(this).parent().toggleClass('done');
+        $(this).closest('li').find('.hoeveelheid').toggleClass('checked');
+        $(this).closest('li').find('.items').toggleClass('checked');
+    });
+
     $('.reset').click(function(){
         $('.shadow').show();
         $('.messageContainer').css('display', 'flex');
@@ -26,12 +34,4 @@ $(document).ready(function(){
         $('.resetItems').hide();
         $('.saveItems').hide();
     })
-
-    $('.complete').click(function(event)
-    {
-        $(this).toggleClass('completed');
-        $(this).parent().toggleClass('done');
-        $(this).closest('li').find('.hoeveelheid').toggleClass('checked');
-        $(this).closest('li').find('.items').toggleClass('checked');
-    });
 });
