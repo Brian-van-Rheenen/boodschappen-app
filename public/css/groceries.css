@@ -9,6 +9,10 @@ body {
   outline: none;
 }
 
+h4 {
+  margin-left: 8px;
+}
+
 #content {
   height: 100%;
   width: 100%;

@@ -1,7 +1,7 @@
 <section class="header">
     <div class="header-container">
         <span>Boodschappen lijst</span>
-        <i class="fa fa-sign-out icons" aria-hidden="true"></i>
+        <a href="/logout"><i class="fa fa-sign-out icons" aria-hidden="true"></i></a>
         <i class="fa fa-users icons" aria-hidden="true"></i>
     </div>
 
