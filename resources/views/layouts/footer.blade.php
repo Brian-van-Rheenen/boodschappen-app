@@ -3,7 +3,6 @@
         {{ csrf_field() }}
         <input type="text" class="newItem" name="description" v-model="description" placeholder="Voeg toe" required></input>
         <input type="number" class="quantity" name="quantity" v-model="quantity" placeholder="1" required></input>
-        <input type="hidden" name="completed">
         <button type="submit" class="btn btn-success addItemButton"><i class="fa fa-plus addItemIcon"></i></button>
     </form>
 

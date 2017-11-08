@@ -27,8 +27,10 @@ class GroceriesController extends Controller
             'quantity' => 'required'
         ]);
 
-        $grocery = new Groceries(request(['description', 'quantity', 'completed']));
-        $grocery->save();
+        $data = request(['description', 'quantity']);
+        $data['completed'] = 0;
+
+        $grocery = Groceries::create($data);
 
         return $grocery;
     }

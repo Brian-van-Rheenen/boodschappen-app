@@ -17,6 +17,9 @@ class CreateGroceriesTable extends Migration
             $table->increments('id')->unique();
             $table->string('description');
             $table->string('quantity');
+            $table->boolean('completed');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

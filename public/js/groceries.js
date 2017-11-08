@@ -11331,36 +11331,76 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'listGroupItem',
     props: ['groceries'],
-    computed: {
-        sortedGroceries: function sortedGroceries() {
-            return this.groceries.sort(function (a, b) {
-                return a.completed - a.created_at || b.completed - b.created_at;
+    data: function data() {
+        return {
+            completedGroceries: this.groceries.filter(function (item) {
+                return item.completed;
+            }),
+            incompleteGroceries: this.groceries.filter(function (item) {
+                return !item.completed;
+            })
+        };
+    },
+
+    watch: {
+        groceries: function groceries() {
+            this.completedGroceries = this.groceries.filter(function (item) {
+                return item.completed;
             });
+            this.incompleteGroceries = this.groceries.filter(function (item) {
+                return !item.completed;
+            });
+            this.sortGroceries();
         }
     },
     methods: {
-        completed: function completed(id) {
-            var groceries = this.groceries;
-            var index = groceries.findIndex(function (x) {
-                return x.id == id;
-            });
+        completed: function completed(item) {
+            item.completed = !item.completed;
 
-            if (groceries[index].completed == 0) {
-                var completed = 1;
+            if (item.completed) {
+                var index = this.incompleteGroceries.findIndex(function (x) {
+                    return x.id == item.id;
+                });
+                this.completedGroceries.push(item);
+                this.incompleteGroceries.splice(index, 1);
             } else {
-                var completed = 0;
+                var index = this.completedGroceries.findIndex(function (x) {
+                    return x.id == item.id;
+                });
+                this.incompleteGroceries.push(item);
+                this.completedGroceries.splice(index, 1);
             }
 
-            axios.post('/boodschappen/' + id + '/update', {
+            this.sortGroceries();
 
-                completed: completed
-            }).then(function (res) {
+            axios.post('/boodschappen/' + item.id + '/update', {
+                completed: item.completed
+            });
+        },
+        sortGroceries: function sortGroceries() {
+            this.incompleteGroceries.sort(function (a, b) {
+                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            });
 
-                groceries[index].completed = completed;
+            this.completedGroceries.sort(function (a, b) {
+                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
             });
         }
     }
@@ -11376,35 +11416,88 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.sortedGroceries, function(item) {
-      return _c(
-        "li",
-        { staticClass: "list-group-item", class: { done: item.completed } },
-        [
-          _c(
-            "span",
-            { staticClass: "hoeveelheid", class: { checked: item.completed } },
-            [_vm._v(_vm._s(item.quantity) + "x")]
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "items", class: { checked: item.completed } },
-            [_vm._v(_vm._s(item.description))]
-          ),
-          _vm._v(" "),
-          _c("i", {
-            staticClass: "fa fa-check complete",
-            class: { completed: item.completed },
-            on: {
-              click: function($event) {
-                _vm.completed(item.id)
-              }
-            }
+    [
+      _c("h4", [_vm._v("Nog te halen:")]),
+      _vm._v(" "),
+      _vm.incompleteGroceries.length
+        ? _vm._l(_vm.incompleteGroceries, function(item) {
+            return _c(
+              "li",
+              {
+                key: item.id,
+                staticClass: "list-group-item",
+                class: { done: item.completed }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "hoeveelheid",
+                    class: { checked: item.completed }
+                  },
+                  [_vm._v(_vm._s(item.quantity) + "x")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "items", class: { checked: item.completed } },
+                  [_vm._v(_vm._s(item.description))]
+                ),
+                _vm._v(" "),
+                _c("i", {
+                  staticClass: "fa fa-check complete",
+                  class: { completed: item.completed },
+                  on: {
+                    click: function($event) {
+                      _vm.completed(item)
+                    }
+                  }
+                })
+              ]
+            )
           })
-        ]
-      )
-    })
+        : [_vm._v("\n        Geen producten\n    ")],
+      _vm._v(" "),
+      _c("h4", [_vm._v("Al gehaald:")]),
+      _vm._v(" "),
+      _vm._l(_vm.completedGroceries, function(item) {
+        return _c(
+          "li",
+          {
+            key: item.id,
+            staticClass: "list-group-item",
+            class: { done: item.completed }
+          },
+          [
+            _c(
+              "span",
+              {
+                staticClass: "hoeveelheid",
+                class: { checked: item.completed }
+              },
+              [_vm._v(_vm._s(item.quantity) + "x")]
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              { staticClass: "items", class: { checked: item.completed } },
+              [_vm._v(_vm._s(item.description))]
+            ),
+            _vm._v(" "),
+            _c("i", {
+              staticClass: "fa fa-check complete",
+              class: { completed: item.completed },
+              on: {
+                click: function($event) {
+                  _vm.completed(item)
+                }
+              }
+            })
+          ]
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
