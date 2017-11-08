@@ -10,7 +10,7 @@
             </li>
         </template>
         <template v-else>
-            Geen producten
+            <span class="empty">Geen producten</span>
         </template>
 
         <h4>Al gehaald:</h4>
@@ -22,7 +22,7 @@
         </li>
         </template>
         <template v-else>
-            Geen producten
+            <span class="empty">Geen producten</span>
         </template>
     </div>
 </template>

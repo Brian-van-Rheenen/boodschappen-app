@@ -8,7 +8,7 @@ html, body {
     outline: none;
 }
 
-h4 {
+h4, .empty {
     margin-left: 8px;
 }
 
@@ -148,6 +148,12 @@ h4 {
         color: #fff;
         font-size: 3em;
         float: right;
+    }
+
+    .fa-angle-left {
+        float: left;
+        margin: 0;
+        margin-right: 20px;
     }
 }
 /*
@@ -351,6 +357,19 @@ h4 {
     border-bottom: none;
 }
 
+.history {
+    justify-content: unset;
+}
+
+.historyUser {
+    color: #d07e20;
+}
+
+.historyDescription {
+    width: 215px;
+    margin-left: auto;
+}
+
 .done {
     opacity: 0.3;
 }
@@ -433,9 +452,10 @@ h4 {
     left: 0;
     bottom: 0;
     margin-left: 8px;
+    color: #d07e20;
 }
 
-.hoeveelheid, .items, .fa-trash-o {
+.hoeveelheid, .items, .historyDate, .fa-trash-o {
     display: flex;
     align-items: center;
     font-weight: bold;

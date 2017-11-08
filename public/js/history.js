@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11211,27 +11211,32 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 6 */
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(7);
-__webpack_require__(14);
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(17);
 
 
 /***/ }),
-/* 7 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_listGroupItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_message__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_message___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_message__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_history__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_history___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_history__);
 
 
 
@@ -11239,44 +11244,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#content',
     components: {
-        Listgroupitem: __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem___default.a,
-        Message: __WEBPACK_IMPORTED_MODULE_2__components_message___default.a
+        History: __WEBPACK_IMPORTED_MODULE_1__components_history___default.a
     },
     data: {
-        groceries: groceries,
-        description: '',
-        quantity: ''
-    },
-    methods: {
-        addItem: function addItem(e) {
-            var _this = this;
-
-            axios.post(e.target.action, this.$data).then(function (res) {
-                _this.groceries.push(res.data);
-                _this.description = '';
-                _this.quantity = '';
-            });
-        },
-        resetItems: function resetItems() {
-            var _this2 = this;
-
-            axios.post('/boodschappen/reset').then(function (res) {
-                _this2.groceries = [];
-            });
-        }
+        history: historyArray
     }
 });
 
 /***/ }),
-/* 8 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(9)
+var __vue_script__ = __webpack_require__(19)
 /* template */
-var __vue_template__ = __webpack_require__(10)
+var __vue_template__ = __webpack_require__(20)
 /* template functional */
   var __vue_template_functional__ = false
 /* styles */
@@ -11293,7 +11277,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/listGroupItem.vue"
+Component.options.__file = "resources/assets/js/components/history.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -11303,9 +11287,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d3705248", Component.options)
+    hotAPI.createRecord("data-v-676a6f88", Component.options)
   } else {
-    hotAPI.reload("data-v-d3705248", Component.options)
+    hotAPI.reload("data-v-676a6f88", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -11316,7 +11300,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 9 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11334,85 +11318,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'listGroupItem',
-    props: ['groceries'],
+    name: 'history',
+    props: ['history'],
     data: function data() {
         return {
-            completedGroceries: this.groceries.filter(function (item) {
-                return item.completed;
-            }),
-            incompletedGroceries: this.groceries.filter(function (item) {
-                return !item.completed;
-            })
+            historyLog: this.history
         };
-    },
-
-    watch: {
-        groceries: function groceries() {
-            this.completedGroceries = this.groceries.filter(function (item) {
-                return item.completed;
-            });
-            this.incompletedGroceries = this.groceries.filter(function (item) {
-                return !item.completed;
-            });
-            this.sortGroceries();
-        }
-    },
-    methods: {
-        completed: function completed(item) {
-            item.completed = !item.completed;
-
-            if (item.completed) {
-                var index = this.incompletedGroceries.findIndex(function (x) {
-                    return x.id == item.id;
-                });
-                this.completedGroceries.push(item);
-                this.incompletedGroceries.splice(index, 1);
-            } else {
-                var index = this.completedGroceries.findIndex(function (x) {
-                    return x.id == item.id;
-                });
-                this.incompletedGroceries.push(item);
-                this.completedGroceries.splice(index, 1);
-            }
-
-            this.sortGroceries();
-
-            axios.post('/boodschappen/' + item.id + '/update', {
-                completed: item.completed
-            });
-        },
-        sortGroceries: function sortGroceries() {
-            this.incompletedGroceries.sort(function (a, b) {
-                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-            });
-
-            this.completedGroceries.sort(function (a, b) {
-                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-            });
-        }
     }
 });
 
 /***/ }),
-/* 10 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -11422,91 +11340,34 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h4", [_vm._v("Nog te halen:")]),
-      _vm._v(" "),
-      _vm.incompletedGroceries.length
-        ? _vm._l(_vm.incompletedGroceries, function(item) {
-            return _c(
-              "li",
-              {
-                key: item.id,
-                staticClass: "list-group-item",
-                class: { done: item.completed }
-              },
-              [
-                _c("span", { staticClass: "user" }, [
+      _vm.historyLog.length
+        ? _vm._l(_vm.historyLog, function(item) {
+            return _c("li", { staticClass: "list-group-item history" }, [
+              _c("span", { staticClass: "historyDate" }, [
+                _vm._v(_vm._s(item.created_at) + ":")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "historyDescription" }, [
+                _c("span", { staticClass: "historyUser" }, [
                   _vm._v(_vm._s(item.user))
                 ]),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    staticClass: "hoeveelheid",
-                    class: { checked: item.completed }
-                  },
-                  [_vm._v(_vm._s(item.quantity) + "x")]
+                _vm._v(
+                  " " +
+                    _vm._s(item.textBefore) +
+                    " " +
+                    _vm._s(item.quantity) +
+                    " "
                 ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "items", class: { checked: item.completed } },
-                  [_vm._v(_vm._s(item.description))]
-                ),
-                _vm._v(" "),
-                _c("i", {
-                  staticClass: "fa fa-check complete",
-                  class: { completed: item.completed },
-                  on: {
-                    click: function($event) {
-                      _vm.completed(item)
-                    }
-                  }
-                })
-              ]
-            )
+                _c("strong", [_vm._v(_vm._s(item.description))]),
+                _vm._v(" " + _vm._s(item.textAfter))
+              ])
+            ])
           })
-        : [_c("span", { staticClass: "empty" }, [_vm._v("Geen producten")])],
-      _vm._v(" "),
-      _c("h4", [_vm._v("Al gehaald:")]),
-      _vm._v(" "),
-      _vm.completedGroceries.length
-        ? _vm._l(_vm.completedGroceries, function(item) {
-            return _c(
-              "li",
-              {
-                key: item.id,
-                staticClass: "list-group-item",
-                class: { done: item.completed }
-              },
-              [
-                _c(
-                  "span",
-                  {
-                    staticClass: "hoeveelheid",
-                    class: { checked: item.completed }
-                  },
-                  [_vm._v(_vm._s(item.quantity) + "x")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "items", class: { checked: item.completed } },
-                  [_vm._v(_vm._s(item.description))]
-                ),
-                _vm._v(" "),
-                _c("i", {
-                  staticClass: "fa fa-check complete",
-                  class: { completed: item.completed },
-                  on: {
-                    click: function($event) {
-                      _vm.completed(item)
-                    }
-                  }
-                })
-              ]
-            )
-          })
-        : [_c("span", { staticClass: "empty" }, [_vm._v("Geen producten")])]
+        : [
+            _c("span", { staticClass: "empty" }, [
+              _vm._v("Geen geschiedenis gevonden.")
+            ])
+          ]
     ],
     2
   )
@@ -11517,232 +11378,9 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-d3705248", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-676a6f88", module.exports)
   }
 }
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(12)
-/* template */
-var __vue_template__ = __webpack_require__(13)
-/* template functional */
-  var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/message.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f9761ba2", Component.options)
-  } else {
-    hotAPI.reload("data-v-f9761ba2", Component.options)
-' + '  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'message',
-    data: function data() {
-        return {};
-    }
-});
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "shadow" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "messageContainer" }, [
-      _c("div", { staticClass: "message resetItems" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "buttonContainer" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success confirmationButton",
-              attrs: { type: "button" },
-              on: { click: this.$root.resetItems }
-            },
-            [_vm._v("Ja!")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger confirmationButton",
-              attrs: { type: "button" }
-            },
-            [_vm._v("Nee!")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(2)
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "messageHeader red" }, [
-      _c("i", { staticClass: "fa fa-times circle" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "messageDescription" }, [
-      _c("span", { staticClass: "title" }, [_vm._v("Reset?")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "description" }, [
-        _vm._v("Weet je zeker dat je alle boodschappen wilt resetten? Dit "),
-        _c("strong", [_vm._v("verwijdert")]),
-        _vm._v(" ze allemaal.")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "message saveItems" }, [
-      _c("div", { staticClass: "messageHeader green" }, [
-        _c("i", { staticClass: "fa fa-check circle" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "messageDescription" }, [
-        _c("span", { staticClass: "title" }, [_vm._v("Opslaan?")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "description" }, [
-          _vm._v(
-            "Weet je zeker dat je alle boodschappen wilt opslaan? Dit is niet terug te draaien."
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "buttonContainer" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success confirmationButton",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Ja!")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger confirmationButton",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Nee!")]
-        )
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f9761ba2", module.exports)
-  }
-}
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

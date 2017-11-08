@@ -27,7 +27,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdmin() {
+    public function getName()
+    {
+        $user = $this->email;
+        $user = ucfirst($user);
+        $user = substr($user, 0, strpos($user, "@"));
+
+        return $user;
+    }
+
+    public function isAdmin()
+    {
         if($this->role == 'admin')
         {
             return true;

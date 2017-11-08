@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Groceries;
+use App\Log;
 use Illuminate\Http\Request;
 
 class GroceriesController extends Controller
@@ -28,15 +29,20 @@ class GroceriesController extends Controller
             'quantity' => 'required'
         ]);
 
-        $user = Auth::user()->email;
-        $user = ucfirst($user);
-        $user = substr($user, 0, strpos($user, "@"));
-
         $data = request(['description', 'quantity']);
-        $data['user'] = $user;
+        $data['user'] = Auth::user()->getName();
         $data['completed'] = 0;
 
         $grocery = Groceries::create($data);
+
+        $data = Log::createLog(
+            Auth::user()->getName(),
+            ' heeft ',
+            $grocery->description,
+            ' toegevoegd.',
+            $grocery->id,
+            $grocery->quantity . 'x'
+        );
 
         return $grocery;
     }
@@ -51,11 +57,35 @@ class GroceriesController extends Controller
         $grocery->completed = request()->completed;
         $grocery->save();
 
+        if ($grocery->completed)
+        {
+            $textAfter = ' afgecheckt.';
+        }
+        else
+        {
+            $textAfter = ' ongedaan gemaakt.';
+        }
+
+        $data = Log::createLog(
+            Auth::user()->getName(),
+            ' heeft ',
+            $grocery->description,
+            $textAfter,
+            $grocery->id
+        );
+
         return $grocery;
     }
     public function reset()
     {
         Groceries::truncate();
+
+        $data = Log::createLog(
+            Auth::user()->getName(),
+            ' heeft ',
+            'de boodschappenlijst',
+            ' gereset.'
+        );
 
         return 'reset';
     }
