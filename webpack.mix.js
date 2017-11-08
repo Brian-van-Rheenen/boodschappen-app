@@ -12,6 +12,7 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/groceries.js', 'public/js')
+   .js('resources/assets/js/history.js', 'public/js')
    .js('resources/assets/js/buttons.js', 'public/js')
    .js('resources/assets/js/addItem.js', 'public/js')
    .sass('resources/assets/sass/login.scss', 'public/css')

@@ -19,3 +19,4 @@ Route::post('/boodschappen', 'GroceriesController@store');
 Route::get('/boodschappen/{id}', 'GroceriesController@findById');
 Route::post('/boodschappen/{id}/update', 'GroceriesController@update');
 Route::post('/boodschappen/reset', 'GroceriesController@reset');
+Route::get('/history', 'HistoryController@index');

@@ -14,7 +14,7 @@
 <body>
     <div id="content">
         <message></message>
-        @include('layouts.header')
+        @include('layouts.header', ['header' => "Boodschappen lijst", 'history' => false])
 
         @include('layouts.items')
 
