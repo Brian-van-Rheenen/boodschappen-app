@@ -9,13 +9,4 @@
             <a href="/history"><i class="fa fa-history icons" aria-hidden="true"></i></a>
         @endif
     </div>
-
-    <!--
-    <div class="items">
-        <div class="addItem">
-            <img src="images/plus.png" class="plus">
-            <input type="text" name="item" class="item">
-        </div>
-    </div>
-    -->
 </section>

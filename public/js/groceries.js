@@ -11229,9 +11229,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_listGroupItem__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_message__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_message___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_message__);
-
 
 
 
@@ -11239,8 +11236,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#content',
     components: {
-        Listgroupitem: __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem___default.a,
-        Message: __WEBPACK_IMPORTED_MODULE_2__components_message___default.a
+        Listgroupitem: __WEBPACK_IMPORTED_MODULE_1__components_listGroupItem___default.a
     },
     data: {
         groceries: groceries,
@@ -11251,8 +11247,13 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         addItem: function addItem(e) {
             var _this = this;
 
+            //Create AJAX post
             axios.post(e.target.action, this.$data).then(function (res) {
+
+                //Push the added item into the groceries array
                 _this.groceries.push(res.data);
+
+                //Reset the form
                 _this.description = '';
                 _this.quantity = '';
             });
@@ -11260,7 +11261,10 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         resetItems: function resetItems() {
             var _this2 = this;
 
+            //Create AJAX post
             axios.post('/boodschappen/reset').then(function (res) {
+
+                //Clear the groceries array
                 _this2.groceries = [];
             });
         }
@@ -11522,217 +11526,9 @@ if (false) {
 }
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(12)
-/* template */
-var __vue_template__ = __webpack_require__(13)
-/* template functional */
-  var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/message.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f9761ba2", Component.options)
-  } else {
-    hotAPI.reload("data-v-f9761ba2", Component.options)
-' + '  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'message',
-    data: function data() {
-        return {};
-    }
-});
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "shadow" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "messageContainer" }, [
-      _c("div", { staticClass: "message resetItems" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "buttonContainer" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success confirmationButton",
-              attrs: { type: "button" },
-              on: { click: this.$root.resetItems }
-            },
-            [_vm._v("Ja!")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger confirmationButton",
-              attrs: { type: "button" }
-            },
-            [_vm._v("Nee!")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(2)
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "messageHeader red" }, [
-      _c("i", { staticClass: "fa fa-times circle" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "messageDescription" }, [
-      _c("span", { staticClass: "title" }, [_vm._v("Reset?")]),
-      _vm._v(" "),
-      _c("span", { staticClass: "description" }, [
-        _vm._v("Weet je zeker dat je alle boodschappen wilt resetten? Dit "),
-        _c("strong", [_vm._v("verwijdert")]),
-        _vm._v(" ze allemaal.")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "message saveItems" }, [
-      _c("div", { staticClass: "messageHeader green" }, [
-        _c("i", { staticClass: "fa fa-check circle" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "messageDescription" }, [
-        _c("span", { staticClass: "title" }, [_vm._v("Opslaan?")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "description" }, [
-          _vm._v(
-            "Weet je zeker dat je alle boodschappen wilt opslaan? Dit is niet terug te draaien."
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "buttonContainer" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success confirmationButton",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Ja!")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger confirmationButton",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Nee!")]
-        )
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f9761ba2", module.exports)
-  }
-}
-
-/***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */,
 /* 14 */
 /***/ (function(module, exports) {
 

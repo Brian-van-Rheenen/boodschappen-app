@@ -16,26 +16,33 @@ class GroceriesController extends Controller
 
     public function index()
     {
+        //Retrieve all the groceries and order them by 'completed' and 'latest'
         $groceries = Groceries::orderBy('completed')
             ->latest()
             ->get();
 
+        //Return de groceries view and send the groceries with it
         return view('groceries', compact('groceries'));
     }
     public function store()
     {
+        //Validate the data
         $this->validate(request(), [
             'description' => 'required',
             'quantity' => 'required'
         ]);
 
+        //Add properties to the form data
         $data = request(['description', 'quantity']);
         $data['user'] = Auth::user()->getName();
+        $data['description'] = ucfirst(request('description'));
         $data['completed'] = 0;
 
+        //Insert the grocery into the database
         $grocery = Groceries::create($data);
 
-        $data = Log::createLog(
+        //Create a history log and insert it into the database
+        Log::createLog(
             Auth::user()->getName(),
             ' heeft ',
             $grocery->description,
@@ -44,29 +51,42 @@ class GroceriesController extends Controller
             $grocery->quantity . 'x'
         );
 
+        //Return the inserted grocery
         return $grocery;
     }
     public function findById($id)
     {
+        //Find the grocery by its id
         $grocery = Groceries::find($id);
+
+        //Return that grocery
         return $grocery;
     }
     public function update($id)
     {
+        //Find the grocery by its id
         $grocery = Groceries::find($id);
+
+        //Change the completed state
         $grocery->completed = request()->completed;
+
+        //Save the changes
         $grocery->save();
 
+        //If the grocery has been checked of
         if ($grocery->completed)
         {
+            //Create text
             $textAfter = ' afgecheckt.';
         }
         else
         {
+            //Create text
             $textAfter = ' ongedaan gemaakt.';
         }
 
-        $data = Log::createLog(
+        //Create a history log and insert it into the database
+        Log::createLog(
             Auth::user()->getName(),
             ' heeft ',
             $grocery->description,
@@ -74,13 +94,16 @@ class GroceriesController extends Controller
             $grocery->id
         );
 
+        //Return the saved grocery
         return $grocery;
     }
     public function reset()
     {
+        //Remove every grocery in the database
         Groceries::truncate();
 
-        $data = Log::createLog(
+        //Create a history log and insert it into the database
+        Log::createLog(
             Auth::user()->getName(),
             ' heeft ',
             'de boodschappenlijst',

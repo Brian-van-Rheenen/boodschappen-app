@@ -7,10 +7,5 @@
     </form>
 
     <button type="button" class="btn btn-danger btn-circle btn-xl reset"><i class="fa fa-times"></i></button>
-    <button type="button" class="btn btn-success btn-circle btn-xl save"><i class="fa fa-check"></i></button>
     <button type="button" class="btn btn-primary btn-circle btn-xl add"><i class="fa fa-plus"></i></button>
-    <!--
-    <button type="button" class="btn btn-danger reset">Reset</button>
-    <button type="button" class="btn btn-success save">✓</button>
-    -->
 </section>

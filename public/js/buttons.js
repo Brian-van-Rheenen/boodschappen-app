@@ -77,15 +77,6 @@ module.exports = __webpack_require__(22);
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-    /*
-    $(window).click(function() {
-        if($('.delete').hasClass( "delete-slide-in" ))
-        {
-            $('.delete').removeClass('delete-slide-in');
-            $('.fa-trash-o').removeClass('white');
-        }
-    })*/
-
     $(document).on('click', '.complete', function () {
         $(this).toggleClass('completed');
         $(this).parent().toggleClass('done');
@@ -97,12 +88,6 @@ $(document).ready(function () {
         $('.shadow').show();
         $('.messageContainer').css('display', 'flex');
         $('.resetItems').show();
-    });
-
-    $('.save').click(function () {
-        $('.shadow').show();
-        $('.messageContainer').css('display', 'flex');
-        $('.saveItems').show();
     });
 
     $('.confirmationButton').click(function () {

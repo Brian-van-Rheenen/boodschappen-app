@@ -18,6 +18,7 @@ class History extends Model
 
     public function getCreatedAtAttribute($value)
     {
+        //Format the given date to day-month hour-minute
         date_default_timezone_set('Europe/Amsterdam');
         return date('j M, H:i', strtotime($value));
     }

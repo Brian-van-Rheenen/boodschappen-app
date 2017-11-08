@@ -9,6 +9,7 @@ class Log extends Model
 {
     public static function createLog($user, $textBefore, $description, $textAfter, $groceryId = null, $quantity = null)
     {
+        //Create and fill the properties in the array
         $data['groceryId'] = $groceryId;
         $data['user'] = $user;
         $data['textBefore'] = $textBefore;
@@ -16,8 +17,7 @@ class Log extends Model
         $data['textAfter'] = $textAfter;
         $data['quantity'] = $quantity;
 
+        //Insert the history log into the database
         History::create($data);
-
-        return $data;
     }
 }

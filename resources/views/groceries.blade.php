@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="content">
-        <message></message>
+        @include('layouts.message')
         @include('layouts.header', ['header' => "Boodschappen lijst", 'history' => false])
 
         @include('layouts.items')

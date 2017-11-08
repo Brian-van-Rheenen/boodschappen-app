@@ -28,8 +28,10 @@ class SessionsController extends Controller
 
     public function destroy()
     {
+        //Log out
         auth()->logout();
 
+        //Redirect to the home page
         return redirect()->home();
     }
 }
