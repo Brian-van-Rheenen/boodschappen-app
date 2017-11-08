@@ -2,7 +2,9 @@
     <div class="header-container">
         <span>Boodschappen lijst</span>
         <a href="/logout"><i class="fa fa-sign-out icons" aria-hidden="true"></i></a>
-        <i class="fa fa-users icons" aria-hidden="true"></i>
+        @if(Auth::check() && Auth::user()->isAdmin())
+            <i class="fa fa-history icons" aria-hidden="true"></i>
+        @endif
     </div>
 
     <!--
