@@ -76,7 +76,7 @@ module.exports = __webpack_require__(21);
 /***/ 21:
 /***/ (function(module, exports) {
 
-
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/home/moodles10/Workspace/boodschappen/resources/assets/js/axios.js'");
 
 /***/ })
 

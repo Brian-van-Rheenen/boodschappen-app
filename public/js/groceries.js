@@ -241,7 +241,6 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             var _this = this;
 
             axios.post(e.target.action, this.$data).then(function (res) {
-                console.log(res.data);
                 _this.groceries.push(res.data);
                 _this.description = '';
                 _this.quantity = '';
@@ -11344,6 +11343,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'listGroupItem',
@@ -11353,7 +11358,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             completedGroceries: this.groceries.filter(function (item) {
                 return item.completed;
             }),
-            incompleteGroceries: this.groceries.filter(function (item) {
+            incompletedGroceries: this.groceries.filter(function (item) {
                 return !item.completed;
             })
         };
@@ -11364,7 +11369,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.completedGroceries = this.groceries.filter(function (item) {
                 return item.completed;
             });
-            this.incompleteGroceries = this.groceries.filter(function (item) {
+            this.incompletedGroceries = this.groceries.filter(function (item) {
                 return !item.completed;
             });
             this.sortGroceries();
@@ -11375,16 +11380,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             item.completed = !item.completed;
 
             if (item.completed) {
-                var index = this.incompleteGroceries.findIndex(function (x) {
+                var index = this.incompletedGroceries.findIndex(function (x) {
                     return x.id == item.id;
                 });
                 this.completedGroceries.push(item);
-                this.incompleteGroceries.splice(index, 1);
+                this.incompletedGroceries.splice(index, 1);
             } else {
                 var index = this.completedGroceries.findIndex(function (x) {
                     return x.id == item.id;
                 });
-                this.incompleteGroceries.push(item);
+                this.incompletedGroceries.push(item);
                 this.completedGroceries.splice(index, 1);
             }
 
@@ -11395,7 +11400,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         sortGroceries: function sortGroceries() {
-            this.incompleteGroceries.sort(function (a, b) {
+            this.incompletedGroceries.sort(function (a, b) {
                 return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
             });
 
@@ -11419,8 +11424,53 @@ var render = function() {
     [
       _c("h4", [_vm._v("Nog te halen:")]),
       _vm._v(" "),
-      _vm.incompleteGroceries.length
-        ? _vm._l(_vm.incompleteGroceries, function(item) {
+      _vm.incompletedGroceries.length
+        ? _vm._l(_vm.incompletedGroceries, function(item) {
+            return _c(
+              "li",
+              {
+                key: item.id,
+                staticClass: "list-group-item",
+                class: { done: item.completed }
+              },
+              [
+                _c("span", { staticClass: "user" }, [
+                  _vm._v(_vm._s(item.user))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "hoeveelheid",
+                    class: { checked: item.completed }
+                  },
+                  [_vm._v(_vm._s(item.quantity) + "x")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "items", class: { checked: item.completed } },
+                  [_vm._v(_vm._s(item.description))]
+                ),
+                _vm._v(" "),
+                _c("i", {
+                  staticClass: "fa fa-check complete",
+                  class: { completed: item.completed },
+                  on: {
+                    click: function($event) {
+                      _vm.completed(item)
+                    }
+                  }
+                })
+              ]
+            )
+          })
+        : [_vm._v("\n        Geen producten\n    ")],
+      _vm._v(" "),
+      _c("h4", [_vm._v("Al gehaald:")]),
+      _vm._v(" "),
+      _vm.completedGroceries.length
+        ? _vm._l(_vm.completedGroceries, function(item) {
             return _c(
               "li",
               {
@@ -11456,46 +11506,7 @@ var render = function() {
               ]
             )
           })
-        : [_vm._v("\n        Geen producten\n    ")],
-      _vm._v(" "),
-      _c("h4", [_vm._v("Al gehaald:")]),
-      _vm._v(" "),
-      _vm._l(_vm.completedGroceries, function(item) {
-        return _c(
-          "li",
-          {
-            key: item.id,
-            staticClass: "list-group-item",
-            class: { done: item.completed }
-          },
-          [
-            _c(
-              "span",
-              {
-                staticClass: "hoeveelheid",
-                class: { checked: item.completed }
-              },
-              [_vm._v(_vm._s(item.quantity) + "x")]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { staticClass: "items", class: { checked: item.completed } },
-              [_vm._v(_vm._s(item.description))]
-            ),
-            _vm._v(" "),
-            _c("i", {
-              staticClass: "fa fa-check complete",
-              class: { completed: item.completed },
-              on: {
-                click: function($event) {
-                  _vm.completed(item)
-                }
-              }
-            })
-          ]
-        )
-      })
+        : [_vm._v("\n        Geen producten\n    ")]
     ],
     2
   )

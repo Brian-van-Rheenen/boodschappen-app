@@ -17,7 +17,6 @@ new Vue({
     methods: {
         addItem(e) {
             axios.post(e.target.action, this.$data).then((res) => {
-                console.log(res.data);
                 this.groceries.push(res.data);
                 this.description = '';
                 this.quantity = '';

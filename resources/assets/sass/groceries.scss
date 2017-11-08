@@ -426,6 +426,15 @@ h4 {
     z-index: 1;
 }
 */
+.user {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-left: 8px;
+}
+
 .hoeveelheid, .items, .fa-trash-o {
     display: flex;
     align-items: center;

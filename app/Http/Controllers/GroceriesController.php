@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Groceries;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,12 @@ class GroceriesController extends Controller
             'quantity' => 'required'
         ]);
 
+        $user = Auth::user()->email;
+        $user = ucfirst($user);
+        $user = substr($user, 0, strpos($user, "@"));
+
         $data = request(['description', 'quantity']);
+        $data['user'] = $user;
         $data['completed'] = 0;
 
         $grocery = Groceries::create($data);
