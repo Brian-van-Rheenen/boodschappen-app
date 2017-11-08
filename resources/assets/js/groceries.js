@@ -1,13 +1,11 @@
 import Vue from 'vue';
 
 import Listgroupitem from './components/listGroupItem'
-import Message from './components/message';
 
 new Vue({
     el: '#content',
     components: {
-        Listgroupitem,
-        Message
+        Listgroupitem
     },
     data: {
         groceries: groceries,
@@ -16,14 +14,22 @@ new Vue({
     },
     methods: {
         addItem(e) {
+            //Create AJAX post
             axios.post(e.target.action, this.$data).then((res) => {
+
+                //Push the added item into the groceries array
                 this.groceries.push(res.data);
+
+                //Reset the form
                 this.description = '';
                 this.quantity = '';
             });
         },
         resetItems() {
+            //Create AJAX post
             axios.post('/boodschappen/reset').then((res) => {
+
+                //Clear the groceries array
                 this.groceries = [];
             });
         }
