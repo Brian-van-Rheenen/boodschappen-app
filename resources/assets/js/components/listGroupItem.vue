@@ -38,8 +38,16 @@
                 incompletedGroceries: this.groceries.filter(item => !item.completed)
             }
         },
+        mounted() {
+
+            //Create an interval every 15 seconds
+            window.setInterval(() => {
+              this.loadData();
+            }, 15000);
+        },
         watch: {
             groceries() {
+
                 //Filter both groceries arrays
                 this.completedGroceries  = this.groceries.filter(item => item.completed);
                 this.incompletedGroceries = this.groceries.filter(item => !item.completed);
@@ -49,6 +57,16 @@
             }
         },
         methods: {
+            loadData() {
+
+                //Fetch all the groceries
+                $.get('/boodschappen/all', function (response) {
+
+                    //Filter both groceries arrays
+                    this.completedGroceries  = response.filter(item => item.completed);
+                    this.incompletedGroceries = response.filter(item => !item.completed);
+                }.bind(this));
+            },
             completed(item) {
                 //Toggle the completed state of the grocery
                 item.completed = !item.completed;

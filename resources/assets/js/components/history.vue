@@ -19,6 +19,24 @@
             return {
                 historyLog: this.history
             }
+        },
+        mounted() {
+
+            //Create an interval every 15 seconds
+            window.setInterval(() => {
+              this.loadData();
+            }, 15000);
+        },
+        methods: {
+            loadData() {
+
+                //Fetch the history
+                $.get('/history/all', function (response) {
+
+                    //Update the history log
+                    this.historyLog = response;
+                }.bind(this));
+            }
         }
     }
 </script>

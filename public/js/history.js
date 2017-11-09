@@ -11323,6 +11323,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             historyLog: this.history
         };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        //Create an interval every 15 seconds
+        window.setInterval(function () {
+            _this.loadData();
+        }, 15000);
+    },
+
+    methods: {
+        loadData: function loadData() {
+
+            //Fetch the history
+            $.get('/history/all', function (response) {
+
+                //Update the history log
+                this.historyLog = response;
+            }.bind(this));
+        }
     }
 });
 

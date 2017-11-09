@@ -33,4 +33,14 @@ class HistoryController extends Controller
             return redirect()->home();
         }
     }
+
+    public function entireHistory()
+    {
+        //Retrieve the history and sort it by 'latest'
+        $history = History::latest()
+        ->get();
+
+        //Return the history data
+        return $history;
+    }
 }

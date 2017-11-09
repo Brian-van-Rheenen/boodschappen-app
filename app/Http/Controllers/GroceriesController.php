@@ -21,8 +21,18 @@ class GroceriesController extends Controller
             ->latest()
             ->get();
 
-        //Return de groceries view and send the groceries with it
+        //Return the groceries view and send the groceries with it
         return view('groceries', compact('groceries'));
+    }
+    public function allGroceries()
+    {
+        //Retrieve all the groceries and order them by 'completed' and 'latest'
+        $groceries = Groceries::orderBy('completed')
+            ->latest()
+            ->get();
+
+        //Return the groceries
+        return $groceries;
     }
     public function store()
     {
