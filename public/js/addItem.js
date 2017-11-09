@@ -60,20 +60,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 23:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(24);
+module.exports = __webpack_require__(21);
 
 
 /***/ }),
 
-/***/ 24:
+/***/ 21:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
@@ -83,6 +83,18 @@ $(document).ready(function () {
         $('.quantity').val('');
         $('.addNewItem').toggleClass('hideAddItem');
     });
+    /*
+    $('.newItem').keyup(function() {
+        axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + $(this).val() + '&searchType=product&_=1510216828382').then((res) => {
+             var response = res.data['_embedded']['lanes'][6]['_embedded']['items'];
+            response.pop();
+             for (var k in response)
+            {
+                //console.log(response[k]['_embedded']['product']['description'] ,k);
+            }
+        });
+    })
+    */
     $('html').click(function (event) {
         if ($('.addNewItem').has('hideAddItem').length === 0 && !$(event.target).closest('.addNewItem').length) {
             $('.addNewItem').removeClass('hideAddItem');

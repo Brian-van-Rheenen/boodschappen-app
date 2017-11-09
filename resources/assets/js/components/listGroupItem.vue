@@ -5,6 +5,7 @@
             <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in incompletedGroceries" :key="item.id">
                 <span class="user">{{ item.user }}</span>
                 <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
+                <img :src="item.image" v-if="item.image">
                 <span class="items" v-bind:class="{'checked': item.completed}">{{ item.description }}</span>
                 <i class="fa fa-check complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)"></i>
             </li>
@@ -17,6 +18,7 @@
         <template v-if="completedGroceries.length">
         <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in completedGroceries" :key="item.id">
             <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
+            <img :src="item.image" v-if="item.image">
             <span class="items" v-bind:class="{'checked': item.completed}">{{ item.description }}</span>
             <i class="fa fa-check complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)"></i>
         </li>

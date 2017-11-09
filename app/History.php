@@ -8,7 +8,6 @@ class History extends Model
 {
     protected $table = 'histories';
     protected $fillable = array(
-        'groceryId',
         'user',
         'textBefore',
         'description',

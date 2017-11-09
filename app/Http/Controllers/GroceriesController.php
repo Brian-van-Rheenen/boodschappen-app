@@ -37,6 +37,7 @@ class GroceriesController extends Controller
         $data['user'] = Auth::user()->getName();
         $data['description'] = ucfirst(request('description'));
         $data['completed'] = 0;
+        $data['image'] = request('image');
 
         //Insert the grocery into the database
         $grocery = Groceries::create($data);
@@ -47,7 +48,6 @@ class GroceriesController extends Controller
             ' heeft ',
             $grocery->description,
             ' toegevoegd.',
-            $grocery->id,
             $grocery->quantity . 'x'
         );
 
@@ -90,8 +90,7 @@ class GroceriesController extends Controller
             Auth::user()->getName(),
             ' heeft ',
             $grocery->description,
-            $textAfter,
-            $grocery->id
+            $textAfter
         );
 
         //Return the saved grocery

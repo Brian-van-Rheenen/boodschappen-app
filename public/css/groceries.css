@@ -243,6 +243,13 @@ h4,
           justify-content: space-between;
 }
 
+.list-group-item img {
+  width: 50px;
+  height: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .list-group-item:first-child {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -280,7 +287,9 @@ h4,
 
 .items {
   position: relative;
+  max-width: 200px;
   margin: 0;
+  word-break: break-word;
 }
 
 .complete {
@@ -306,6 +315,8 @@ h4,
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .completed {
@@ -397,14 +408,45 @@ h4,
   height: 100%;
   width: 70%;
   padding: 10px;
-  font-size: 1.5em;
+  font-size: 1.2em;
+}
+
+.ahGroupItem {
+  position: absolute;
+  bottom: 48px;
+  width: 100%;
+  border: 1px solid #ccc;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.ahItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px;
+}
+
+.ahItem img {
+  width: 50px;
+  height: 50px;
+  margin-right: auto;
+}
+
+.ahItem span {
+  width: 200px;
 }
 
 .quantity {
   height: 100%;
   width: 60px;
   display: block;
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding: 10px;
   text-align: center;
   border: 1px solid #ccc;

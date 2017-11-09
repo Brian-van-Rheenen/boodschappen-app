@@ -19,6 +19,7 @@ class CreateGroceriesTable extends Migration
             $table->string('description');
             $table->string('quantity');
             $table->boolean('completed');
+            $table->string('image');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

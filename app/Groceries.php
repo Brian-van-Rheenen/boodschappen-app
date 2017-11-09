@@ -11,6 +11,7 @@ class Groceries extends Model
         'user',
         'description',
         'quantity',
-        'completed'
+        'completed',
+        'image'
     );
 }
