@@ -26,6 +26,8 @@ new Vue({
                 //Reset the form
                 this.description = '';
                 this.quantity = '';
+
+                //Clear the array
                 this.ahItems = [];
             });
         },

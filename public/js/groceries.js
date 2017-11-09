@@ -11259,6 +11259,8 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                 //Reset the form
                 _this.description = '';
                 _this.quantity = '';
+
+                //Clear the array
                 _this.ahItems = [];
             });
         },
