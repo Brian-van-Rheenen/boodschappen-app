@@ -11243,7 +11243,8 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         description: '',
         quantity: '',
         image: '',
-        ahItems: []
+        ahItems: [],
+        timer: ''
     },
     methods: {
         addItem: function addItem(e) {
@@ -11272,30 +11273,71 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             });
         },
         getItems: function getItems() {
-            var _this3 = this;
+            //Clear the timeout
+            window.clearTimeout(this.timer);
 
+            //Reset the array
             this.ahItems = [];
 
+            //If the user input is longer than 2 characters
             if (this.description.length > 2) {
-                axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + this.description + '&searchType=product&_=1510216828382').then(function (res) {
+                //Set a timer
+                this.timer = window.setTimeout(function () {
+                    var _this3 = this;
 
-                    var response = res.data['_embedded']['lanes'][6]['_embedded']['items'];
-                    response.pop();
+                    //AJAX GET call to ah.nl
+                    axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + this.description + '&searchType=product&_=1510216828382').then(function (res) {
 
-                    for (var k in response) {
-                        //console.log(response[k]['_embedded']['product']['description'] ,k);
-                        var item = {};
-                        item['description'] = response[k]['_embedded']['product']['description'];
-                        item['image'] = response[k]['_embedded']['product']['images'][0]['link']['href'];
-                        _this3.ahItems.push(item);
-                    }
-                });
+                        //Fetch the specific property
+                        response = res.data['_embedded']['lanes'];
+
+                        //Loop through that property
+                        for (var i in response) {
+                            //Find a specific property inside the array
+                            if (response[i].type == 'SearchLane') {
+                                //Store the used index
+                                var index = i;
+                            }
+                        }
+
+                        try {
+                            //Fetch the specific property
+                            var response = res.data['_embedded']['lanes'][index]['_embedded']['items'];
+
+                            //Remove the last array object from the array
+                            response.pop();
+
+                            //Loop through the array
+                            for (var k in response) {
+                                //Find a specific property inside the array that indicates that it is a grocery item
+                                if (response[k].context == 'SearchAndBrowse') {
+                                    //Create a temporary array
+                                    var item = {};
+
+                                    //Save the fetched results into that array
+                                    item['description'] = response[k]['_embedded']['product']['description'];
+                                    item['image'] = response[k]['_embedded']['product']['images'][0]['link']['href'];
+
+                                    //Push that array inside the ahItems array
+                                    _this3.ahItems.push(item);
+                                }
+                            }
+                        } catch (err) {
+                            //If it can't find any groceries, return
+                            return;
+                        }
+                    });
+                }.bind(this), 150);
             }
         },
         getValue: function getValue(value, img) {
+            //Set the description to the given value
             this.description = value;
-            $('.hiddenImg').val(img);
+
+            //Set the value of 'image' to the given value
             this.image = img;
+
+            //Reset the array
             this.ahItems = [];
         }
     }
@@ -11402,44 +11444,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     watch: {
         groceries: function groceries() {
+            //Filter both groceries arrays
             this.completedGroceries = this.groceries.filter(function (item) {
                 return item.completed;
             });
             this.incompletedGroceries = this.groceries.filter(function (item) {
                 return !item.completed;
             });
+
+            //Sort the arrays
             this.sortGroceries();
         }
     },
     methods: {
         completed: function completed(item) {
+            //Toggle the completed state of the grocery
             item.completed = !item.completed;
 
+            //If it's completed
             if (item.completed) {
+                //Find the index of this grocery item
                 var index = this.incompletedGroceries.findIndex(function (x) {
                     return x.id == item.id;
                 });
+
+                //Push the item into the completed array
                 this.completedGroceries.push(item);
+
+                //Remove the item from the incomplete array
                 this.incompletedGroceries.splice(index, 1);
             } else {
+                //Find the index of this grocery item
                 var index = this.completedGroceries.findIndex(function (x) {
                     return x.id == item.id;
                 });
+
+                //Push the item into the incompleted array
                 this.incompletedGroceries.push(item);
+
+                //Remove the item from the complete array
                 this.completedGroceries.splice(index, 1);
             }
 
+            //Sort the groceries
             this.sortGroceries();
 
+            //Update the database value
             axios.post('/boodschappen/' + item.id + '/update', {
                 completed: item.completed
             });
         },
         sortGroceries: function sortGroceries() {
+
+            //Sort the incompleted groceries by the created_at time
             this.incompletedGroceries.sort(function (a, b) {
                 return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
             });
 
+            //Sort the completed groceries by the created_at time
             this.completedGroceries.sort(function (a, b) {
                 return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
             });

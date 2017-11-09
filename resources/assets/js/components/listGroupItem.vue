@@ -40,39 +40,59 @@
         },
         watch: {
             groceries() {
+                //Filter both groceries arrays
                 this.completedGroceries  = this.groceries.filter(item => item.completed);
                 this.incompletedGroceries = this.groceries.filter(item => !item.completed);
+
+                //Sort the arrays
                 this.sortGroceries();
             }
         },
         methods: {
             completed(item) {
+                //Toggle the completed state of the grocery
                 item.completed = !item.completed;
 
+                //If it's completed
                 if (item.completed)
                 {
+                    //Find the index of this grocery item
                     var index = this.incompletedGroceries.findIndex(x => x.id==item.id);
+
+                    //Push the item into the completed array
                     this.completedGroceries.push(item);
+
+                    //Remove the item from the incomplete array
                     this.incompletedGroceries.splice(index, 1);
                 }
                 else
                 {
+                    //Find the index of this grocery item
                     var index = this.completedGroceries.findIndex(x => x.id==item.id);
+
+                    //Push the item into the incompleted array
                     this.incompletedGroceries.push(item);
+
+                    //Remove the item from the complete array
                     this.completedGroceries.splice(index, 1);
                 }
 
+                //Sort the groceries
                 this.sortGroceries();
 
+                //Update the database value
                 axios.post(`/boodschappen/${item.id}/update`, {
                     completed: item.completed
                 });
             },
             sortGroceries() {
+
+                //Sort the incompleted groceries by the created_at time
                 this.incompletedGroceries.sort((a, b) => {
                     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
                 });
 
+                //Sort the completed groceries by the created_at time
                 this.completedGroceries.sort((a, b) => {
                     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
                 });

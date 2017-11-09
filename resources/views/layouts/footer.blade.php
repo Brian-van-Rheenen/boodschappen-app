@@ -2,7 +2,7 @@
     <form method="POST" action="/boodschappen" class="addNewItem" @submit.prevent="addItem">
         {{ csrf_field() }}
 
-        <ul class="list-group ahGroupItem" v-if="ahItems.length > 2">
+        <ul class="list-group ahGroupItem" v-if="description.length > 2">
             <li class="list-group-item ahItem" v-for="ahItem in ahItems" @click="getValue(ahItem.description,ahItem.image)"><img :src="ahItem.image"><span>@{{ ahItem.description }}</span></li>
         </ul>
 
