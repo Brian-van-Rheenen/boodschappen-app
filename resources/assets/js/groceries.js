@@ -29,7 +29,6 @@ new Vue({
 
                 //Clear the array
                 this.ahItems = [];
-                console.log("");
             });
         },
         resetItems() {
