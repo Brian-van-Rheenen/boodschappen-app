@@ -13,5 +13,6 @@
     </form>
 
     <button type="button" class="btn btn-danger btn-circle btn-xl reset"><i class="fa fa-times"></i></button>
+    <button type="button" class="btn btn-warning btn-circle btn-xl delete"><i class="fa fa-minus"></i></button>
     <button type="button" class="btn btn-primary btn-circle btn-xl add"><i class="fa fa-plus"></i></button>
 </section>

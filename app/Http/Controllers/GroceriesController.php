@@ -106,6 +106,22 @@ class GroceriesController extends Controller
         //Return the saved grocery
         return $grocery;
     }
+    public function destroy($id)
+    {
+        //Find the grocery by its id
+        $grocery = Groceries::find($id);
+
+        //Delete the grocery
+        $grocery->delete();
+
+        //Create a history log and insert it into the database
+        Log::createLog(
+            Auth::user()->getName(),
+            ' heeft ',
+            $grocery->description,
+            ' verwijderd.'
+        );
+    }
     public function reset()
     {
         //Remove every grocery in the database

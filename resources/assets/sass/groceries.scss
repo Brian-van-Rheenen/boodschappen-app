@@ -50,7 +50,7 @@ h4, .empty {
     box-shadow: 0px -1px 43px -7px rgba(0,0,0,0.1);
 }
 
-.resetItems, .saveItems {
+.resetItems {
     display: none;
 }
 
@@ -64,10 +64,6 @@ h4, .empty {
 
 .red {
     background: #d9534f;
-}
-
-.green {
-    background: #5cb85c;
 }
 
 .circle {
@@ -122,6 +118,83 @@ h4, .empty {
     font-size: 24px;
     line-height: 0px;
     padding-bottom: 9px;
+    cursor: pointer;
+}
+
+.trashContainer {
+    display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 5;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.trash {
+    display: none;
+    height: 400px;
+    width: 300px;
+    -webkit-box-shadow: 0px -1px 43px -7px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px -1px 43px -7px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.trash .list-group {
+    height: 100%;
+}
+
+.trash .list-group .trashInnerContainer {
+    height: 100%;
+}
+
+.trashInnerContainer {
+    overflow-y: auto;
+}
+
+.emptyTrash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    span {
+        font-size: 1.2em;
+    }
+
+    i {
+        font-size: 6em;
+        color: #ccc;
+        margin-top: 70px;
+        position: absolute;
+    }
+}
+
+.trash .list-group .list-group-item {
+    padding: 24.6px 10px 24.6px 10px;
+}
+
+.trash-left {
+    margin-left: 10px;
+}
+
+.trash-right {
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 1.8em;
+    color: #E74C3C;
     cursor: pointer;
 }
 
@@ -225,6 +298,7 @@ h4, .empty {
 }
 
 .history {
+    padding: 24.6px 15px 24.6px 15px;
     justify-content: unset;
 }
 
@@ -250,6 +324,10 @@ h4, .empty {
     max-width: 200px;
     margin: 0;
     word-break: break-word;
+}
+
+.trash-items {
+    margin-right: 10px;
 }
 
 .complete {
@@ -290,7 +368,7 @@ h4, .empty {
     color: #d07e20;
 }
 
-.hoeveelheid, .items, .historyDate, .fa-trash-o {
+.hoeveelheid, .items, .historyDate {
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -432,7 +510,14 @@ h4, .empty {
     outline: none !important;
 }
 
+.delete {
+    margin-left: 10px;
+    cursor: pointer;
+    outline: none !important;
+}
+
 .add {
     margin-left: auto;
+    cursor: pointer;
     outline: none !important;
 }

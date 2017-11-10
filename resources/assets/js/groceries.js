@@ -1,11 +1,13 @@
 import Vue from 'vue';
 
-import Listgroupitem from './components/listGroupItem'
+import Listgroupitem from './components/listGroupItem';
+import Listgroupitemtrash from './components/listGroupItemTrash';
 
 new Vue({
     el: '#content',
     components: {
-        Listgroupitem
+        Listgroupitem,
+        Listgroupitemtrash
     },
     data: {
         groceries: groceries,

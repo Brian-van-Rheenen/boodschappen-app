@@ -13,17 +13,4 @@
             <button type="button" class="btn btn-danger confirmationButton">Nee!</button>
         </div>
     </div>
-    <div class="message saveItems">
-        <div class="messageHeader green">
-            <i class="fa fa-check circle"></i>
-        </div>
-        <div class="messageDescription">
-            <span class="title">Opslaan?</span>
-            <span class="description">Weet je zeker dat je alle boodschappen wilt opslaan? Dit is niet terug te draaien.</span>
-        </div>
-        <div class="buttonContainer">
-            <button type="button" class="btn btn-success confirmationButton">Ja!</button>
-            <button type="button" class="btn btn-danger confirmationButton">Nee!</button>
-        </div>
-    </div>
 </div>
