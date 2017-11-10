@@ -3,7 +3,7 @@ import Vue from 'vue';
 import Listgroupitem from './components/listGroupItem';
 import Listgroupitemtrash from './components/listGroupItemTrash';
 
-new Vue({
+window.app = new Vue({
     el: '#content',
     components: {
         Listgroupitem,

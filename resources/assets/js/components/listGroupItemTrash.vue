@@ -1,6 +1,6 @@
 <template>
     <div class="trashInnerContainer">
-        <template v-if="groceries.length">
+        <template v-if="completedGroceries.length || incompletedGroceries.length">
             <template v-if="incompletedGroceries.length">
             <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in incompletedGroceries" :key="item.id">
                 <span class="hoeveelheid trash-left" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
@@ -41,7 +41,7 @@
             //Create an interval every 15 seconds
             window.setInterval(() => {
               this.loadData();
-            }, 15000);
+            }, 5000);
         },
         watch: {
             groceries() {

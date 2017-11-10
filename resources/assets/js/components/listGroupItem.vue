@@ -43,7 +43,7 @@
             //Create an interval every 15 seconds
             window.setInterval(() => {
               this.loadData();
-            }, 15000);
+            }, 5000);
         },
         watch: {
             groceries() {
@@ -63,6 +63,7 @@
                 $.get('/boodschappen/all', function (response) {
 
                     //Filter both groceries arrays
+                    app.groceries = response;
                     this.completedGroceries  = response.filter(item => item.completed);
                     this.incompletedGroceries = response.filter(item => !item.completed);
                 }.bind(this));
