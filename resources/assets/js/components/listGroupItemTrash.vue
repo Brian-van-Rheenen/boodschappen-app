@@ -5,7 +5,7 @@
             <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in incompletedGroceries" :key="item.id">
                 <span class="hoeveelheid trash-left" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
-                <span class="items trash-items" v-bind:class="{'checked': item.completed}">{{ item.description }}</span>
+                <span class="items" v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
                 <i class="fa fa-trash-o trash-right" v-on:click="trash(item)"></i>
             </li>
             </template>
@@ -13,7 +13,7 @@
             <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in completedGroceries" :key="item.id">
                 <span class="hoeveelheid trash-left" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
-                <span class="items trash-items" v-bind:class="{'checked': item.completed}">{{ item.description }}</span>
+                <span class="items" v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
                 <i class="fa fa-trash-o trash-right" v-on:click="trash(item)"></i>
             </li>
             </template>
@@ -36,13 +36,6 @@
                 incompletedGroceries: this.groceries.filter(item => !item.completed)
             }
         },
-        mounted() {
-
-            //Create an interval every 15 seconds
-            window.setInterval(() => {
-              this.loadData();
-            }, 5000);
-        },
         watch: {
             groceries() {
 
@@ -55,16 +48,6 @@
             }
         },
         methods: {
-            loadData() {
-
-                //Fetch all the groceries
-                $.get('/boodschappen/all', function (response) {
-
-                    //Filter both groceries arrays
-                    this.completedGroceries  = response.filter(item => item.completed);
-                    this.incompletedGroceries = response.filter(item => !item.completed);
-                }.bind(this));
-            },
             sortGroceries() {
 
                 //Sort the incompleted groceries by the created_at time

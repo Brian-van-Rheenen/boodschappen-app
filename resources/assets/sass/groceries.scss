@@ -194,6 +194,7 @@ h4, .empty {
     align-items: center;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 10px;
     font-size: 1.8em;
     color: #E74C3C;
     cursor: pointer;
@@ -287,6 +288,8 @@ h4, .empty {
         height: 50px;
         margin-top: auto;
         margin-bottom: auto;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 }
 
@@ -326,13 +329,10 @@ h4, .empty {
 
 .items {
     position: relative;
-    max-width: 200px;
+    max-width: 170px;
     margin: 0;
     word-break: break-word;
-}
-
-.trash-items {
-    margin-right: 10px;
+    margin-right: auto;
 }
 
 .complete {
@@ -356,11 +356,17 @@ h4, .empty {
     cursor: pointer;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 5px;
 }
 
 .completed {
     background-color: #5cb85c;
     border-color: #4cae4c;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .user {
@@ -371,6 +377,10 @@ h4, .empty {
     bottom: 0;
     margin-left: 8px;
     color: #d07e20;
+}
+
+.hoeveelheid {
+    width: 20px;
 }
 
 .hoeveelheid, .items, .historyDate {
