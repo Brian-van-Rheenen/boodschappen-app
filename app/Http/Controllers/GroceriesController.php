@@ -68,8 +68,26 @@ class GroceriesController extends Controller
         $data['completed'] = 0;
         $data['image'] = request('image');
 
-        //Insert the grocery into the database
-        $grocery = Groceries::create($data);
+        //Find the grocery if it exists
+        $grocery = Groceries::where('description', '=', request('description'))->first();
+
+        //If it does
+        if ($grocery) {
+
+            //Quantity + 1
+            $grocery->quantity = $grocery->quantity + $data['quantity'];
+            $grocery->image = $data['image'];
+            $grocery->save();
+
+            $isNew = false;
+        }
+        else
+        {
+            //Insert the grocery into the database
+            $grocery = Groceries::create($data);
+
+            $isNew = true;
+        }
 
         //Find the grocery if it exists
         $popularItem = PopularItem::where('description', '=', request('description'))->first();

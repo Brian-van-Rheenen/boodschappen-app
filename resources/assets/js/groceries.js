@@ -24,14 +24,42 @@ window.app = new Vue({
             //Create AJAX post
             axios.post(e.target.action, this.$data).then((res) => {
 
-                //Push the added item into the groceries array
-                this.groceries.push(res.data);
+                //Loop through all the groceries
+                for (var i in this.groceries)
+                {
+                    //If the added grocery matches any in the array
+                    if (this.groceries[i].description == res.data.description)
+                    {
+                        //Mark it as found and save the index
+                        var found = true;
+                        var index = i;
 
-                //Reset the form
-                this.resetForm();
+                        break;
+                    }
+                    else
+                    {
+                        //Mark it as not found
+                        var found = false;
+                    }
+                }
 
-                //Clear the array
-                this.ahItems = [];
+                //If the added grocery is already inside the array
+                if (found)
+                {
+                    //Update the quantity
+                    this.groceries[index].quantity = res.data.quantity;
+
+                    //Reset the form
+                    this.resetForm();
+                }
+                else
+                {
+                    //Push the added item into the groceries array
+                    this.groceries.push(res.data);
+
+                    //Reset the form
+                    this.resetForm();
+                }
             });
         },
         resetItems() {
