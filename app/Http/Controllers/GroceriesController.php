@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Groceries;
 use App\Log;
+use App\PopularItem;
 use Illuminate\Http\Request;
 
 class GroceriesController extends Controller
@@ -23,6 +24,24 @@ class GroceriesController extends Controller
 
         //Return the groceries view and send the groceries with it
         return view('groceries', compact('groceries'));
+    }
+    public function specificPopularGroceries($description)
+    {
+        //Retrieve all the popular groceries
+        $popularItem = PopularItem::where('description', 'like', '%' . $description . '%')
+            ->get();
+
+        //Return the groceries
+        return $popularItem;
+    }
+    public function allPopularGroceries()
+    {
+        //Retrieve all the popular groceries and order them by 'popularity'
+        $popularItem = PopularItem::orderBy('popularity', 'DESC')
+            ->get();
+
+        //Return the groceries
+        return $popularItem;
     }
     public function allGroceries()
     {
@@ -52,6 +71,29 @@ class GroceriesController extends Controller
         //Insert the grocery into the database
         $grocery = Groceries::create($data);
 
+        //Find the grocery if it exists
+        $popularItem = PopularItem::where('description', '=', request('description'))->first();
+
+        //If it does
+        if ($popularItem) {
+
+            //Popularity + 1
+            $popularItem->popularity++;
+            $popularItem->image = $data['image'];
+            $popularItem->save();
+        }
+        else
+        {
+
+            //Temporary array to use
+            $item['description'] = preg_replace('/[^\x00-\x7f]/', '', $data['description']);
+            $item['image'] = $data['image'];
+            $item['popularity'] = 1;
+
+            //Create the grocery
+            PopularItem::create($item);
+        }
+
         //Create a history log and insert it into the database
         Log::createLog(
             Auth::user()->getName(),
@@ -62,14 +104,6 @@ class GroceriesController extends Controller
         );
 
         //Return the inserted grocery
-        return $grocery;
-    }
-    public function findById($id)
-    {
-        //Find the grocery by its id
-        $grocery = Groceries::find($id);
-
-        //Return that grocery
         return $grocery;
     }
     public function update($id)

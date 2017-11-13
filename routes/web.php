@@ -15,6 +15,8 @@ Route::get('/', 'SessionsController@index')->name('login');
 Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');
 Route::get('/boodschappen', 'GroceriesController@index')->name('home');
+Route::get('/boodschappen/popular', 'GroceriesController@allPopularGroceries');
+Route::get('/boodschappen/popular/{description}', 'GroceriesController@specificPopularGroceries');
 Route::get('/boodschappen/all', 'GroceriesController@allGroceries');
 Route::post('/boodschappen', 'GroceriesController@store');
 Route::get('/boodschappen/{id}', 'GroceriesController@findById');

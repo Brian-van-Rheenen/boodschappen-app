@@ -14,11 +14,13 @@ window.app = new Vue({
         description: '',
         quantity: 1,
         image: '',
+        popularItems: [],
         ahItems: [],
         timer: ''
     },
     methods: {
         addItem(e) {
+
             //Create AJAX post
             axios.post(e.target.action, this.$data).then((res) => {
 
@@ -26,8 +28,7 @@ window.app = new Vue({
                 this.groceries.push(res.data);
 
                 //Reset the form
-                this.description = '';
-                this.image = '';
+                this.resetForm();
 
                 //Clear the array
                 this.ahItems = [];
@@ -42,17 +43,36 @@ window.app = new Vue({
             });
         },
         getItems() {
+            //Show the list
+            $('.ahGroupItem').show();
+
             //Clear the timeout
             window.clearTimeout(this.timer);
 
-            //Reset the array
+            //Reset the arrays
+            this.popularItems = [];
             this.ahItems = [];
 
             //If the user input is longer than 2 characters
-            if (this.description.length > 2)
+            if (this.description.length > 0)
             {
                 //Set a timer
                 this.timer = window.setTimeout(function() {
+
+                    //Get all the popular items
+                    axios.get('/boodschappen/popular/' + this.description).then((res) => {
+
+                        //Get the data
+                        var response = res.data;
+
+                        //Loop through that data
+                        for (var i in response)
+                        {
+                            //Push all the items inside the array
+                            this.popularItems.push(response[i]);
+                        }
+                        this.popularItems.splice(5, response.length);
+                    });
 
                     //AJAX GET call to ah.nl
                     axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + this.description + '&searchType=product&_=1510216828382').then((res) => {
@@ -89,7 +109,7 @@ window.app = new Vue({
 
                                     //Save the fetched results into that array
                                     item['description'] = response[k]['_embedded']['product']['description'];
-                                    item['image'] = response[k]['_embedded']['product']['images'][0]['link']['href'];
+                                    item['image'] = response[k]['_embedded']['product']['images'][3]['link']['href'];
 
                                     //Push that array inside the ahItems array
                                     this.ahItems.push(item);
@@ -101,8 +121,35 @@ window.app = new Vue({
                             return;
                         }
                     });
-                }.bind(this), 150);
+                }.bind(this), 500);
             }
+            else
+            {
+                //Set a timer
+                this.timer = window.setTimeout(function() {
+                    //Get all the popular items
+                    axios.get('/boodschappen/popular').then((res) => {
+
+                        //Get the data
+                        var response = res.data;
+
+                        //Loop through that data
+                        for (var i in response)
+                        {
+                            //Push all the items inside the array
+                            this.popularItems.push(response[i]);
+                        }
+                        this.popularItems.splice(5, response.length);
+                    });
+                }.bind(this), 500);
+            }
+        },
+        resetForm() {
+            this.description = '';
+            this.image = '';
+            this.quantity = 1;
+            this.popularItems = [];
+            this.ahItems = [];
         },
         getValue(value, img) {
             //Set the description to the given value
@@ -113,6 +160,9 @@ window.app = new Vue({
 
             //Reset the array
             this.ahItems = [];
+
+            //Hide the list
+            $('.ahGroupItem').hide();
         }
     }
 });

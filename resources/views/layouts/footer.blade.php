@@ -2,12 +2,19 @@
     <form method="POST" action="/boodschappen" class="addNewItem" @submit.prevent="addItem">
         {{ csrf_field() }}
 
-        <ul class="list-group ahGroupItem" v-if="description.length > 2">
-            <li class="list-group-item ahItem" v-for="ahItem in ahItems" @click="getValue(ahItem.description,ahItem.image)"><img :src="ahItem.image"><span>@{{ ahItem.description }}</span></li>
+        <ul class="list-group ahGroupItem">
+            <div class="popularItems" v-if="popularItems.length">
+                <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
+                <li class="list-group-item ahItem" v-for="item in popularItems" @click="getValue(item.description,item.image)"><img :src="item.image"><span>@{{ item.description }}</span></li>
+            </div>
+            <div class="ahItems" v-if="ahItems.length">
+                <li class="list-group-item ahItem"><h4>Suggesties:</h4></li>
+                <li class="list-group-item ahItem" v-for="ahItem in ahItems" @click="getValue(ahItem.description,ahItem.image)"><img :src="ahItem.image"><span>@{{ ahItem.description }}</span></li>
+            </div>
         </ul>
 
         <input type="hidden" class="hiddenImg" name="image" v-model="image">
-        <input type="text" class="newItem" name="description" v-model="description" v-on:keyup="getItems" placeholder="Voeg toe" required></input>
+        <input type="text" class="newItem" name="description" v-model="description" v-on:keyup="getItems" placeholder="Voeg toe" @click="getItems()" required></input>
         <input type="number" class="quantity" name="quantity" v-model="quantity" required></input>
         <button type="submit" class="btn btn-success addItemButton"><i class="fa fa-plus addItemIcon"></i></button>
     </form>
