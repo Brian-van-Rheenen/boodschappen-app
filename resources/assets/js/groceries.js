@@ -12,7 +12,7 @@ window.app = new Vue({
     data: {
         groceries: groceries,
         description: '',
-        quantity: '',
+        quantity: 1,
         image: '',
         ahItems: [],
         timer: ''
@@ -27,7 +27,7 @@ window.app = new Vue({
 
                 //Reset the form
                 this.description = '';
-                this.quantity = '';
+                this.image = '';
 
                 //Clear the array
                 this.ahItems = [];

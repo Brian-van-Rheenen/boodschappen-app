@@ -1,30 +1,38 @@
 <template>
-    <div>
-        <h4>Nog te halen:</h4>
-        <template v-if="incompletedGroceries.length">
-            <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in incompletedGroceries" :key="item.id">
-                <span class="user">{{ item.user }}</span>
+    <div class="changeHeight">
+        <template v-if="groceries.length">
+            <h4>Nog te halen:</h4>
+            <template v-if="incompletedGroceries.length">
+                <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in incompletedGroceries" :key="item.id">
+                    <span class="user">{{ item.user }}</span>
+                    <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
+                    <img :src="item.image" v-if="item.image">
+                    <span class="items" v-bind:class="{'checked': item.completed}">{{ item.description }}</span>
+                    <i class="fa fa-check complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)"></i>
+                </li>
+            </template>
+            <template v-else>
+                <span class="empty">Geen producten</span>
+            </template>
+
+            <h4>Al gehaald:</h4>
+            <template v-if="completedGroceries.length">
+            <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in completedGroceries" :key="item.id">
                 <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
                 <span class="items" v-bind:class="{'checked': item.completed}">{{ item.description }}</span>
                 <i class="fa fa-check complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)"></i>
             </li>
+            </template>
+            <template v-else>
+                <span class="empty">Geen producten</span>
+            </template>
         </template>
         <template v-else>
-            <span class="empty">Geen producten</span>
-        </template>
-
-        <h4>Al gehaald:</h4>
-        <template v-if="completedGroceries.length">
-        <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in completedGroceries" :key="item.id">
-            <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
-            <img :src="item.image" v-if="item.image">
-            <span class="items" v-bind:class="{'checked': item.completed}">{{ item.description }}</span>
-            <i class="fa fa-check complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)"></i>
-        </li>
-        </template>
-        <template v-else>
-            <span class="empty">Geen producten</span>
+            <div class="emptyTrash">
+                <span>Geen producten gevonden</span>
+                <i class="fa fa-trash-o"></i>
+            </div>
         </template>
     </div>
 </template>
@@ -47,7 +55,6 @@
         },
         watch: {
             groceries() {
-
                 //Filter both groceries arrays
                 this.completedGroceries  = this.groceries.filter(item => item.completed);
                 this.incompletedGroceries = this.groceries.filter(item => !item.completed);

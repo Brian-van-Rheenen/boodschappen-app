@@ -8,7 +8,7 @@
 
         <input type="hidden" class="hiddenImg" name="image" v-model="image">
         <input type="text" class="newItem" name="description" v-model="description" v-on:keyup="getItems" placeholder="Voeg toe" required></input>
-        <input type="number" class="quantity" name="quantity" v-model="quantity" placeholder="Nr." required></input>
+        <input type="number" class="quantity" name="quantity" v-model="quantity" required></input>
         <button type="submit" class="btn btn-success addItemButton"><i class="fa fa-plus addItemIcon"></i></button>
     </form>
 

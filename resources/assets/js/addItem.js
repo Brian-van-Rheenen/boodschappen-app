@@ -3,7 +3,7 @@ $(document).ready(function(){
     {
         event.stopPropagation()
         $('.newItem').val('');
-        $('.quantity').val('');
+        $('.quantity').val('1');
         $('.addNewItem').toggleClass('hideAddItem');
     });
     $('html').click(function(event) {
