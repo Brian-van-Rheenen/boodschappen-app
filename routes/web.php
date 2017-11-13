@@ -25,3 +25,5 @@ Route::post('/boodschappen/{id}/delete', 'GroceriesController@destroy');
 Route::post('/boodschappen/reset', 'GroceriesController@reset');
 Route::get('/history', 'HistoryController@index');
 Route::get('/history/all', 'HistoryController@entireHistory');
+Route::get('/users', 'UsersController@index');
+Route::post('/users/toevoegen', 'UsersController@store');

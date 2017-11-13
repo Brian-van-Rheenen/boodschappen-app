@@ -12,7 +12,7 @@
 </head>
 <body>
     <div id="content">
-        @include('layouts.header', ['header' => "Geschiedenis", 'history' => true])
+        @include('layouts.header', ['header' => "Geschiedenis", 'history' => true, 'user' => false])
 
         @include('layouts.historyItems')
     </div>
