@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="changeHeight">
         <template v-if="historyLog.length">
             <li class="list-group-item history" v-for="item in historyLog">
                 <span class="historyDate">{{ item.created_at }}:</span>
@@ -7,7 +7,10 @@
             </li>
         </template>
         <template v-else>
-            <span class="empty">Geen geschiedenis gevonden.</span>
+            <div class="emptyHistory">
+                <span>Geen geschiedenis gevonden.</span>
+                <i class="fa fa-history"></i>
+            </div>
         </template>
     </div>
 </template>

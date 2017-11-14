@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Log extends Model
 {
-    public static function createLog($user, $textBefore, $description, $textAfter, $groceryId = null, $quantity = null)
+    public static function createLog($user, $textBefore, $description, $textAfter, $quantity = null)
     {
         //Create and fill the properties in the array
-        $data['groceryId'] = $groceryId;
         $data['user'] = $user;
         $data['textBefore'] = $textBefore;
         $data['description'] = strtolower($description);

@@ -118,7 +118,7 @@ class GroceriesController extends Controller
             ' heeft ',
             $grocery->description,
             ' toegevoegd.',
-            $grocery->quantity . 'x'
+            $data['quantity'] . 'x'
         );
 
         //Return the inserted grocery
@@ -186,7 +186,5 @@ class GroceriesController extends Controller
             'de boodschappenlijst',
             ' gereset.'
         );
-
-        return 'reset';
     }
 }
