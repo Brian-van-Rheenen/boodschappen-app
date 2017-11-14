@@ -93,8 +93,8 @@ class GroceriesController extends Controller
         $popularItem = PopularItem::where('description', '=', request('description'))->first();
 
         //If it does
-        if ($popularItem) {
-
+        if ($popularItem)
+        {
             //Popularity + 1
             $popularItem->popularity++;
             $popularItem->image = $data['image'];
@@ -102,7 +102,6 @@ class GroceriesController extends Controller
         }
         else
         {
-
             //Temporary array to use
             $item['description'] = preg_replace('/[^\x00-\x7f]/', '', $data['description']);
             $item['image'] = $data['image'];

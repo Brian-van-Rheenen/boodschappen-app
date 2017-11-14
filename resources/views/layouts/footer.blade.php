@@ -5,11 +5,11 @@
         <ul class="list-group ahGroupItem">
             <div class="popularItems" v-if="popularItems.length">
                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
-                <li class="list-group-item ahItem" v-for="item in popularItems" @click="getValue(item.description,item.image)"><img :src="item.image"><span>@{{ item.description }}</span></li>
+                <li class="list-group-item ahItem" v-for="item in popularItems" @click="getValue(item.description,item.image)"><img :src="item.image" v-if="item.image"><span v-bind:class="{'centered': !item.image}">@{{ item.description }}</span></li>
             </div>
             <div class="ahItems" v-if="ahItems.length">
                 <li class="list-group-item ahItem"><h4>Suggesties:</h4></li>
-                <li class="list-group-item ahItem" v-for="ahItem in ahItems" @click="getValue(ahItem.description,ahItem.image)"><img :src="ahItem.image"><span>@{{ ahItem.description }}</span></li>
+                <li class="list-group-item ahItem" v-for="ahItem in ahItems" @click="getValue(ahItem.description,ahItem.image)"><img :src="ahItem.image" v-if="ahItem.image"><span>@{{ ahItem.description }}</span></li>
             </div>
         </ul>
 

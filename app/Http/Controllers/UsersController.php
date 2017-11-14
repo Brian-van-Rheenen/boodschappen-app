@@ -15,17 +15,8 @@ class UsersController extends Controller
 
     public function index()
     {
-        //If the user is an admin
-        if (Auth::user()->isAdmin())
-        {
-            //Return the history view and send the history data with it
-            return view('users');
-        }
-        else
-        {
-            //Redirect the user to the home page
-            return redirect()->home();
-        }
+        //Show the page
+        return view('users');
     }
 
     public function store()
@@ -43,8 +34,10 @@ class UsersController extends Controller
             'role' => request('role')
         ]);
 
+        //Create a flash message
         session()->flash('message', 'Account voor ' . $user->email . ' aangemaakt.');
 
+        //Return to the view
         return view('users');
     }
 }

@@ -243,36 +243,6 @@ h4, .empty {
     }
 }
 
-.addItem {
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-}
-
-.form-control {
-    width: 75%;
-    height: 100%;
-}
-
-.plus {
-    position: absolute;
-    top: 50%;
-    left: 86%;
-    transform: translate(-50%,-50%);
-    height: 60px;
-    cursor: pointer;
-}
-
-.item {
-    width: 75%;
-    border: 0;
-    background: none;
-    border-bottom: 1px solid #eacdab;
-    outline: 0;
-    font-size: 30px;
-    margin-top: 15px;
-}
-
 .body {
     display: block;
     flex: 1;
@@ -313,7 +283,6 @@ h4, .empty {
 .list-group-item:last-child {
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
-    border-bottom: none;
 }
 
 .history {
@@ -378,6 +347,11 @@ h4, .empty {
 .centered {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
 }
 
 .user {

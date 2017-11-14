@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="images/favicon.ico" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,7 +15,7 @@
     </section>
 
     <section class="body">
-        <img src="images/key.svg" id="key">
+        <img alt="Inlog sleutel" src="images/key.svg" id="key">
         <form class="login-form" method="POST" action="/login">
             {{ csrf_field() }}
 

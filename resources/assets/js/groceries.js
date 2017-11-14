@@ -99,6 +99,8 @@ window.app = new Vue({
                             //Push all the items inside the array
                             this.popularItems.push(response[i]);
                         }
+
+                        //Set maximum shown items
                         this.popularItems.splice(5, response.length);
                     });
 
@@ -167,12 +169,15 @@ window.app = new Vue({
                             //Push all the items inside the array
                             this.popularItems.push(response[i]);
                         }
+
+                        //Set maximum shown items
                         this.popularItems.splice(5, response.length);
                     });
                 }.bind(this), 500);
             }
         },
         resetForm() {
+            //Reset the form
             this.description = '';
             this.image = '';
             this.quantity = 1;

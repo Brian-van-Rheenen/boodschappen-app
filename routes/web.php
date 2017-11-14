@@ -23,7 +23,11 @@ Route::get('/boodschappen/{id}', 'GroceriesController@findById');
 Route::post('/boodschappen/{id}/update', 'GroceriesController@update');
 Route::post('/boodschappen/{id}/delete', 'GroceriesController@destroy');
 Route::post('/boodschappen/reset', 'GroceriesController@reset');
-Route::get('/history', 'HistoryController@index');
-Route::get('/history/all', 'HistoryController@entireHistory');
-Route::get('/users', 'UsersController@index');
-Route::post('/users/toevoegen', 'UsersController@store');
+
+Route::group(['middleware' => 'admin'], function ()
+{
+    Route::get('/history', 'HistoryController@index');
+    Route::get('/history/all', 'HistoryController@entireHistory');
+    Route::get('/users', 'UsersController@index');
+    Route::post('/users/toevoegen', 'UsersController@store');
+});
