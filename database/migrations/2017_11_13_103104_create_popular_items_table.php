@@ -16,7 +16,7 @@ class CreatePopularItemsTable extends Migration
         Schema::create('popular_items', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->string('description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('popularity');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();

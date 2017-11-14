@@ -19,7 +19,7 @@ class CreateHistoriesTable extends Migration
             $table->string('textBefore');
             $table->string('description');
             $table->string('textAfter');
-            $table->string('quantity');
+            $table->string('quantity')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
