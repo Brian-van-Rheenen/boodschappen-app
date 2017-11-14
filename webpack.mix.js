@@ -11,6 +11,8 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.setPublicPath('public_html/');
+
 mix.js('resources/assets/js/groceries.js', 'public_html/js')
    .js('resources/assets/js/history.js', 'public_html/js')
    .js('resources/assets/js/buttons.js', 'public_html/js')
