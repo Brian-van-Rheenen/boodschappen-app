@@ -22,6 +22,14 @@ class GroceriesController extends Controller
             ->latest()
             ->get();
 
+        //Loop through the array
+        for ($i = 0; $i < count($groceries); $i++)
+        {
+            //Convert to int
+            $groceries[$i]->quantity = (int)$groceries[$i]->quantity;
+            $groceries[$i]->completed = (int)$groceries[$i]->completed;
+        }
+
         //Return the groceries view and send the groceries with it
         return view('groceries', compact('groceries'));
     }
@@ -50,6 +58,7 @@ class GroceriesController extends Controller
             ->latest()
             ->get();
 
+        //Loop through the array
         for ($i = 0; $i < count($groceries); $i++)
         {
             //Convert to int
