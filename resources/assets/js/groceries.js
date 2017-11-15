@@ -155,6 +155,9 @@ window.app = new Vue({
             }
             else
             {
+                //Reset the image
+                this.image = '';
+
                 //Set a timer
                 this.timer = window.setTimeout(function() {
                     //Get all the popular items
