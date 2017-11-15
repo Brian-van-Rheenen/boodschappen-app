@@ -88,8 +88,8 @@ class GroceriesController extends Controller
         $grocery = Groceries::where('description', '=', request('description'))->first();
 
         //If it does
-        if ($grocery) {
-
+        if ($grocery)
+        {
             //Quantity + 1
             $grocery->quantity = $grocery->quantity + $data['quantity'];
             $grocery->image = $data['image'];
