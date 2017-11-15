@@ -50,6 +50,13 @@ class GroceriesController extends Controller
             ->latest()
             ->get();
 
+        for ($i = 0; $i < count($groceries); $i++)
+        {
+            //Convert to int
+            $groceries[$i]->quantity = (int)$groceries[$i]->quantity;
+            $groceries[$i]->completed = (int)$groceries[$i]->completed;
+        }
+
         //Return the groceries
         return $groceries;
     }

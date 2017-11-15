@@ -24,8 +24,6 @@ window.app = new Vue({
             //Create AJAX post
             axios.post(e.target.action, this.$data).then((res) => {
 
-                console.log(res);
-
                 //Loop through all the groceries
                 for (var i in this.groceries)
                 {
