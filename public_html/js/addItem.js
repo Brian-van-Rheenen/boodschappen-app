@@ -81,6 +81,7 @@ $(document).ready(function () {
         event.stopPropagation();
         app.resetForm();
         $('.addNewItem').toggleClass('hideAddItem');
+        $(".newItem").focus();
     });
     $('html').click(function (event) {
         if ($('.addNewItem').has('hideAddItem').length === 0 && !$(event.target).closest('.addNewItem').length) {

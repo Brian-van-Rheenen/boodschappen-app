@@ -78,15 +78,11 @@ class GroceriesController extends Controller
             $grocery->quantity = $grocery->quantity + $data['quantity'];
             $grocery->image = $data['image'];
             $grocery->save();
-
-            $isNew = false;
         }
         else
         {
             //Insert the grocery into the database
             $grocery = Groceries::create($data);
-
-            $isNew = true;
         }
 
         //Find the grocery if it exists
@@ -119,6 +115,10 @@ class GroceriesController extends Controller
             ' toegevoegd.',
             $data['quantity'] . 'x'
         );
+
+        //Convert to int
+        $grocery->quantity = (int)$grocery->quantity;
+        $grocery->completed = (int)$grocery->completed;
 
         //Return the inserted grocery
         return $grocery;
