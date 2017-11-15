@@ -11,16 +11,6 @@ body {
     align-items: center;
 }
 
-.header {
-    height: auto;
-    width: 100%;
-
-    img {
-        display: block;
-        margin: auto;
-    }
-}
-
 .body {
     width: 90%;
 }
@@ -33,7 +23,7 @@ body {
 }
 
 .login-form {
-    padding: 40px;
+    padding: 40px 40px 0px 40px;
 }
 
 .btn-primary {
@@ -47,5 +37,11 @@ body {
     &:active:hover {
         background: #c4761d;
         border-color: #c6781d;
+    }
+}
+
+@media screen and (max-width: 362px), screen and (max-height: 580px) {
+    #key {
+        width: 130px;
     }
 }

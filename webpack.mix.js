@@ -13,12 +13,12 @@ let mix = require('laravel-mix');
 
 mix.setPublicPath('public_html/');
 
-mix.js('resources/assets/js/groceries.js', 'public_html/js')
-   .js('resources/assets/js/history.js', 'public_html/js')
-   .js('resources/assets/js/buttons.js', 'public_html/js')
-   .js('resources/assets/js/addItem.js', 'public_html/js')
-   .sass('resources/assets/sass/login.scss', 'public_html/css')
-   .sass('resources/assets/sass/groceries.scss', 'public_html/css')
-   .sass('resources/assets/sass/users.scss', 'public_html/css')
+mix.js('resources/assets/js/groceries.js', 'js/')
+   .js('resources/assets/js/history.js', 'js/')
+   .js('resources/assets/js/buttons.js', 'js/')
+   .js('resources/assets/js/addItem.js', 'js/')
+   .sass('resources/assets/sass/login.scss', 'css/')
+   .sass('resources/assets/sass/groceries.scss', 'css/')
+   .sass('resources/assets/sass/users.scss', 'css/')
    .copy('resources/assets/css/', 'public_html/css')
    .copy('resources/assets/images', 'public_html/images', false);
