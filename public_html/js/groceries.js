@@ -11259,6 +11259,8 @@ window.app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             //Create AJAX post
             axios.post(e.target.action, this.$data).then(function (res) {
 
+                console.log(res);
+
                 //Loop through all the groceries
                 for (var i in _this.groceries) {
                     //If the added grocery matches any in the array
