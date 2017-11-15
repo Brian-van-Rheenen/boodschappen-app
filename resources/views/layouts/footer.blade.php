@@ -1,7 +1,5 @@
 <section class="footer">
-    <form method="POST" action="/boodschappen" class="addNewItem" @submit.prevent="addItem">
-        {{ csrf_field() }}
-
+    <form class="addNewItem">
         <ul class="list-group ahGroupItem">
             <div class="popularItems" v-if="popularItems.length">
                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
@@ -16,7 +14,7 @@
         <input type="hidden" class="hiddenImg" name="image" v-model="image">
         <input type="text" class="newItem" name="description" v-model="description" v-on:keyup="getItems" placeholder="Voeg toe" @click="getItems()" required></input>
         <input type="number" class="quantity" name="quantity" v-model="quantity" required></input>
-        <button type="submit" class="btn btn-success addItemButton"><i class="fa fa-plus addItemIcon"></i></button>
+        <button type="button" class="btn btn-success addItemButton" @click="quantity += 1"><i class="fa fa-plus addItemIcon"></i></button>
     </form>
 
     <button type="button" class="btn btn-danger btn-circle btn-xl reset"><i class="fa fa-times"></i></button>

@@ -32,6 +32,5 @@ $(document).ready(function(){
         $('.saveItems').hide();
         $('.trashContainer').hide();
         $('.trash').hide();
-
     })
 });

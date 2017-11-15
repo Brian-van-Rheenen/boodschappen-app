@@ -19,48 +19,59 @@ window.app = new Vue({
         timer: ''
     },
     methods: {
-        addItem(e) {
+        addItem() {
 
-            //Create AJAX post
-            axios.post(e.target.action, this.$data).then((res) => {
+            if (this.description)
+            {
+                //Create AJAX post
+                axios.post('/boodschappen', {
+                    description: this.description,
+                    quantity: this.quantity,
+                    image: this.image
+                }).then((res) => {
 
-                //Loop through all the groceries
-                for (var i in this.groceries)
-                {
-                    //If the added grocery matches any in the array
-                    if (this.groceries[i].description == res.data.description)
+                    //Loop through all the groceries
+                    for (var i in this.groceries)
                     {
-                        //Mark it as found and save the index
-                        var found = true;
-                        var index = i;
+                        //If the added grocery matches any in the array
+                        if (this.groceries[i].description == res.data.description)
+                        {
+                            //Mark it as found and save the index
+                            var found = true;
+                            var index = i;
 
-                        break;
+                            break;
+                        }
+                        else
+                        {
+                            //Mark it as not found
+                            var found = false;
+                        }
+                    }
+
+                    //If the added grocery is already inside the array
+                    if (found)
+                    {
+                        //Update the quantity
+                        this.groceries[index].quantity = res.data.quantity;
+
+                        //Reset the form
+                        this.resetForm();
                     }
                     else
                     {
-                        //Mark it as not found
-                        var found = false;
+                        //Push the added item into the groceries array
+                        this.groceries.push(res.data);
+
+                        //Reset the form
+                        this.resetForm();
                     }
-                }
-
-                //If the added grocery is already inside the array
-                if (found)
-                {
-                    //Update the quantity
-                    this.groceries[index].quantity = res.data.quantity;
-
-                    //Reset the form
-                    this.resetForm();
-                }
-                else
-                {
-                    //Push the added item into the groceries array
-                    this.groceries.push(res.data);
-
-                    //Reset the form
-                    this.resetForm();
-                }
-            });
+                });
+            }
+            else
+            {
+                return;
+            }
         },
         resetItems() {
             //Create AJAX post
