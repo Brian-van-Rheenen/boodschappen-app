@@ -96,3 +96,9 @@ html, body {
         border-color: #c6781d;
     }
 }
+
+@media screen and (max-width: 363px) {
+    .header span {
+        font-size: 20px;
+    }
+}
