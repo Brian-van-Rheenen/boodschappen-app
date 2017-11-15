@@ -17,10 +17,10 @@
             }
 
             .container {
-                width: 80%;
+                width: 100%;
                 height: 80%;
                 position: absolute;
-                margin:auto;
+                margin:auto 0 auto 0;
                 top:0;
                 bottom:0;
                 left:0;
@@ -28,14 +28,21 @@
             }
 
             img {
-                max-width: 100%;
-                max-height: 100%;
+                width: 100%;
                 position: absolute;
-                margin:auto;
+                margin:auto 0 auto 0;
                 top:0;
                 bottom:0;
                 left:0;
                 right:0;
+            }
+
+            @media screen and (min-width: 1366px) {
+                img {
+                    width: unset;
+                    max-width: 100%;
+                    margin: auto;
+                }
             }
         </style>
     </head>
