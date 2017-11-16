@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="images/favicon.ico" />
-    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
-    <title>Boodschappen lijstje | Login</title>
-</head>
+@include('layouts.head', ['css' => "login", 'title' => "Boodschappen lijstje | Login"])
 <body>
     <section class="header">
         <img alt="Moodles internetbureau Rotterdam" src="images/logo.png">
