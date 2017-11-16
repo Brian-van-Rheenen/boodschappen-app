@@ -8,7 +8,7 @@
                     <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                     <img :src="item.image" v-if="item.image">
                     <span class="items" v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
-                    <i class="fa fa-check complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)"></i>
+                    <i class="material-icons complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)">check</i>
                 </li>
             </template>
             <template v-else>
@@ -21,7 +21,7 @@
                 <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
                 <span class="items" v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
-                <i class="fa fa-check complete" v-bind:class="{'completed': item.completed}" v-on:click="completed(item)"></i>
+                <i class="material-icons complete"  v-bind:class="{'completed': item.completed}" v-on:click="completed(item)">check</i>
             </li>
             </template>
             <template v-else>

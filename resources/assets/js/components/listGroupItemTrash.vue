@@ -6,7 +6,7 @@
                 <span class="hoeveelheid trash-left" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
                 <span class="items" v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
-                <i class="fa fa-trash-o trash-right" v-on:click="trash(item)"></i>
+                <i class="material-icons trash-right"  v-on:click="trash(item)">delete</i>
             </li>
             </template>
             <template v-if="completedGroceries.length">
@@ -14,7 +14,7 @@
                 <span class="hoeveelheid trash-left" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
                 <span class="items" v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
-                <i class="fa fa-trash-o trash-right" v-on:click="trash(item)"></i>
+                <i class="material-icons trash-right"  v-on:click="trash(item)">delete</i>
             </li>
             </template>
         </template>

@@ -226,7 +226,7 @@ h4, .empty {
     }
 
     .icons {
-        margin-left: 13px;
+        margin-left: 10px;
         cursor: pointer;
         color: #fff;
         font-size: 2.5em;
@@ -235,10 +235,9 @@ h4, .empty {
         margin-bottom: auto;
     }
 
-    .fa-angle-left {
-        float: left;
+    .arrow_back {
         margin: 0;
-        margin-right: 20px;
+        margin-right: 10px;
     }
 }
 
@@ -371,12 +370,11 @@ h4, .empty {
 .hoeveelheid, .items, .historyDate {
     display: flex;
     align-items: center;
-    font-weight: bold;
 }
 
 .footer {
     display: flex;
-    height: 75px;
+    height: 72px;
     width: 100%;
     bottom: 0px;
     padding: 8px;
@@ -418,6 +416,43 @@ h4, .empty {
     width: 70%;
     padding: 10px;
     font-size: 1.2em;
+}
+
+.clear {
+    border-radius: 50%;
+    margin: auto 5px auto auto;
+    cursor: pointer;
+}
+
+.pulse {
+    animation: pulse 2s;
+}
+
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(183, 185, 188, 0.4);
+  }
+  50% {
+      -webkit-box-shadow: 0 0 0 10px rgba(183, 185, 188, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(183, 185, 188, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(183, 185, 188, 0.4);
+    box-shadow: 0 0 0 0 rgba(183, 185, 188, 0.4);
+  }
+  50% {
+      -moz-box-shadow: 0 0 0 10px rgba(183, 185, 188, 0);
+      box-shadow: 0 0 0 10px rgba(183, 185, 188, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(183, 185, 188, 0);
+      box-shadow: 0 0 0 0 rgba(183, 185, 188, 0);
+  }
 }
 
 .ahGroupItem {
@@ -477,7 +512,9 @@ h4, .empty {
 }
 
 .addItemButton {
-    padding: 5px;
+    background-color: #92b558;
+    border-color: #83a24f;
+    display: flex;
     border: none;
     border-radius: 0px;
     outline: 0 !important;
@@ -508,8 +545,8 @@ h4, .empty {
 }
 
 .btn-circle.btn-xl {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     padding: 10px 16px;
     border-radius: 35px;
     font-size: 24px;
@@ -517,6 +554,9 @@ h4, .empty {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,.25);
 }
 
 .reset {
@@ -536,10 +576,23 @@ h4, .empty {
 }
 
 .add {
+    background-color: #92b558;
+    border-color: #83a24f;
     margin-left: auto;
     cursor: pointer;
     outline: none !important;
     transition:all 0.3s;
+
+    &:active,
+    &:hover,
+    &:focus {
+        background-color: #749046;
+        border-color: #667e3d;
+    }
+}
+
+.footer-buttons {
+    font-size: 28px;
 }
 
 @media screen and (max-width: 362px) {
