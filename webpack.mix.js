@@ -13,12 +13,16 @@ let mix = require('laravel-mix');
 
 mix.setPublicPath('public_html/');
 
-mix.js('resources/assets/js/groceries.js', 'js/')
-   .js('resources/assets/js/history.js', 'js/')
-   .js('resources/assets/js/buttons.js', 'js/')
-   .js('resources/assets/js/addItem.js', 'js/')
-   .sass('resources/assets/sass/login.scss', 'css/')
-   .sass('resources/assets/sass/groceries.scss', 'css/')
-   .sass('resources/assets/sass/users.scss', 'css/')
-   .copy('resources/assets/css/', 'public_html/css')
-   .copy('resources/assets/images', 'public_html/images', false);
+mix.js(['resources/assets/js/buttons.js',
+       'resources/assets/js/addItem.js'
+    ], 'js/app.js').version();
+
+mix.js('resources/assets/js/groceries.js', 'js/');
+mix.js('resources/assets/js/history.js', 'js/');
+
+mix.sass('resources/assets/sass/login.scss', 'css/')
+    .sass('resources/assets/sass/groceries.scss', 'css/')
+    .sass('resources/assets/sass/users.scss', 'css/');
+
+mix.copy('resources/assets/css/', 'public_html/css');
+mix.copy('resources/assets/images', 'public_html/images', false);
