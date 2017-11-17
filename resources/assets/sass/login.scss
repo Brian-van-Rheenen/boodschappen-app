@@ -49,3 +49,114 @@ body {
         width: 130px;
     }
 }
+
+.group {
+    position:relative;
+    margin-bottom:45px;
+}
+
+input {
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:100%;
+    color: #555;
+    border:none;
+    border-bottom:1px solid #999;
+}
+input:focus {
+    outline:none;
+    border-color: #c6781d;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+label {
+    color:#999;
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+
+input:focus ~ label, input:valid ~ label {
+    top:-20px;
+    font-size:14px;
+    color:#d07e20;
+}
+
+.bar {
+    position:relative;
+    display:block;
+    width:100%;
+}
+.bar:before, .bar:after {
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    background:#d07e20;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+.bar:before {
+    left:50%;
+}
+.bar:after {
+    right:50%;
+}
+
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width:50%;
+}
+
+.highlight {
+    position:absolute;
+    height:60%;
+    width:100px;
+    top:25%;
+    left:0;
+    pointer-events:none;
+    opacity:0.5;
+}
+
+input:focus ~ .highlight {
+    -webkit-animation:inputHighlighter 0.3s ease;
+    -moz-animation:inputHighlighter 0.3s ease;
+    animation:inputHighlighter 0.3s ease;
+}
+
+.button {
+    display: inline-block;
+    text-align:center;
+    padding: 10px;
+    width: 100%;
+    color: white;
+    transition: 300ms ease-in-out;
+    box-shadow: 0px 4px 20px #ccc;
+    font-size: 22px;
+    background-color: #d07e20;
+    border-bottom: 3px solid #a56418;
+
+    &:focus,
+    &:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 2px 20px #777;
+    }
+}

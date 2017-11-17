@@ -104,6 +104,9 @@ window.app = new Vue({
                     //Get all the popular items
                     axios.get('/boodschappen/popular/' + this.description).then((res) => {
 
+                        //Create a border around the box
+                        $('.ahGroupItem').css('border', '1px solid #ccc')
+
                         //Get the data
                         var response = res.data;
 
@@ -135,7 +138,8 @@ window.app = new Vue({
                             }
                         }
 
-                        try {
+                        try
+                        {
                             //Fetch the specific property
                             var response = res.data['_embedded']['lanes'][index]['_embedded']['items'];
 
@@ -174,8 +178,12 @@ window.app = new Vue({
 
                 //Set a timer
                 this.timer = window.setTimeout(function() {
+
                     //Get all the popular items
                     axios.get('/boodschappen/popular').then((res) => {
+
+                        //Create a border around the box
+                        $('.ahGroupItem').css('border', '1px solid #ccc')
 
                         //Get the data
                         var response = res.data;
@@ -200,6 +208,7 @@ window.app = new Vue({
             this.quantity = 1;
             this.popularItems = [];
             this.ahItems = [];
+            $('.ahGroupItem').css('border', 'none')
         },
         getValue(value, img) {
             //Set the description to the given value

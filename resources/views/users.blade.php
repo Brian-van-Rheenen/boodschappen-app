@@ -6,33 +6,41 @@
         @include('layouts.header', ['header' => "Gebruiker toevoegen", 'history' => false, 'user' => true])
 
         <section class="body">
-            <label class="title">Een nieuwe gebruiker toevoegen</label>
+            <h3 class="title">Een nieuwe gebruiker toevoegen</h3>
 
             <form class="user-form" id="user-form" method="POST" action="/users/toevoegen">
                 {{ csrf_field() }}
 
-                <div class="form-group">
-                    <label>Emailadres:</label>
-                    <input type="text" name="email" class="form-control" required>
+                <div class="group" style="margin-bottom: 30px">
+                    <input type="text" name="email" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Emailadres</label>
                 </div>
-                <div class="form-group">
-                    <label>Rol:</label>
-                    <select class="form-control" name="role" form="user-form">
+
+                <div class="group">
+                    <label class="label-role">Rol:</label>
+                    <select class="role" name="role" form="user-form">
                         <option value="normal">Normaal</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Wachtwoord:</label>
-                    <input type="password" name="password" class="form-control" required>
+
+                <div class="group">
+                    <input type="password" name="password" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Wachtwoord</label>
                 </div>
-                <div class="form-group">
-                    <label>Herhaal wachtwoord:</label>
-                    <input type="password" name="password_confirmation" class="form-control" required>
+
+                <div class="group">
+                    <input type="password" name="password_confirmation" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Herhaal wachtwoord</label>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Account aanmaken">
-                </div>
+
+                <input type="submit" class="button" value="Account aanmaken">
 
                 @if ($flash = session('message'))
                     <div id="flash-message" class="alert alert-success" role="alert">

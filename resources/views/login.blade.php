@@ -11,17 +11,21 @@
         <form class="login-form" method="POST" action="/login">
             {{ csrf_field() }}
 
-            <div class="form-group">
-                <label>Emailadres:</label><br>
-                <input type="text" name="email" class="form-control" required>
+            <div class="group">
+                <input type="text" name="email" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Emailadres</label>
             </div>
-            <div class="form-group">
-                <label>Wachtwoord:</label><br>
-                <input type="password" name="password" class="form-control" required>
+
+            <div class="group">
+                <input type="password" name="password" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Wachtwoord</label>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Inloggen">
-            </div>
+
+            <input type="submit" class="button" value="Inloggen">
 
             @include('layouts.errors')
         </form>
