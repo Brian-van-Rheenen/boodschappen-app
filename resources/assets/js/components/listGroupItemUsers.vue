@@ -23,7 +23,6 @@
         },
         methods: {
             edit(user) {
-                //Show the correct form
                 this.$root.resetFlashMessages();
 
                 //If the users are the same
