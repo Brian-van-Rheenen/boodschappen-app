@@ -73,6 +73,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    -webkit-text-fill-color: #555 !important;
     transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -149,6 +151,7 @@ input:focus ~ .highlight {
     font-size: 22px;
     background-color: #d07e20;
     border-bottom: 3px solid #a56418;
+    margin-bottom: 20px;
 
     &:focus,
     &:hover {

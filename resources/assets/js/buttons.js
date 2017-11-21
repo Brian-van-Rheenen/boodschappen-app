@@ -29,7 +29,6 @@ $(document).ready(function(){
         $('.shadow').hide();
         $('.messageContainer').hide();
         $('.resetItems').hide();
-        $('.saveItems').hide();
         $('.trashContainer').hide();
         $('.trash').hide();
     })

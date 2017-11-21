@@ -15,15 +15,16 @@ class UsersController extends Controller
 
     public function index()
     {
+        //Retrieve the users
+        $users = User::get();
+        $user = Auth::user();
+
         //Show the page
-        return view('users');
+        return view('users', compact('user', 'users'));
     }
 
     public function store()
     {
-        session()->forget('error');
-        session()->forget('message');
-
         //Validate the data
         $this->validate(request(), [
             'email' => 'required|email',
@@ -37,7 +38,9 @@ class UsersController extends Controller
         if ($user)
         {
             //Create a flash message
-            session()->flash('error', $user->email . ' bestaat al.');
+            $message['description'] = $user->email . ' bestaat al.';
+            $message['type'] = 'error';
+            return ['duplicate', $message];
         }
         else
         {
@@ -49,10 +52,48 @@ class UsersController extends Controller
             ]);
 
             //Create a flash message
-            session()->flash('message', 'Account voor ' . $user->email . ' aangemaakt.');
+            $message['description'] = 'Account voor ' . $user->email . ' aangemaakt.';
+            $message['type'] = 'success';
         }
 
         //Return to the view
-        return view('users');
+        return [$user, $message];
+    }
+    public function update($id)
+    {
+        //Find the user by its id
+        $user = User::find($id);
+
+        //Change the user properties
+        $user->email = request()->email;
+        $user->role = request()->role;
+
+        //Save the changes
+        $user->save();
+
+        //Return the saved user
+        return $user;
+    }
+    public function destroy($id)
+    {
+        //Find the user by its id
+        $user = User::find($id);
+
+        //If the users are the same
+        if ($user == Auth::user())
+        {
+            //Create a flash message
+            $message['description'] = 'Je kan jezelf niet verwijderen..';
+            $message['type'] = 'error';
+            return $message;
+        }
+
+        //Delete the user
+        $user->delete();
+
+        //Create a flash message
+        $message['description'] = $user->email . ' is verwijderd.';
+        $message['type'] = 'success';
+        return $message;
     }
 }

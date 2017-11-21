@@ -30,4 +30,6 @@ Route::group(['middleware' => 'admin'], function ()
     Route::get('/history/all', 'HistoryController@entireHistory');
     Route::get('/users', 'UsersController@index');
     Route::post('/users/toevoegen', 'UsersController@store');
+    Route::post('/users/{id}/update', 'UsersController@update');
+    Route::post('/users/{id}/delete', 'UsersController@destroy');
 });

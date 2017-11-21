@@ -19,6 +19,7 @@ mix.js(['resources/assets/js/buttons.js',
 
 mix.js('resources/assets/js/groceries.js', 'js/');
 mix.js('resources/assets/js/history.js', 'js/');
+mix.js('resources/assets/js/users.js', 'js/');
 
 mix.sass('resources/assets/sass/login.scss', 'css/')
     .sass('resources/assets/sass/groceries.scss', 'css/')

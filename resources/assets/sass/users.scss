@@ -1,5 +1,5 @@
 html, body {
-    height: 100%;
+    height: auto;
     width: 100%;
     font-family: 'Open Sans', sans-serif;
 }
@@ -15,6 +15,113 @@ html, body {
     flex-direction: column;
     min-height: 100%;
 }
+
+
+.shadow {
+    display: none;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    background: black;
+    opacity: 0.6;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+
+.messageContainer {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+.message {
+    height: 400px;
+    width: 250px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px -1px 43px -7px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px -1px 43px -7px rgba(0,0,0,0.1);
+    box-shadow: 0px -1px 43px -7px rgba(0,0,0,0.1);
+}
+
+.resetItems {
+    display: none;
+}
+
+.messageHeader {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.red {
+    background: #d9534f;
+}
+
+.circle {
+    width: 70px;
+    height: 70px;
+    padding: 6px 0px;
+    border-radius: 40px;
+    font-size: 35px;
+    line-height: 1.42857;
+    color: #fff;
+    border: 2px solid #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.title {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    padding-top: 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.description {
+    display: block;
+    width: 200px;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.confirmationButton {
+    width: 75px;
+    height: 50px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 0px;
+    padding-bottom: 9px;
+    cursor: pointer;
+}
+
 
 .header {
     height: 70px;
@@ -60,7 +167,7 @@ html, body {
     align-items: center;
 }
 
-.title {
+.headerTitle {
     font-weight: 100;
     font-size: 1.5em;
     width: 70%;
@@ -69,31 +176,80 @@ html, body {
     margin-bottom: 30px;
 }
 
-.user-form {
+.userContainer {
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    height: auto;
+    max-height: 276px;
+    overflow-y: auto;
+    margin: 1rem;
+    margin-bottom: 20px;
+    width: 70%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.swap {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    padding: 6px;
+    background-color: #127ced;
+    border-radius: 2px;
+    color: #fff;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+    border: none;
+    padding: 8px;
+}
+
+.user {
+    word-break: break-word;
+}
+
+.edit {
+    display: flex;
+    padding: 8px;
+    background-color: #f0ad4e;
+    border-radius: 2px;
+    color: #fff;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.trash {
+    display: flex;
+    padding: 8px;
+    background-color: #E74C3C;
+    border-radius: 2px;
+    color: #fff;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.user-form-add {
+    margin-top: 20px;
+}
+
+.user-form-add, .user-form-edit {
     width: 70%;
 }
 
-.form-control {
-    &:active,
-    &:hover,
-    &:focus,
-    &:active:hover {
-        border-color: #c6781d;
-    }
-}
-
-.btn-primary {
-    width: 100%;
-    background-color: #d07e20;
-    border-color: #c6781d;
-
-    &:active,
-    &:hover,
-    &:focus,
-    &:active:hover {
-        background: #c4761d;
-        border-color: #c6781d;
-    }
+.user-form-edit {
+    display: none;
 }
 
 @media screen and (max-width: 363px) {
@@ -107,6 +263,14 @@ html, body {
     margin-bottom:45px;
 }
 
+.account {
+    text-align: center;
+
+    span {
+        color: #d07e20;
+    }
+}
+
 input {
     font-size:18px;
     padding:10px 10px 10px 5px;
@@ -116,7 +280,8 @@ input {
     border:none;
     border-bottom:1px solid #999;
 }
-input:focus {
+
+input:focus, select:focus {
     outline:none;
     border-color: #c6781d;
 }
@@ -125,6 +290,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    -webkit-text-fill-color: #555 !important;
     transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -141,7 +308,7 @@ label {
     -webkit-transition:0.2s ease all;
 }
 
-input:focus ~ label, input:valid ~ label {
+input:focus ~ label, input:valid ~ label, select:focus ~ label, select:valid ~ label {
     top:-20px;
     font-size:14px;
     color:#d07e20;
@@ -170,7 +337,7 @@ input:focus ~ label, input:valid ~ label {
     right:50%;
 }
 
-input:focus ~ .bar:before, input:focus ~ .bar:after {
+input:focus ~ .bar:before, input:focus ~ .bar:after, select:focus ~ .bar:before, select:focus ~ .bar:after {
     width:50%;
 }
 
@@ -184,7 +351,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
     opacity:0.5;
 }
 
-input:focus ~ .highlight {
+input:focus ~ .highlight, select:focus ~ .highlight {
     -webkit-animation:inputHighlighter 0.3s ease;
     -moz-animation:inputHighlighter 0.3s ease;
     animation:inputHighlighter 0.3s ease;
@@ -201,6 +368,7 @@ input:focus ~ .highlight {
     font-size: 22px;
     background-color: #d07e20;
     border-bottom: 3px solid #a56418;
+    margin-bottom: 20px;
 
     &:focus,
     &:hover {
@@ -213,6 +381,10 @@ input:focus ~ .highlight {
     }
 }
 
+.alert-danger, .alert-success {
+    border-radius: 2px;
+}
+
 .role {
     width: 100%;
     background-color: #fff;
@@ -222,13 +394,4 @@ input:focus ~ .highlight {
     margin-top: 5px;
     font-size: 16px;
     color: #555;
-}
-
-.label-role {
-    position: relative;
-    color: #d07e20;
-}
-
-.alert-danger {
-    margin-top: 20px;
 }

@@ -3,7 +3,7 @@
 @include('layouts.head', ['css' => "groceries", 'title' => "Boodschappen lijstje | Boodschappen"])
 <body>
     <div id="content">
-        @include('layouts.message')
+        @include('layouts.message', ['goal' => 'Reset?', 'message' => "Weet je zeker dat je alle boodschappen wilt resetten? Dit", 'action' => "verwijdert", 'remaining' => "ze allemaal.", 'onClick' => "this." . "$" . "root.resetItems"])
         @include('layouts.trash')
         @include('layouts.header', ['header' => "Boodschappen lijst", 'history' => false, 'user' => false])
 
