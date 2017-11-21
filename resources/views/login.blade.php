@@ -19,7 +19,7 @@
             </div>
 
             <div class="group">
-                <input type="password" name="password" required>
+                <input type="password" name="password" id="password" autocomplete="new-password" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Wachtwoord</label>
