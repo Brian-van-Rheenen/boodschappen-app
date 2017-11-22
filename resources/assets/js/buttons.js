@@ -10,7 +10,6 @@ $(document).ready(function(){
     $('.reset').click(function(){
         $('.shadow').show();
         $('.messageContainer').css('display', 'flex');
-        $('.resetItems').show();
     })
 
     $('.trashContainer').click(function(){
@@ -28,7 +27,6 @@ $(document).ready(function(){
     $('.confirmationButton').click(function(){
         $('.shadow').hide();
         $('.messageContainer').hide();
-        $('.resetItems').hide();
         $('.trashContainer').hide();
         $('.trash').hide();
     })

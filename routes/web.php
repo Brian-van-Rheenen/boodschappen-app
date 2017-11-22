@@ -25,6 +25,8 @@ Route::post('/boodschappen/{id}/delete', 'GroceriesController@destroy');
 Route::post('/boodschappen/reset', 'GroceriesController@reset');
 Route::get('/history', 'HistoryController@index');
 Route::get('/history/all', 'HistoryController@entireHistory');
+Route::get('/instellingen', 'SettingsController@index');
+Route::post('/instellingen/{id}/wachtwoord', 'SettingsController@update');
 
 Route::group(['middleware' => 'admin'], function ()
 {

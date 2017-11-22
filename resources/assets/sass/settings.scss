@@ -32,99 +32,17 @@ html, body {
     margin-bottom: 30px;
 }
 
-.userContainer {
-    background: #fff;
-    border-radius: 2px;
-    display: inline-block;
-    height: auto;
-    max-height: 276px;
-    overflow-y: auto;
-    margin: 1rem;
-    margin-bottom: 20px;
-    width: 70%;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.swap {
-    display: block;
-    margin-bottom: 20px;
-    font-size: 2.5em;
-    padding: 6px;
-    background-color: #127ced;
-    border-radius: 2px;
-    color: #fff;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 30px;
-    cursor: pointer;
-}
-
-.list-group-item {
-    display: flex;
-    align-items: center;
-    border: none;
-    padding: 8px;
-}
-
-.user {
-    word-break: break-word;
-}
-
-.edit {
-    display: flex;
-    padding: 8px;
-    background-color: #f0ad4e;
-    border-radius: 2px;
-    color: #fff;
-    margin-left: auto;
-    cursor: pointer;
-}
-
-.trash {
-    display: flex;
-    padding: 8px;
-    background-color: #E74C3C;
-    border-radius: 2px;
-    color: #fff;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-.disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
-.user-form-add {
+.user-form {
     margin-top: 20px;
 }
 
-.user-form-add, .user-form-edit {
+.user-form {
     width: 70%;
-}
-
-.user-form-edit {
-    display: none;
-}
-
-@media screen and (max-width: 363px) {
-    .header span {
-        font-size: 20px;
-    }
 }
 
 .group {
     position:relative;
     margin-bottom:45px;
-}
-
-.account {
-    text-align: center;
-
-    span {
-        color: #d07e20;
-    }
 }
 
 input {
@@ -239,15 +157,4 @@ input:focus ~ .highlight, select:focus ~ .highlight {
 
 .alert-danger, .alert-success {
     border-radius: 2px;
-}
-
-.role {
-    width: 100%;
-    background-color: #fff;
-    border: none;
-    border-bottom: 1px solid #999;
-    height: 32px;
-    margin-top: 5px;
-    font-size: 16px;
-    color: #555;
 }

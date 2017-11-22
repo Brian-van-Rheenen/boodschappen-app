@@ -3,7 +3,7 @@
 @include('layouts.head', ['css' => "users", 'title' => "Boodschappen lijstje | Gebruikers"])
 <body>
     <div id="content">
-        @include('layouts.navigation_drawer', ['header' => "Gebruikers beheren", 'history' => false, 'user' => true])
+        @include('layouts.navigation_drawer', ['header' => "Gebruikers beheren", 'home' => false])
 
         <section class="body">
             <h3 class="headerTitle">Gebruikers wijzigen</h3>
@@ -79,8 +79,6 @@
                 </div>
 
                 <input type="submit" class="button" value="Opslaan">
-
-                @include('layouts.errors')
             </form>
         </section>
     </div>
@@ -100,7 +98,7 @@
         $('.confirmationButton').click(function(){
             $('.shadow').hide();
             $('.messageContainer').hide();
-            $('.resetItems').hide();
+            $('body').css('overflow', 'auto');
         });
     </script>
 </body>

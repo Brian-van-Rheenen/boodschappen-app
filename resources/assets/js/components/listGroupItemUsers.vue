@@ -5,7 +5,7 @@
             <i class="material-icons edit" v-on:click="edit(user)">mode_edit</i>
             <i class="material-icons trash" v-bind:class="{'disabled': user.email == this.activeUser.email}" v-on:click="trash(user)">delete</i>
         </li>
-        <messageDelete :users="users" :user="focusedUser"></messageDelete>
+        <messageDelete title="Verwijder?" message="Weet je zeker dat je dit account wilt verwijderen?" action="verwijdert" remaining="het permanent." on-click="trash" button-span="Verwijderen" :users="users" :user="focusedUser"></messageDelete>
     </div>
 </template>
 <script>
@@ -56,9 +56,11 @@
                 }
 
                 this.focusedUser = user;
+
                 $('.shadow').show();
                 $('.messageContainer').css('display', 'flex');
                 $('.resetItems').show();
+                $('body').css('overflow', 'hidden');
             }
         }
     }

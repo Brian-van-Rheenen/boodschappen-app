@@ -21,10 +21,12 @@ mix.js(['resources/assets/js/buttons.js',
 mix.js('resources/assets/js/groceries.js', 'js/');
 mix.js('resources/assets/js/history.js', 'js/');
 mix.js('resources/assets/js/users.js', 'js/');
+mix.js('resources/assets/js/settings.js', 'js/');
 
 mix.sass('resources/assets/sass/login.scss', 'css/')
     .sass('resources/assets/sass/groceries.scss', 'css/')
     .sass('resources/assets/sass/users.scss', 'css/')
+    .sass('resources/assets/sass/settings.scss', 'css/')
     .sass('resources/assets/sass/navigation_drawer.scss', 'css/');
 
 mix.copy('resources/assets/css/', 'public_html/css');

@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import Listgroupitem from './components/listGroupItem';
 import Listgroupitemtrash from './components/listGroupItemTrash';
+import Messagedelete from './components/messageDelete';
 
 window.$ = window.jQuery = require('jquery');
 window.axios = window.axios = require('axios');
@@ -10,7 +11,8 @@ window.app = new Vue({
     el: '#content',
     components: {
         Listgroupitem,
-        Listgroupitemtrash
+        Listgroupitemtrash,
+        Messagedelete
     },
     data: {
         groceries: groceries,
@@ -75,14 +77,6 @@ window.app = new Vue({
             {
                 return;
             }
-        },
-        resetItems() {
-            //Create AJAX post
-            axios.post('/boodschappen/reset').then((res) => {
-
-                //Clear the groceries array
-                this.groceries = [];
-            });
         },
         getItems() {
             //Show the list

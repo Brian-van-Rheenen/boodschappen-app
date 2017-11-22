@@ -3,8 +3,8 @@
 @include('layouts.head', ['css' => "groceries", 'title' => "Boodschappen lijstje | Boodschappen"])
 <body>
     <div id="content">
-        @include('layouts.message', ['goal' => 'Reset?', 'message' => "Weet je zeker dat je alle boodschappen wilt resetten? Dit", 'action' => "verwijdert", 'remaining' => "ze allemaal.", 'onClick' => "this." . "$" . "root.resetItems"])
-        @include('layouts.navigation_drawer', ['header' => "Boodschappen lijst", 'history' => false, 'user' => false])
+        <messageDelete title="Reset?" message="Weet je zeker dat je alle boodschappen wilt resetten?" action="verwijdert" remaining="alle boodschappen." on-click="reset" button-span="Resetten"></messageDelete>
+        @include('layouts.navigation_drawer', ['header' => "Boodschappen lijst", 'home' => true])
         @include('layouts.trash')
 
         @include('layouts.items')

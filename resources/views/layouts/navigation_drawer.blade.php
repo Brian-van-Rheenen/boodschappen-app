@@ -1,5 +1,5 @@
 <header class="layout-header">
-    @if($history || $user)
+    @if(!$home)
         <button class="header-drawer-toggle">
             <a href="/boodschappen"><i class="material-icons">arrow_back</i></a>
         </button>
@@ -22,23 +22,17 @@
         </div>
     </div>
     <nav class="drawer-navigation drawer-border">
-        @if($history || $user)
-            <a class="drawer-list-item" href="/boodschappen">
-                <i class="material-icons nav-icons">local_grocery_store</i><span>Boodschappen lijst</span>
-            </a>
-        @endif
         @if(Auth::check() && Auth::user()->isAdmin())
-            @if (!$user)
-                <a class="drawer-list-item" href="/users">
-                    <i class="material-icons nav-icons">supervisor_account</i><span>Personen beheren</span>
-                </a>
-            @endif
-        @endif
-        @if (!$history)
-            <a class="drawer-list-item" href="/history">
-                <i class="material-icons nav-icons">history</i><span>Geschiedenis</span>
+            <a class="drawer-list-item" href="/users">
+                <i class="material-icons nav-icons">supervisor_account</i><span>Personen beheren</span>
             </a>
         @endif
+        <a class="drawer-list-item" href="/history">
+            <i class="material-icons nav-icons">history</i><span>Geschiedenis</span>
+        </a>
+        <a class="drawer-list-item" href="/instellingen">
+            <i class="material-icons nav-icons">settings</i><span>Instellingen</span>
+        </a>
     </nav>
     <nav class="drawer-navigation">
         <a class="drawer-list-item drawer-icon-right" href="/logout">
