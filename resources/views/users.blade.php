@@ -3,7 +3,7 @@
 @include('layouts.head', ['css' => "users", 'title' => "Boodschappen lijstje | Gebruikers"])
 <body>
     <div id="content">
-        @include('layouts.header', ['header' => "Gebruiker toevoegen", 'history' => false, 'user' => true])
+        @include('layouts.navigation_drawer', ['header' => "Gebruikers beheren", 'history' => false, 'user' => true])
 
         <section class="body">
             <h3 class="headerTitle">Gebruikers wijzigen</h3>
