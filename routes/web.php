@@ -24,16 +24,16 @@ Route::post('/boodschappen/{id}/update', 'GroceriesController@update');
 Route::post('/boodschappen/{id}/delete', 'GroceriesController@destroy');
 Route::post('/boodschappen/reset', 'GroceriesController@reset');
 
-Route::get('/history', 'HistoryController@index');
-Route::get('/history/alles', 'HistoryController@entireHistory');
+Route::get('/geschiedenis', 'HistoryController@index');
+Route::get('/geschiedenis/alles', 'HistoryController@entireHistory');
 
 Route::get('/instellingen', 'SettingsController@index');
 Route::post('/instellingen/{id}/wachtwoord', 'SettingsController@update');
 
 Route::group(['middleware' => 'admin'], function ()
 {
-    Route::get('/users', 'UsersController@index');
-    Route::post('/users/toevoegen', 'UsersController@store');
-    Route::post('/users/{id}/update', 'UsersController@update');
-    Route::post('/users/{id}/delete', 'UsersController@destroy');
+    Route::get('/gebruikers', 'UsersController@index');
+    Route::post('/gebruikers/toevoegen', 'UsersController@store');
+    Route::post('/gebruikers/{id}/update', 'UsersController@update');
+    Route::post('/gebruikers/{id}/delete', 'UsersController@destroy');
 });

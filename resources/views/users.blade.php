@@ -14,7 +14,7 @@
 
             <!-- Add form -->
 
-            <form class="user-form-add" id="user-form-add" method="POST" action="/users/toevoegen" @submit.prevent="add">
+            <form class="user-form-add" id="user-form-add" method="POST" action="/gebruikers/toevoegen" @submit.prevent="add">
 
                 <div class="group">
                     <input type="text" name="email" v-model="email" required>
@@ -52,7 +52,7 @@
 
             <!-- Update form -->
 
-            <form class="user-form-edit" id="user-form-edit" method="POST" action="/users/update" @submit.prevent="update">
+            <form class="user-form-edit" id="user-form-edit" method="POST" action="/gebruikers/update" @submit.prevent="update">
 
                 <i class="material-icons swap">swap_horiz</i>
 

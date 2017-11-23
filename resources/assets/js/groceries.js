@@ -26,6 +26,18 @@ window.app = new Vue({
         confirmationMessage: false,
         trash: false
     },
+    computed: {
+        trashDisplay() {
+            if (this.trash)
+            {
+                return 'flex';
+            }
+            else
+            {
+                return 'none';
+            }
+        }
+    },
     methods: {
         addItem() {
 

@@ -68,7 +68,7 @@
                 this.users.splice(index, 1);
 
                 //Remove the user from the database
-                axios.post(`/users/${this.user.id}/delete`, {
+                axios.post(`/gebruikers/${this.user.id}/delete`, {
                     id: this.user.id
                 }).then((res) => {
                     this.$root.resetFlashMessages();

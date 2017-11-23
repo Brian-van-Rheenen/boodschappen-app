@@ -64,9 +64,10 @@ window.app = new Vue({
                 for (var i in this.users)
                 {
                     //If the added users matches any in the array
-                    if (this.users[i].id == res.data.id)
+                    if (this.users[i].id == res.data[0].id)
                     {
-                        this.$set(this.users, i, res.data);
+                        this.$set(this.users, i, res.data[0]);
+                        this.flashMessages.push(res.data[1]);
                         this.email = '';
                         this.role = '';
 
@@ -75,6 +76,21 @@ window.app = new Vue({
                         $('.user-form-edit').hide();
                     }
                 }
+            }).catch(({ response }) => {
+                var errors = response.data.errors;
+
+                //Loop through all the errors
+                for (var i in errors)
+                {
+                    for (var j in errors[i])
+                    {
+                        //Insert them into the array
+                        var error = [];
+                        error['description'] = errors[i][j];
+                        error['type'] = 'error'
+                        this.flashMessages.push(error);
+                    }
+                };
             });
         },
         resetInput() {

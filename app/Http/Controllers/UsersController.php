@@ -61,6 +61,11 @@ class UsersController extends Controller
     }
     public function update($id)
     {
+        //Validate the data
+        $this->validate(request(), [
+            'email' => 'required|email'
+        ]);
+
         //Find the user by its id
         $user = User::find($id);
 
@@ -71,8 +76,12 @@ class UsersController extends Controller
         //Save the changes
         $user->save();
 
+        //Create a flash message
+        $message['description'] = 'Veranderingen succesvol opgeslagen.';
+        $message['type'] = 'success';
+
         //Return the saved user
-        return $user;
+        return [$user, $message];
     }
     public function destroy($id)
     {

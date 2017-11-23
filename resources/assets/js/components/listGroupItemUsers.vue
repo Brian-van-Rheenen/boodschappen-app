@@ -44,7 +44,7 @@
                 this.$root.role = user.role;
 
                 //Change the post url
-                $('.user-form-edit').attr('action', '/users/' + user.id + '/update');
+                $('.user-form-edit').attr('action', '/gebruikers/' + user.id + '/update');
             },
             trash(user) {
 

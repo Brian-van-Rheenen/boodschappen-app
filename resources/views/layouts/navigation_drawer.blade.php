@@ -23,11 +23,11 @@
     </div>
     <nav class="drawer-navigation drawer-border">
         @if(Auth::check() && Auth::user()->isAdmin())
-            <a class="drawer-list-item" href="/users">
+            <a class="drawer-list-item" href="/gebruikers">
                 <i class="material-icons nav-icons">supervisor_account</i><span>Gebruikers beheren</span>
             </a>
         @endif
-        <a class="drawer-list-item" href="/history">
+        <a class="drawer-list-item" href="/geschiedenis">
             <i class="material-icons nav-icons">history</i><span>Geschiedenis</span>
         </a>
         <a class="drawer-list-item" href="/instellingen">
