@@ -1,6 +1,6 @@
 <section class="footer">
     <form class="addNewItem">
-        <ul class="list-group ahGroupItem">
+        <ul class="list-group ahGroupItem" v-if="ahGroupItem">
             <div class="popularItems" v-if="popularItems.length">
                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
                 <li class="list-group-item ahItem" v-for="item in popularItems" @click="getValue(item.description,item.image)"><img :src="item.image" v-if="item.image"><span v-bind:class="{'centered': !item.image}">@{{ item.description }}</span></li>

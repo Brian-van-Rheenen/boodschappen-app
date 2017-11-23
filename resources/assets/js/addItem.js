@@ -25,7 +25,7 @@ $(document).ready(function(){
     $('html').click(function(event) {
         if($('.addNewItem').has('hideAddItem').length === 0 && !($(event.target).closest('.addNewItem').length)){
             app.resetForm();
-            $('.ahGroupItem').hide();
+            app.ahGroupItem = false;
             $('.addNewItem').removeClass('hideAddItem');
             $('.add').removeClass('btn-success').addClass('btn-primary');
             $('.add').children().html('add');

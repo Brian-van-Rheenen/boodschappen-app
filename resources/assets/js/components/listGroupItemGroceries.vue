@@ -38,7 +38,7 @@
 </template>
 <script>
     export default {
-        name: 'listGroupItem',
+        name: 'listGroupItemGroceries',
         props: ['groceries'],
         data() {
             return {
@@ -67,7 +67,7 @@
             loadData() {
 
                 //Fetch all the groceries
-                $.get('/boodschappen/all', function (response) {
+                $.get('/boodschappen/alles', function (response) {
 
                     //Filter both groceries arrays
                     app.groceries = response;

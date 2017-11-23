@@ -1,5 +1,5 @@
 <section class="body">
     <ul class="list-group changeHeight">
-        <listGroupItem :groceries="groceries"></listGroupItem>
+        <listGroupItemGroceries :groceries="groceries"></listGroupItemGroceries>
     </ul>
 </section>

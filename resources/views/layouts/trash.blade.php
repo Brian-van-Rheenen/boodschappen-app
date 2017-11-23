@@ -1,4 +1,4 @@
-<div class="trashContainer">
+<div class="trashContainer" v-if="trash">
     <div class="trash">
         <ul class="list-group">
             <listGroupItemTrash :groceries="groceries"></listGroupItemTrash>

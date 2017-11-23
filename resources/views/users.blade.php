@@ -94,12 +94,6 @@
 
             app.$root.resetInput();
         });
-
-        $('.confirmationButton').click(function(){
-            $('.shadow').hide();
-            $('.messageContainer').hide();
-            $('body').css('overflow', 'auto');
-        });
     </script>
 </body>
 </html>

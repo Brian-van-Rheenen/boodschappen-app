@@ -1,12 +1,12 @@
 {
-    "/js/users.js": "/js/users.js?id=72a8a7573478dc819819",
-    "/js/groceries.js": "/js/groceries.js?id=bdacd24ec4531347514d",
-    "/js/history.js": "/js/history.js?id=bf945ef7bd30b1d8b079",
-    "/js/app.js": "/js/app.js?id=706c5e5980edff37dae5",
-    "/css/login.css": "/css/login.css?id=282e9101c26bb1d18494",
-    "/css/groceries.css": "/css/groceries.css?id=8424d45b867f6a7ab615",
-    "/css/users.css": "/css/users.css?id=380266435773bc8befea",
-    "/css/settings.css": "/css/settings.css?id=589b6402fbbbfbdc7f80",
-    "/css/navigation_drawer.css": "/css/navigation_drawer.css?id=3c4a72a13459284646eb",
-    "/js/settings.js": "/js/settings.js?id=a208a2f0b899513fc15c"
+    "/js/users.js": "/js/users.js?id=a04f65aa93cd7bc656d5",
+    "/js/groceries.js": "/js/groceries.js?id=4417c19dd7d494612de1",
+    "/js/settings.js": "/js/settings.js?id=a208a2f0b899513fc15c",
+    "/js/history.js": "/js/history.js?id=b151d4d4615acb90418f",
+    "/js/app.js": "/js/app.js?id=e282aef4dc4512291ad7",
+    "/css/login.css": "/css/login.css?id=f732ba0217ba2cbe5cfb",
+    "/css/groceries.css": "/css/groceries.css?id=d0122838cce2c9b880e9",
+    "/css/users.css": "/css/users.css?id=ac2d9a9220eefb01a6f3",
+    "/css/settings.css": "/css/settings.css?id=79fff61017516454ff7c",
+    "/css/navigation_drawer.css": "/css/navigation_drawer.css?id=3c4a72a13459284646eb"
 }

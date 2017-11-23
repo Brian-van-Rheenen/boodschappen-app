@@ -27,7 +27,15 @@
 
             <input type="submit" class="button" value="Inloggen">
 
-            @include('layouts.errors')
+            @if (count($errors))
+                <div id="flash-message" class="alert alert-danger" role="alert">
+                    @foreach ($errors->all() as $error)
+                        <p>
+                            {{ $error }}
+                        </p>
+                    @endforeach
+                </div>
+            @endif
         </form>
     </section>
 </body>

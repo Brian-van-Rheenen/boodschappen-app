@@ -57,10 +57,7 @@
 
                 this.focusedUser = user;
 
-                $('.shadow').show();
-                $('.messageContainer').css('display', 'flex');
-                $('.resetItems').show();
-                $('body').css('overflow', 'hidden');
+                app.confirmationMessage = true;
             }
         }
     }

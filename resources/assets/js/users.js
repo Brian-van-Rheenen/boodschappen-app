@@ -18,7 +18,8 @@ window.app = new Vue({
         role: '',
         password: '',
         password_confirmation: '',
-        flashMessages: []
+        flashMessages: [],
+        confirmationMessage: false
     },
     methods: {
         add(e) {

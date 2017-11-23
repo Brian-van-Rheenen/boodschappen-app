@@ -7,27 +7,21 @@ $(document).ready(function(){
         $(this).closest('li').find('.items').toggleClass('checked');
     });
 
-    $('.reset').click(function(){
-        $('.shadow').show();
-        $('.messageContainer').css('display', 'flex');
-    })
+    $(document).on('click', '.trashContainer', function(e)
+    {
+        if (e.target !== this)
+        {
+            return;
+        }
 
-    $('.trashContainer').click(function(){
-        $('.trashContainer').css('display', 'none');
-        $('.trash').hide();
-    }).children().click(function() {
-        return false;
+        app.trash = false;
     });
 
-    $('.delete').click(function(){
-        $('.trashContainer').css('display', 'flex');
-        $('.trash').show();
+    $('.reset').click(function(){
+        app.confirmationMessage = true;
     })
 
-    $('.confirmationButton').click(function(){
-        $('.shadow').hide();
-        $('.messageContainer').hide();
-        $('.trashContainer').hide();
-        $('.trash').hide();
+    $('.delete').click(function(){
+        app.trash = true;
     })
 });

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="confirmationMessage">
         <div class="shadow"></div>
         <div class="messageContainer">
             <div class="message">
@@ -11,8 +11,8 @@
                     <span class="description">{{ message }} <strong>{{ email }}</strong> <br><br> Dit <strong>{{ action }}</strong> {{ remaining }}</span>
                 </div>
                 <div class="buttonContainer">
-                    <button type="button" class="confirmationButton"><span>Annuleren</span></button>
-                    <button type="button" class="confirmationButton" v-on:click="confirm()"><span>{{ buttonSpan }}</span></button>
+                    <button type="button" class="confirmationButton" v-on:click="confirmationMessage = false"><span>Annuleren</span></button>
+                    <button type="button" class="confirmationButton" v-on:click="confirm(); confirmationMessage = false"><span>{{ buttonSpan }}</span></button>
                 </div>
             </div>
         </div>
@@ -23,6 +23,20 @@
         name: 'messageDelete',
         props: ['title', 'message', 'action', 'remaining', 'onClick', 'buttonSpan', 'users', 'user'],
         computed: {
+            confirmationMessage: {
+                get: function() {
+                    if (this.$root.confirmationMessage)
+                    {
+                        $('body').css('overflow', 'hidden');
+                    }
+                    return this.$root.confirmationMessage;
+                },
+
+                set: function(bool) {
+                    app.$root.confirmationMessage = bool;
+                    $('body').css('overflow', 'auto');
+                }
+            },
             email() {
                 if (this.user)
                 {
@@ -36,6 +50,7 @@
         },
         methods: {
             confirm() {
+                //Check which onClick function to use
                 if (this.onClick == 'trash')
                 {
                     this.trash();
@@ -77,7 +92,6 @@
 </script>
 <style>
 .shadow {
-    display: none;
     height: 100%;
     position: fixed;
     width: 100%;
@@ -89,7 +103,7 @@
 }
 
 .messageContainer {
-    display: none;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;

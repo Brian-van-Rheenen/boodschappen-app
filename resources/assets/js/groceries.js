@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import Listgroupitem from './components/listGroupItem';
+import Listgroupitemgroceries from './components/listGroupItemGroceries';
 import Listgroupitemtrash from './components/listGroupItemTrash';
 import Messagedelete from './components/messageDelete';
 
@@ -10,7 +10,7 @@ window.axios = window.axios = require('axios');
 window.app = new Vue({
     el: '#content',
     components: {
-        Listgroupitem,
+        Listgroupitemgroceries,
         Listgroupitemtrash,
         Messagedelete
     },
@@ -21,7 +21,10 @@ window.app = new Vue({
         image: '',
         popularItems: [],
         ahItems: [],
-        timer: ''
+        timer: '',
+        ahGroupItem: false,
+        confirmationMessage: false,
+        trash: false
     },
     methods: {
         addItem() {
@@ -80,7 +83,7 @@ window.app = new Vue({
         },
         getItems() {
             //Show the list
-            $('.ahGroupItem').show();
+            this.ahGroupItem = true;
 
             //Clear the timeout
             window.clearTimeout(this.timer);
@@ -96,7 +99,7 @@ window.app = new Vue({
                 this.timer = window.setTimeout(function() {
 
                     //Get all the popular items
-                    axios.get('/boodschappen/popular/' + this.description).then((res) => {
+                    axios.get('/boodschappen/populair/' + this.description).then((res) => {
 
                         //Create a border around the box
                         $('.ahGroupItem').css('border', '1px solid #ccc')
@@ -174,7 +177,7 @@ window.app = new Vue({
                 this.timer = window.setTimeout(function() {
 
                     //Get all the popular items
-                    axios.get('/boodschappen/popular').then((res) => {
+                    axios.get('/boodschappen/populair').then((res) => {
 
                         //Create a border around the box
                         $('.ahGroupItem').css('border', '1px solid #ccc')
@@ -215,7 +218,7 @@ window.app = new Vue({
             this.ahItems = [];
 
             //Hide the list
-            $('.ahGroupItem').hide();
+            this.ahGroupItem = false;
         }
     }
 });

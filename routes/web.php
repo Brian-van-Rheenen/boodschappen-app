@@ -14,17 +14,19 @@
 Route::get('/', 'SessionsController@index')->name('login');
 Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');
+
 Route::get('/boodschappen', 'GroceriesController@index')->name('home');
-Route::get('/boodschappen/popular', 'GroceriesController@allPopularGroceries');
-Route::get('/boodschappen/popular/{description}', 'GroceriesController@specificPopularGroceries');
-Route::get('/boodschappen/all', 'GroceriesController@allGroceries');
+Route::get('/boodschappen/populair', 'GroceriesController@allPopularGroceries');
+Route::get('/boodschappen/populair/{description}', 'GroceriesController@specificPopularGroceries');
+Route::get('/boodschappen/alles', 'GroceriesController@allGroceries');
 Route::post('/boodschappen', 'GroceriesController@store');
-Route::get('/boodschappen/{id}', 'GroceriesController@findById');
 Route::post('/boodschappen/{id}/update', 'GroceriesController@update');
 Route::post('/boodschappen/{id}/delete', 'GroceriesController@destroy');
 Route::post('/boodschappen/reset', 'GroceriesController@reset');
+
 Route::get('/history', 'HistoryController@index');
-Route::get('/history/all', 'HistoryController@entireHistory');
+Route::get('/history/alles', 'HistoryController@entireHistory');
+
 Route::get('/instellingen', 'SettingsController@index');
 Route::post('/instellingen/{id}/wachtwoord', 'SettingsController@update');
 
