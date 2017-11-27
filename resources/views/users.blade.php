@@ -33,20 +33,6 @@
                     <label class="label-role">Rol:</label>
                 </div>
 
-                <div class="group">
-                    <input type="password" name="password" v-model="password" required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Wachtwoord</label>
-                </div>
-
-                <div class="group">
-                    <input type="password" name="password_confirmation" v-model="password_confirmation" required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Herhaal wachtwoord</label>
-                </div>
-
                 <input type="submit" class="button" value="Account aanmaken">
             </form>
 

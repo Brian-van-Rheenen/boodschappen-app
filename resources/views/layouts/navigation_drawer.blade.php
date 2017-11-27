@@ -23,6 +23,9 @@
     </div>
     <nav class="drawer-navigation drawer-border">
         @if(Auth::check() && Auth::user()->isAdmin())
+            <a class="drawer-list-item" href="/planning">
+                <i class="material-icons nav-icons">date_range</i><span>Dynamisch instellen</span>
+            </a>
             <a class="drawer-list-item" href="/gebruikers">
                 <i class="material-icons nav-icons">supervisor_account</i><span>Gebruikers beheren</span>
             </a>

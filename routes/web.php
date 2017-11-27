@@ -32,8 +32,13 @@ Route::post('/instellingen/{id}/wachtwoord', 'SettingsController@update');
 
 Route::group(['middleware' => 'admin'], function ()
 {
+    Route::get('/planning', 'ScheduleController@index');
+
     Route::get('/gebruikers', 'UsersController@index');
     Route::post('/gebruikers/toevoegen', 'UsersController@store');
     Route::post('/gebruikers/{id}/update', 'UsersController@update');
     Route::post('/gebruikers/{id}/delete', 'UsersController@destroy');
 });
+
+Route::get('/verifieer/{confirmationCode}', 'SessionsController@show');
+Route::post('/verifieer/update/{confirmationCode}', 'SessionsController@update');

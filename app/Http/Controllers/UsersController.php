@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
+use Mail;
 
 class UsersController extends Controller
 {
@@ -27,8 +28,7 @@ class UsersController extends Controller
     {
         //Validate the data
         $this->validate(request(), [
-            'email' => 'required|email',
-            'password' => 'required|min:5|confirmed'
+            'email' => 'required|email'
         ]);
 
         //Find the user if it exists
@@ -44,21 +44,38 @@ class UsersController extends Controller
         }
         else
         {
+            //Create temporary variables
+            $temp_password = str_random(30);
+            $confirmation_code = str_random(30);
+
             // Create and save the user
             $user = User::create([
                 'email' => request('email'),
-                'password' => bcrypt(request('password')),
-                'role' => request('role')
+                'password' => bcrypt($temp_password),
+                'role' => request('role'),
+                'confirmation_code' => $confirmation_code
             ]);
+
+            //Temporary array
+            $data['confirmation_code'] = $confirmation_code;
+
+            //Send a mail to the created emailaddress
+            Mail::send('email.verify', $data, function($message) {
+                $message->to(request('email'))
+                        ->subject('Verifieer je account');
+            });
 
             //Create a flash message
             $message['description'] = 'Account voor ' . $user->email . ' aangemaakt.';
             $message['type'] = 'success';
-        }
+            $email['description'] = 'Er is een e-mail verzonden naar ' . $user->email . '.';
+            $email['type'] = 'success';
 
-        //Return to the view
-        return [$user, $message];
+            //Return to the view
+            return [$user, $message, $email];
+        }
     }
+
     public function update($id)
     {
         //Validate the data

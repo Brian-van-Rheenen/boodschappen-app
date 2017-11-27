@@ -1,12 +1,16 @@
 {
-    "/js/users.js": "/js/users.js?id=dc577c62909d85a9f166",
-    "/js/groceries.js": "/js/groceries.js?id=25c6b1016668c65c922c",
-    "/js/settings.js": "/js/settings.js?id=a208a2f0b899513fc15c",
-    "/js/history.js": "/js/history.js?id=b151d4d4615acb90418f",
-    "/js/app.js": "/js/app.js?id=e282aef4dc4512291ad7",
+    "/js/users.js": "/js/users.js?id=714f94b3284b35e93a0a",
+    "/js/groceries.js": "/js/groceries.js?id=228f4c3791e64b268c3e",
+    "/js/verify.js": "/js/verify.js?id=78c959d288ba6e3bc5e3",
+    "/js/settings.js": "/js/settings.js?id=d1031b15a6d1c781df03",
+    "/js/schedule.js": "/js/schedule.js?id=cb7b4727e9709ee51178",
+    "/js/history.js": "/js/history.js?id=e30717d890fc714fd675",
+    "/js/app.js": "/js/app.js?id=8d75f951a504dca20df0",
     "/css/login.css": "/css/login.css?id=f732ba0217ba2cbe5cfb",
+    "/css/verify.css": "/css/verify.css?id=f65f3788dca7cd512e24",
     "/css/groceries.css": "/css/groceries.css?id=b7aa19967fdc7d99d6a6",
     "/css/users.css": "/css/users.css?id=ac2d9a9220eefb01a6f3",
     "/css/settings.css": "/css/settings.css?id=79fff61017516454ff7c",
+    "/css/schedule.css": "/css/schedule.css?id=861f7967157b114faa16",
     "/css/navigation_drawer.css": "/css/navigation_drawer.css?id=3c4a72a13459284646eb"
 }

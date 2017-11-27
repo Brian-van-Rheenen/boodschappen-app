@@ -31,6 +31,11 @@ window.app = new Vue({
 
                 this.flashMessages.push(res.data[1]);
 
+                if (res.data[2])
+                {
+                    this.flashMessages.push(res.data[2]);
+                }
+
                 if (res.data[0] != 'duplicate')
                 {
                     //Push the user in the array

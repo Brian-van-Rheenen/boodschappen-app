@@ -48,7 +48,7 @@
     </head>
     <body>
         <div class="container">
-            <img alt="404 not found" src="images/404.png">
+            <img alt="404 not found" src="/images/404.png">
         </div>
         <script type="text/javascript">
             $('html').click(function(event) {
