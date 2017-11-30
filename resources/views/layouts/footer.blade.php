@@ -18,7 +18,7 @@
         <button type="button" class="btn btn-success addItemButton" @click="quantity += 1"><i class="material-icons">add</i></button>
     </form>
 
-    <button type="button" class="btn btn-danger btn-circle btn-xl reset"><i class="material-icons footer-buttons">clear</i></button>
-    <button type="button" class="btn btn-warning btn-circle btn-xl delete"><i class="material-icons footer-buttons">remove</i></button>
-    <button type="button" class="btn btn-primary btn-circle btn-xl add"><i class="material-icons footer-buttons">add</i></button>
+    <button type="button" class="btn-circle btn-xl reset"><i class="material-icons footer-buttons">clear</i></button>
+    <button type="button" class="btn-circle btn-xl delete"><i class="material-icons footer-buttons">remove</i></button>
+    <button type="button" class="btn-circle btn-xl add"><i class="material-icons footer-buttons">add</i></button>
 </section>

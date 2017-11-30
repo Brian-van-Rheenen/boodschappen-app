@@ -11,5 +11,12 @@
         var schedule = {!! json_encode($schedule) !!};
     </script>
     <script src="{{ mix('js/schedule.js') }}"></script>
+    <script>
+        $('html').click(function(event) {
+        if(!($(event.target).closest('.addNewItem').length)){
+            app.$children[0].$children[0].ahGroupItem = false;
+        }
+    });
+    </script>
 </body>
 </html>

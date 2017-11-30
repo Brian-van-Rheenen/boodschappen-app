@@ -33,6 +33,8 @@ Route::post('/instellingen/{id}/wachtwoord', 'SettingsController@update');
 Route::group(['middleware' => 'admin'], function ()
 {
     Route::get('/planning', 'ScheduleController@index');
+    Route::post('/planning', 'ScheduleController@store');
+    Route::post('/planning/{id}/delete', 'ScheduleController@destroy');
 
     Route::get('/gebruikers', 'UsersController@index');
     Route::post('/gebruikers/toevoegen', 'UsersController@store');

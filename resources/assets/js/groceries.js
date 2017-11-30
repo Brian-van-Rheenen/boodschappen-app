@@ -114,7 +114,7 @@ window.app = new Vue({
                     axios.get('/boodschappen/populair/' + this.description).then((res) => {
 
                         //Create a border around the box
-                        $('.ahGroupItem').css('border', '1px solid #ccc')
+                        $('.ahGroupItem').css('border', '1px solid #ccc');
 
                         //Get the data
                         var response = res.data;
@@ -192,7 +192,7 @@ window.app = new Vue({
                     axios.get('/boodschappen/populair').then((res) => {
 
                         //Create a border around the box
-                        $('.ahGroupItem').css('border', '1px solid #ccc')
+                        $('.ahGroupItem').css('border', '1px solid #ccc');
 
                         //Get the data
                         var response = res.data;
