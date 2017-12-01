@@ -62,7 +62,7 @@ class UsersController extends Controller
             //Send a mail to the created emailaddress
             Mail::send('email.verify', $data, function($message) {
                 $message->to(request('email'))
-                        ->subject('Verifieer je account');
+                        ->subject('Boodschappen: Verifieer je account');
             });
 
             //Create a flash message
@@ -100,6 +100,7 @@ class UsersController extends Controller
         //Return the saved user
         return [$user, $message];
     }
+
     public function destroy($id)
     {
         //Find the user by its id

@@ -19,6 +19,7 @@ mix.js(['resources/assets/js/buttons.js',
     ], 'js/app.js').version();
 
 mix.js('resources/assets/js/verify.js', 'js/');
+mix.js('resources/assets/js/password_reset.js', 'js/');
 mix.js('resources/assets/js/groceries.js', 'js/');
 mix.js('resources/assets/js/history.js', 'js/');
 mix.js('resources/assets/js/users.js', 'js/');

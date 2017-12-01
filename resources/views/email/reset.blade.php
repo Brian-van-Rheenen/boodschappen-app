@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="nl">
-@include('layouts.head', ['css' => "verify", 'title' => "Boodschappen lijstje | Verifieer"])
+@include('layouts.head', ['css' => "verify", 'title' => "Boodschappen lijstje | Wachtwoord Wijzigen"])
 <body>
-    <header class="layout-header"><span>Verifieer je account</span>
+    <header class="layout-header"><span>Wachtwoord veranderen</span>
         <button class="header-drawer-toggle">
             <a href="/"><i class="material-icons">arrow_back</i></a>
         </button>
     </header>
 
     <section class="body">
-        <p>Vul hieronder je wachtwoord in.</p>
+        <p>Vul hieronder een nieuw wachtwoord in.</p>
 
-        <form class="user-form-add" id="user-form-add" method="POST" action="/verifieer/update/{!! $confirmation_code !!}" @submit.prevent="add">
+        <form class="user-form-add" id="user-form-add" method="POST" action="/wachtwoord-vergeten/update/{!! $password_reset !!}" @submit.prevent="update">
 
             <div class="group">
                 <input type="password" name="password" v-model="password" required>
@@ -27,11 +27,12 @@
                 <label>Herhaal wachtwoord</label>
             </div>
 
-            <input type="submit" class="button" value="Account aanmaken">
+            <input type="submit" class="button" value="Wachtwoord wijzigen">
         </form>
 
         <errors></errors>
+        <span style="display: none;" v-bind:style="{'display': succesful}">Klik <a href="/boodschappen">hier</a> om verder te gaan.</span>
     </section>
-    <script src="{{ mix('js/verify.js') }}"></script>
+    <script src="{{ mix('js/password_reset.js') }}"></script>
 </body>
 </html>

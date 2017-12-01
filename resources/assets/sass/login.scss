@@ -164,6 +164,13 @@ input:focus ~ .highlight {
     }
 }
 
+.forgot {
+    display: block;
+    margin-top: 15px;
+    color: #337ab7;
+    text-decoration: none;
+}
+
 .alert-danger, .alert-success {
     margin-top: 15px;
     margin-bottom: 15px;

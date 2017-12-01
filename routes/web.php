@@ -44,3 +44,8 @@ Route::group(['middleware' => 'admin'], function ()
 
 Route::get('/verifieer/{confirmationCode}', 'SessionsController@show');
 Route::post('/verifieer/update/{confirmationCode}', 'SessionsController@update');
+
+Route::get('/wachtwoord-vergeten', 'PasswordResetController@index');
+Route::post('/wachtwoord-vergeten/update', 'PasswordResetController@mail');
+Route::get('/wachtwoord-vergeten/update/{confirmationCode}', 'PasswordResetController@show');
+Route::post('/wachtwoord-vergeten/update/{confirmationCode}', 'PasswordResetController@update');

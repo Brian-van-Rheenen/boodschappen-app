@@ -26,6 +26,7 @@
             </div>
 
             <input type="submit" class="button" value="Inloggen">
+            <div><a class="forgot" href="/wachtwoord-vergeten">Wachtwoord vergeten?</a></div>
 
             @if (count($errors))
                 <div id="flash-message" class="alert alert-danger" role="alert">
