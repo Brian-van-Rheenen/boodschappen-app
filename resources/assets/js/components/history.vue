@@ -34,7 +34,7 @@
             loadData() {
 
                 //Fetch the history
-                $.get('/history/alles', function (response) {
+                $.get('/geschiedenis/alles', function (response) {
 
                     //Update the history log
                     this.historyLog = response;

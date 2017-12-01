@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Groceries;
+use App\Log;
 use App\Schedule;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -82,6 +83,15 @@ class PeriodicGroceries extends Command
                 //Insert the grocery into the database
                 $grocery = Groceries::create($sortedArray);
             }
+
+            //Create a history log and insert it into the database
+            Log::createLog(
+                $data['user'],
+                ' heeft ',
+                $grocery->description,
+                ' toegevoegd.',
+                $data['quantity'] . 'x'
+            );
         }
     }
 }
