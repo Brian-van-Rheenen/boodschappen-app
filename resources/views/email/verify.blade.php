@@ -98,7 +98,7 @@
         <section class="body">
             <p>Verifieer je account door op de link te klikken.<br>Als je dit gedaan hebt, kan je inloggen.</p>
 
-            <button type="button" class="button"><a href="{{ URL::to('verifieer/' . $confirmation_code) }}">Account activeren</a></button>
+            <a class="button" href="{{ URL::to('verifieer/' . $confirmation_code) }}">Account activeren</a>
         </section>
     </div>
 
