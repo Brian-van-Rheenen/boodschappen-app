@@ -6,7 +6,6 @@ $(document).ready(function(){
             app.addItem();
         }
         event.stopPropagation()
-        app.resetForm();
         $('.addNewItem').addClass('hideAddItem');
         $(".newItem").focus();
         $(this).removeClass('btn-primary').addClass('btn-success');

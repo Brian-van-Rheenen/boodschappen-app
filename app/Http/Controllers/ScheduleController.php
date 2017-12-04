@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PopularItem;
 use App\Schedule;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class ScheduleController extends Controller
         ]);
 
         //Add properties to the form data
-        $data = request(['day', 'description', 'quantity']);
+        $data = request(['day', 'description', 'quantity', 'priceWas', 'priceNow']);
         $data['description'] = ucfirst(request('description'));
         $data['image'] = request('image');
 
@@ -44,6 +45,8 @@ class ScheduleController extends Controller
         {
             //Quantity + 1
             $grocery->quantity = $grocery->quantity + $data['quantity'];
+            $grocery->priceWas = request('priceWas');
+            $grocery->priceNow = request('priceNow');
             $grocery->image = $data['image'];
             $grocery->save();
         }
@@ -51,6 +54,20 @@ class ScheduleController extends Controller
         {
             //Insert the grocery into the database
             $grocery = Schedule::create($data);
+        }
+
+        //Find the grocery if it exists
+        $popularItem = PopularItem::where('description', '=', request('description'))->first();
+
+        //If it does
+        if ($popularItem)
+        {
+            //Update values
+            $popularItem->priceWas = request('priceWas');
+            $popularItem->priceNow = request('priceNow');
+            $popularItem->image = $data['image'];
+            $popularItem->save();
+            return $popularItem;
         }
 
         //Convert to int

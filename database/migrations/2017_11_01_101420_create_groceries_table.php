@@ -18,6 +18,8 @@ class CreateGroceriesTable extends Migration
             $table->string('user');
             $table->string('description');
             $table->integer('quantity');
+            $table->double('priceWas')->nullable();
+            $table->double('priceNow');
             $table->tinyInteger('completed')->default(0);
             $table->string('image')->nullable();
             $table->timestamp('created_at')->nullable();

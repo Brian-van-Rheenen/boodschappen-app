@@ -11,6 +11,8 @@ class Groceries extends Model
         'user',
         'description',
         'quantity',
+        'priceWas',
+        'priceNow',
         'completed',
         'image'
     );

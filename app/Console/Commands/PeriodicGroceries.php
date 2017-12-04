@@ -57,7 +57,7 @@ class PeriodicGroceries extends Command
             $data['completed'] = 0;
 
             //New array order
-            $sort = array('id', 'user', 'description', 'quantity', 'completed', 'image');
+            $sort = array('id', 'user', 'description', 'quantity', 'priceWas', 'priceNow', 'completed', 'image');
 
             //New empty array
             $sortedArray = array();

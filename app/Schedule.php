@@ -13,6 +13,8 @@ class Schedule extends Model
         'day',
         'description',
         'quantity',
+        'priceWas',
+        'priceNow',
         'image'
     );
 }

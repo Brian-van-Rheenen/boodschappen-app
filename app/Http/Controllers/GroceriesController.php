@@ -25,6 +25,13 @@ class GroceriesController extends Controller
         //Loop through the array
         for ($i = 0; $i < count($groceries); $i++)
         {
+            //2 decimals behind comma
+            if ($groceries[$i]->priceWas)
+            {
+                $groceries[$i]->priceWas = number_format($groceries[$i]->priceWas, 2);
+            }
+            $groceries[$i]->priceNow = number_format($groceries[$i]->priceNow, 2);
+
             //Convert to int
             $groceries[$i]->quantity = (int)$groceries[$i]->quantity;
             $groceries[$i]->completed = (int)$groceries[$i]->completed;
@@ -39,6 +46,17 @@ class GroceriesController extends Controller
         $popularItem = PopularItem::where('description', 'like', '%' . $description . '%')
             ->get();
 
+        //Loop through the array
+        for ($i = 0; $i < count($popularItem); $i++)
+        {
+            //2 decimals behind comma
+            if ($popularItem[$i]->priceWas)
+            {
+                $popularItem[$i]->priceWas = number_format($popularItem[$i]->priceWas, 2);
+            }
+            $popularItem[$i]->priceNow = number_format($popularItem[$i]->priceNow, 2);
+        }
+
         //Return the groceries
         return $popularItem;
     }
@@ -47,6 +65,17 @@ class GroceriesController extends Controller
         //Retrieve all the popular groceries and order them by 'popularity'
         $popularItem = PopularItem::orderBy('popularity', 'DESC')
             ->get();
+
+        //Loop through the array
+        for ($i = 0; $i < count($popularItem); $i++)
+        {
+            //2 decimals behind comma
+            if ($popularItem[$i]->priceWas)
+            {
+                $popularItem[$i]->priceWas = number_format($popularItem[$i]->priceWas, 2);
+            }
+            $popularItem[$i]->priceNow = number_format($popularItem[$i]->priceNow, 2);
+        }
 
         //Return the groceries
         return $popularItem;
@@ -61,6 +90,13 @@ class GroceriesController extends Controller
         //Loop through the array
         for ($i = 0; $i < count($groceries); $i++)
         {
+            //2 decimals behind comma
+            if ($groceries[$i]->priceWas)
+            {
+                $groceries[$i]->priceWas = number_format($groceries[$i]->priceWas, 2);
+            }
+            $groceries[$i]->priceNow = number_format($groceries[$i]->priceNow, 2);
+
             //Convert to int
             $groceries[$i]->quantity = (int)$groceries[$i]->quantity;
             $groceries[$i]->completed = (int)$groceries[$i]->completed;
@@ -78,7 +114,7 @@ class GroceriesController extends Controller
         ]);
 
         //Add properties to the form data
-        $data = request(['description', 'quantity']);
+        $data = request(['description', 'quantity', 'priceWas', 'priceNow']);
         $data['user'] = Auth::user()->getName();
         $data['description'] = ucfirst(request('description'));
         $data['completed'] = 0;
@@ -92,6 +128,8 @@ class GroceriesController extends Controller
         {
             //Quantity + 1
             $grocery->quantity = $grocery->quantity + $data['quantity'];
+            $grocery->priceWas = request('priceWas');
+            $grocery->priceNow = request('priceNow');
             $grocery->image = $data['image'];
             $grocery->save();
         }
@@ -109,6 +147,10 @@ class GroceriesController extends Controller
         {
             //Popularity + 1
             $popularItem->popularity++;
+
+            //Update values
+            $popularItem->priceWas = request('priceWas');
+            $popularItem->priceNow = request('priceNow');
             $popularItem->image = $data['image'];
             $popularItem->save();
         }
@@ -116,6 +158,8 @@ class GroceriesController extends Controller
         {
             //Temporary array to use
             $item['description'] = preg_replace('/[^\x00-\x7f]/', '', $data['description']);
+            $item['priceWas'] = request('priceWas');
+            $item['priceNow'] = request('priceNow');
             $item['image'] = $data['image'];
             $item['popularity'] = 1;
 

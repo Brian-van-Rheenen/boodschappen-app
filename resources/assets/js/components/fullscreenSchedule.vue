@@ -56,20 +56,22 @@
                         <ul class="list-group ahGroupItem" v-if="ahGroupItem">
                             <div class="popularItems" v-if="this.$root.popularItems.length">
                                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
-                                <li class="list-group-item ahItem" v-for="item in this.$root.popularItems" @click="getValue(item.description,item.image)">
+                                <li class="list-group-item ahItem" v-for="item in this.$root.popularItems" @click="getValue(item.description,item.image,item.priceWas,item.priceNow)">
                                     <div class="container">
                                         <img :src="item.image" v-if="item.image">
                                     </div>
                                     <div class="items">{{ item.description }}</div>
+                                    <span class="ahPrice" v-if="item.image"><span class="priceWas" v-bind:class="{'bonus': item.priceNow}">{{ item.priceWas }}</span><span class="priceNow" v-bind:class="{'bonus': item.priceWas}">{{ item.priceNow }}</span></span>
                                 </li>
                             </div>
                             <div class="ahItems" v-if="this.$root.ahItems.length">
                                 <li class="list-group-item ahItem"><h4>Suggesties:</h4></li>
-                                <li class="list-group-item ahItem" v-for="item in this.$root.ahItems" @click="getValue(item.description,item.image)">
+                                <li class="list-group-item ahItem" v-for="item in this.$root.ahItems" @click="getValue(item.description,item.image,item.priceWas,item.priceNow)">
                                     <div class="container">
                                         <img :src="item.image" v-if="item.image">
                                     </div>
                                     <div class="items">{{ item.description }}</div>
+                                    <span class="ahPrice" v-if="item.image"><span class="priceWas" v-bind:class="{'bonus': item.priceNow}">{{ item.priceWas }}</span><span class="priceNow" v-bind:class="{'bonus': item.priceWas}">{{ item.priceNow }}</span></span>
                                 </li>
                             </div>
                         </ul>
@@ -101,6 +103,8 @@
             return {
                 description: '',
                 quantity: 1,
+                priceWas: 0,
+                priceNow: 0,
                 image: '',
                 timer: '',
                 ahGroupItem: false,
@@ -138,6 +142,8 @@
                     {
                         this.description = '';
                         this.quantity = 1;
+                        this.priceWas = 0,
+                        this.priceNow = 0,
                         this.image = '';
                         this.selectedDate = '';
                         this.disabled = true;
@@ -185,49 +191,95 @@
             addItem() {
                 if (this.description)
                 {
-                    //Create AJAX post
-                    axios.post('/planning', {
-                        day: this.selectedDate,
-                        description: this.description,
-                        quantity: this.quantity,
-                        image: this.image
-                    }).then((res) => {
+                    //AJAX GET call to ah.nl
+                    axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + this.description + '&searchType=product&_=1510216828382').then((res) => {
 
-                        //Loop through all the schedule
-                        for (var i in this.schedule)
+                        //Fetch the specific property
+                        response = res.data['_embedded']['lanes'];
+
+                        //Loop through that property
+                        for (var i in response)
                         {
-                            //If the added grocery matches any in the array
-                            if (this.schedule[i].description == res.data.description && this.schedule[i].day == res.data.day)
+                            //Find a specific property inside the array
+                            if (response[i].type == 'SearchLane')
                             {
-                                //Mark it as found and save the index
-                                var found = true;
+                                //Store the used index
                                 var index = i;
-
-                                break;
                             }
-                            else
+                        }
+
+                        try
+                        {
+                            //Fetch the specific property
+                            var response = res.data['_embedded']['lanes'][index]['_embedded']['items'];
+
+                            //Remove the last array object from the array
+                            response.pop();
+
+                            //Loop through the array
+                            for (var k in response)
                             {
-                                //Mark it as not found
-                                var found = false;
+                                //Find a specific property inside the array that indicates that it is a grocery item
+                                if (response[k].context == 'SearchAndBrowse' && response[k]['_embedded']['product'].description.replace(/[^\x00-\x7F]/g, "") == this.description)
+                                {
+                                    //Save the fetched results into that array
+                                    this.priceNow = response[k]['_embedded']['product']['priceLabel']['now'];
+                                    this.priceWas = response[k]['_embedded']['product']['priceLabel']['was'];
+                                }
                             }
+
+
+                            //Create AJAX post
+                            axios.post('/planning', {
+                                day: this.selectedDate,
+                                description: this.description,
+                                quantity: this.quantity,
+                                priceWas: this.priceWas,
+                                priceNow: this.priceNow,
+                                image: this.image
+                            }).then((res) => {
+
+                                //Loop through all the schedule
+                                for (var i in this.schedule)
+                                {
+                                    //If the added grocery matches any in the array
+                                    if (this.schedule[i].description == res.data.description && this.schedule[i].day == res.data.day)
+                                    {
+                                        //Mark it as found and save the index
+                                        var found = true;
+                                        var index = i;
+
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        //Mark it as not found
+                                        var found = false;
+                                    }
+                                }
+
+                                //If the added grocery is already inside the array
+                                if (found)
+                                {
+                                    //Update the values
+                                    this.schedule[index].quantity = res.data.quantity;
+
+                                    //Reset the form
+                                    this.resetForm();
+                                }
+                                else
+                                {
+                                    //Push the added item into the schedule array
+                                    this.schedule.push(res.data);
+
+                                    //Reset the form
+                                    this.resetForm();
+                                }
+                            });
                         }
-
-                        //If the added grocery is already inside the array
-                        if (found)
-                        {
-                            //Update the quantity
-                            this.schedule[index].quantity = res.data.quantity;
-
-                            //Reset the form
-                            this.resetForm();
-                        }
-                        else
-                        {
-                            //Push the added item into the schedule array
-                            this.schedule.push(res.data);
-
-                            //Reset the form
-                            this.resetForm();
+                        catch(err) {
+                            //If it can't find any groceries, return
+                            return;
                         }
                     });
                 }
@@ -310,7 +362,9 @@
                                         var item = {};
 
                                         //Save the fetched results into that array
-                                        item['description'] = response[k]['_embedded']['product']['description'];
+                                        item['description'] = response[k]['_embedded']['product']['description'].replace(/[^\x00-\x7F]/g, "");
+                                        item['priceNow'] = response[k]['_embedded']['product']['priceLabel']['now'];
+                                        item['priceWas'] = response[k]['_embedded']['product']['priceLabel']['was'];
                                         item['image'] = response[k]['_embedded']['product']['images'][3]['link']['href'];
 
                                         //Push that array inside the ahItems array
@@ -360,13 +414,20 @@
                 this.description = '';
                 this.image = '';
                 this.quantity = 1;
+                this.priceWas = 0;
+                this.priceNow = 0;
                 app.popularItems = [];
                 app.ahItems = [];
                 $('.ahGroupItem').css('border', 'none')
             },
-            getValue(value, img) {
+            getValue(value, img, priceWas, priceNow) {
+
                 //Set the description to the given value
                 this.description = value;
+
+                //Set the prices
+                this.priceWas = priceWas;
+                this.priceNow = priceNow;
 
                 //Set the value of 'image' to the given value
                 this.image = img;
@@ -672,8 +733,28 @@ input:focus ~ .highlight, select:focus ~ .highlight {
     margin-right: auto;
 }
 
-.ahItem span {
-    width: 200px;
+.ahPrice {
+    text-align: right;
+    width: auto !important;
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+}
+
+.priceWas {
+    display: block;
+}
+
+.priceWas.bonus {
+    text-decoration: line-through;
+}
+
+.priceNow {
+    display: block;
+}
+
+.priceNow.bonus {
+    color: #ff7900;
 }
 
 .ahItems li:first-child, .popularItems li:first-child {

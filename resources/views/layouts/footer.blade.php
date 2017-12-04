@@ -3,11 +3,11 @@
         <ul class="list-group ahGroupItem" v-if="ahGroupItem">
             <div class="popularItems" v-if="popularItems.length">
                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
-                <li class="list-group-item ahItem" v-for="item in popularItems" @click="getValue(item.description,item.image)"><img :src="item.image" v-if="item.image"><span v-bind:class="{'centered': !item.image}">@{{ item.description }}</span></li>
+                <li class="list-group-item ahItem" v-for="item in popularItems" @click="getValue(item.description,item.image,item.priceWas,item.priceNow)"><img :src="item.image" v-if="item.image"><span class="ahDescription" v-bind:class="{'centered': !item.image}">@{{ item.description }}</span><span class="ahPrice" v-if="item.image"><span class="priceWas" v-bind:class="{'bonus': item.priceNow}">@{{ item.priceWas }}</span><span class="priceNow" v-bind:class="{'bonus': item.priceWas}">@{{ item.priceNow }}</span></span></li>
             </div>
             <div class="ahItems" v-if="ahItems.length">
                 <li class="list-group-item ahItem"><h4>Suggesties:</h4></li>
-                <li class="list-group-item ahItem" v-for="ahItem in ahItems" @click="getValue(ahItem.description,ahItem.image)"><img :src="ahItem.image" v-if="ahItem.image"><span>@{{ ahItem.description }}</span></li>
+                <li class="list-group-item ahItem" v-for="ahItem in ahItems" @click="getValue(ahItem.description,ahItem.image,ahItem.priceWas,ahItem.priceNow)"><img :src="ahItem.image" v-if="ahItem.image"><span class="ahDescription">@{{ ahItem.description }}</span><span class="ahPrice"><span class="priceWas" v-bind:class="{'bonus': ahItem.priceNow}">@{{ ahItem.priceWas }}</span><span class="priceNow" v-bind:class="{'bonus': ahItem.priceWas}">@{{ ahItem.priceNow }}</span></span></li>
             </div>
         </ul>
 
