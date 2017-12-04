@@ -14,4 +14,14 @@ class PopularItem extends Model
         'image',
         'popularity'
     );
+
+    public function setProperties($data)
+    {
+        $this->description = ucfirst($data['description']);
+        $this->priceWas = $data['priceWas'] ?? null;
+        $this->priceNow = $data['priceNow'];
+        $this->image = $data['image'] ?? null;
+        $this->popularity++;
+        $this->save();
+    }
 }

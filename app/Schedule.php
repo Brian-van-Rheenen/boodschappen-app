@@ -17,4 +17,15 @@ class Schedule extends Model
         'priceNow',
         'image'
     );
+
+    public function setProperties($data)
+    {
+        $this->day = $data['day'];
+        $this->description = ucfirst($data['description']);
+        $this->quantity = $this->quantity + $data['quantity'];
+        $this->priceWas = $data['priceWas'] ?? null;
+        $this->priceNow = $data['priceNow'];
+        $this->image = $data['image'] ?? null;
+        $this->save();
+    }
 }

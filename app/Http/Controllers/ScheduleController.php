@@ -31,9 +31,7 @@ class ScheduleController extends Controller
         ]);
 
         //Add properties to the form data
-        $data = request(['day', 'description', 'quantity', 'priceWas', 'priceNow']);
-        $data['description'] = ucfirst(request('description'));
-        $data['image'] = request('image');
+        $data = request(['day', 'description', 'quantity', 'priceWas', 'priceNow', 'image']);
 
         //Find the grocery if it exists
         $grocery = Schedule::where('description', '=', request('description'))
@@ -43,12 +41,8 @@ class ScheduleController extends Controller
         //If it does
         if ($grocery)
         {
-            //Quantity + 1
-            $grocery->quantity = $grocery->quantity + $data['quantity'];
-            $grocery->priceWas = request('priceWas');
-            $grocery->priceNow = request('priceNow');
-            $grocery->image = $data['image'];
-            $grocery->save();
+            //Update properties
+            $grocery->setProperties($data);
         }
         else
         {
@@ -62,16 +56,9 @@ class ScheduleController extends Controller
         //If it does
         if ($popularItem)
         {
-            //Update values
-            $popularItem->priceWas = request('priceWas');
-            $popularItem->priceNow = request('priceNow');
-            $popularItem->image = $data['image'];
-            $popularItem->save();
-            return $popularItem;
+            //Update properties
+            $popularItem->setProperties($data);
         }
-
-        //Convert to int
-        $grocery->quantity = (int)$grocery->quantity;
 
         //Return the inserted grocery
         return $grocery;

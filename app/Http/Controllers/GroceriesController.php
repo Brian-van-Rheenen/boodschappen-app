@@ -22,20 +22,8 @@ class GroceriesController extends Controller
             ->latest()
             ->get();
 
-        //Loop through the array
-        for ($i = 0; $i < count($groceries); $i++)
-        {
-            //2 decimals behind comma
-            if ($groceries[$i]->priceWas)
-            {
-                $groceries[$i]->priceWas = number_format($groceries[$i]->priceWas, 2);
-            }
-            $groceries[$i]->priceNow = number_format($groceries[$i]->priceNow, 2);
-
-            //Convert to int
-            $groceries[$i]->quantity = (int)$groceries[$i]->quantity;
-            $groceries[$i]->completed = (int)$groceries[$i]->completed;
-        }
+        //Sort the array
+        Groceries::sortArray($groceries);
 
         //Return the groceries view and send the groceries with it
         return view('groceries', compact('groceries'));
@@ -46,16 +34,8 @@ class GroceriesController extends Controller
         $popularItem = PopularItem::where('description', 'like', '%' . $description . '%')
             ->get();
 
-        //Loop through the array
-        for ($i = 0; $i < count($popularItem); $i++)
-        {
-            //2 decimals behind comma
-            if ($popularItem[$i]->priceWas)
-            {
-                $popularItem[$i]->priceWas = number_format($popularItem[$i]->priceWas, 2);
-            }
-            $popularItem[$i]->priceNow = number_format($popularItem[$i]->priceNow, 2);
-        }
+        //Sort the array
+        Groceries::sortArray($popularItem);
 
         //Return the groceries
         return $popularItem;
@@ -66,16 +46,8 @@ class GroceriesController extends Controller
         $popularItem = PopularItem::orderBy('popularity', 'DESC')
             ->get();
 
-        //Loop through the array
-        for ($i = 0; $i < count($popularItem); $i++)
-        {
-            //2 decimals behind comma
-            if ($popularItem[$i]->priceWas)
-            {
-                $popularItem[$i]->priceWas = number_format($popularItem[$i]->priceWas, 2);
-            }
-            $popularItem[$i]->priceNow = number_format($popularItem[$i]->priceNow, 2);
-        }
+        //Sort the array
+        Groceries::sortArray($popularItem);
 
         //Return the groceries
         return $popularItem;
@@ -87,20 +59,8 @@ class GroceriesController extends Controller
             ->latest()
             ->get();
 
-        //Loop through the array
-        for ($i = 0; $i < count($groceries); $i++)
-        {
-            //2 decimals behind comma
-            if ($groceries[$i]->priceWas)
-            {
-                $groceries[$i]->priceWas = number_format($groceries[$i]->priceWas, 2);
-            }
-            $groceries[$i]->priceNow = number_format($groceries[$i]->priceNow, 2);
-
-            //Convert to int
-            $groceries[$i]->quantity = (int)$groceries[$i]->quantity;
-            $groceries[$i]->completed = (int)$groceries[$i]->completed;
-        }
+        //Sort the array
+        Groceries::sortArray($groceries);
 
         //Return the groceries
         return $groceries;
@@ -116,7 +76,6 @@ class GroceriesController extends Controller
         //Add properties to the form data
         $data = request(['description', 'quantity', 'priceWas', 'priceNow']);
         $data['user'] = Auth::user()->getName();
-        $data['description'] = ucfirst(request('description'));
         $data['completed'] = 0;
         $data['image'] = request('image');
 
@@ -126,12 +85,8 @@ class GroceriesController extends Controller
         //If it does
         if ($grocery)
         {
-            //Quantity + 1
-            $grocery->quantity = $grocery->quantity + $data['quantity'];
-            $grocery->priceWas = request('priceWas');
-            $grocery->priceNow = request('priceNow');
-            $grocery->image = $data['image'];
-            $grocery->save();
+            //Update properties
+            $grocery->setProperties($data);
         }
         else
         {
@@ -145,14 +100,8 @@ class GroceriesController extends Controller
         //If it does
         if ($popularItem)
         {
-            //Popularity + 1
-            $popularItem->popularity++;
-
-            //Update values
-            $popularItem->priceWas = request('priceWas');
-            $popularItem->priceNow = request('priceNow');
-            $popularItem->image = $data['image'];
-            $popularItem->save();
+            //Update properties
+            $popularItem->setProperties($data);
         }
         else
         {
@@ -175,10 +124,6 @@ class GroceriesController extends Controller
             ' toegevoegd.',
             $data['quantity'] . 'x'
         );
-
-        //Convert to int
-        $grocery->quantity = (int)$grocery->quantity;
-        $grocery->completed = (int)$grocery->completed;
 
         //Return the inserted grocery
         return $grocery;
