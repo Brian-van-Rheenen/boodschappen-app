@@ -24,7 +24,6 @@ window.app = new Vue({
         popularItems: [],
         ahItems: [],
         timer: '',
-        ahGroupItem: false,
         confirmationMessage: false,
         trash: false
     },
@@ -143,8 +142,6 @@ window.app = new Vue({
             }
         },
         getItems() {
-            //Show the list
-            this.ahGroupItem = true;
 
             //Clear the timeout
             window.clearTimeout(this.timer);
@@ -178,9 +175,6 @@ window.app = new Vue({
 
                     //AJAX GET call to ah.nl
                     axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + this.description + '&searchType=product&_=1510216828382').then((res) => {
-
-                        //Create a border around the box
-                        $('.ahGroupItem').css('border', '1px solid #ccc');
 
                         //Fetch the specific property
                         response = res.data['_embedded']['lanes'];
@@ -249,9 +243,6 @@ window.app = new Vue({
                     //Get all the popular items
                     axios.get('/boodschappen/populair').then((res) => {
 
-                        //Create a border around the box
-                        $('.ahGroupItem').css('border', '1px solid #ccc');
-
                         //Get the data
                         var response = res.data;
 
@@ -277,7 +268,6 @@ window.app = new Vue({
             this.priceNow = 0;
             this.popularItems = [];
             this.ahItems = [];
-            $('.ahGroupItem').css('border', 'none')
         },
         getValue(value, img, priceWas, priceNow) {
 
@@ -292,10 +282,8 @@ window.app = new Vue({
             this.image = img;
 
             //Reset the array
+            this.popularItems = [];
             this.ahItems = [];
-
-            //Hide the list
-            this.ahGroupItem = false;
         }
     }
 });

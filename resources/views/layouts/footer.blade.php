@@ -1,6 +1,6 @@
 <section class="footer">
     <form class="addNewItem">
-        <ul class="list-group ahGroupItem" v-if="ahGroupItem">
+        <ul class="list-group ahGroupItem" v-if="popularItems.length || ahItems.length">
             <div class="popularItems" v-if="popularItems.length">
                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
                 <li class="list-group-item ahItem" v-for="item in popularItems" @click="getValue(item.description,item.image,item.priceWas,item.priceNow)"><img :src="item.image" v-if="item.image"><span class="ahDescription" v-bind:class="{'centered': !item.image}">@{{ item.description }}</span><span class="ahPrice" v-if="item.image"><span class="priceWas" v-bind:class="{'bonus': item.priceNow}">@{{ item.priceWas }}</span><span class="priceNow" v-bind:class="{'bonus': item.priceWas}">@{{ item.priceNow }}</span></span></li>

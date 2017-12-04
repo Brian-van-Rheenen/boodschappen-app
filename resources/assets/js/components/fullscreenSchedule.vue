@@ -53,7 +53,7 @@
                     </div>
 
                     <form class="addNewItem">
-                        <ul class="list-group ahGroupItem" v-if="ahGroupItem">
+                        <ul class="list-group ahGroupItem" v-if="this.$root.popularItems.length || this.$root.ahItems.length">
                             <div class="popularItems" v-if="this.$root.popularItems.length">
                                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
                                 <li class="list-group-item ahItem" v-for="item in this.$root.popularItems" @click="getValue(item.description,item.image,item.priceWas,item.priceNow)">
@@ -107,7 +107,6 @@
                 priceNow: 0,
                 image: '',
                 timer: '',
-                ahGroupItem: false,
                 showDialog: false,
                 selectedDate: '',
                 disabled: true
@@ -289,7 +288,6 @@
                 }
             },
             getItems() {
-                $('.ahGroupItem').css('border', 'none');
 
                 //Show the list
                 this.ahGroupItem = true;
@@ -309,9 +307,6 @@
 
                         //Get all the popular items
                         axios.get('/boodschappen/populair/' + this.description).then((res) => {
-
-                            //Create a border around the box
-                            $('.ahGroupItem').css('border', '1px solid #ccc');
 
                             //Get the data
                             var response = res.data;
@@ -390,9 +385,6 @@
                         //Get all the popular items
                         axios.get('/boodschappen/populair').then((res) => {
 
-                            //Create a border around the box
-                            $('.ahGroupItem').css('border', '1px solid #ccc');
-
                             //Get the data
                             var response = res.data;
 
@@ -418,7 +410,6 @@
                 this.priceNow = 0;
                 app.popularItems = [];
                 app.ahItems = [];
-                $('.ahGroupItem').css('border', 'none')
             },
             getValue(value, img, priceWas, priceNow) {
 
@@ -433,10 +424,8 @@
                 this.image = img;
 
                 //Reset the array
+                app.popularItems = [];
                 app.ahItems = [];
-
-                //Hide the list
-                this.ahGroupItem = false;
             }
         }
     }
@@ -715,6 +704,7 @@ input:focus ~ .highlight, select:focus ~ .highlight {
     max-height: 370px;
     overflow-y: auto;
     margin-bottom: 8px;
+    border: 1px solid #ccc;
 }
 
 .ahItem {

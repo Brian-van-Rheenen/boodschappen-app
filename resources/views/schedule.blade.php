@@ -13,8 +13,8 @@
     <script src="{{ mix('js/schedule.js') }}"></script>
     <script>
         $('html').click(function(event) {
-        if(!($(event.target).closest('.addNewItem').length)){
-            app.$children[0].$children[0].ahGroupItem = false;
+        if($('.ahGroupItem').length && !($(event.target).closest('.addNewItem').length)){
+            app.$children[0].$children[0].resetForm();
         }
     });
     </script>
