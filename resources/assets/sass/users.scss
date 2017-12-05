@@ -89,11 +89,11 @@ html, body {
     color: #fff;
     margin-left: 5px;
     cursor: pointer;
-}
 
-.disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
+    &.disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
 }
 
 .user-form-add {
@@ -135,20 +135,63 @@ input {
     color: #555;
     border:none;
     border-bottom:1px solid #999;
+
+    &:focus {
+        outline:none;
+        border-color: #c6781d;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset;
+        -webkit-text-fill-color: #555 !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    &:focus ~ label,
+    &:valid ~ label {
+        top:-20px;
+        font-size:14px;
+        color:#d07e20;
+    }
+
+    &:focus ~ .bar:before,
+    &:focus ~ .bar:after {
+        width:50%;
+    }
+
+    &:focus ~ .highlight {
+        -webkit-animation:inputHighlighter 0.3s ease;
+        -moz-animation:inputHighlighter 0.3s ease;
+        animation:inputHighlighter 0.3s ease;
+    }
 }
 
-input:focus, select:focus {
-    outline:none;
-    border-color: #c6781d;
-}
+select {
+    &:focus {
+        outline:none;
+        border-color: #c6781d;
+    }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px white inset;
-    -webkit-text-fill-color: #555 !important;
-    transition: background-color 5000s ease-in-out 0s;
+    &:focus ~ label,
+    &:valid ~ label {
+        top:-20px;
+        font-size:14px;
+        color:#d07e20;
+    }
+
+    &:focus ~ .bar:before,
+    &:focus ~ .bar:after {
+        width:50%;
+    }
+
+    &:focus ~ .highlight {
+        -webkit-animation:inputHighlighter 0.3s ease;
+        -moz-animation:inputHighlighter 0.3s ease;
+        animation:inputHighlighter 0.3s ease;
+    }
 }
 
 label {
@@ -164,37 +207,31 @@ label {
     -webkit-transition:0.2s ease all;
 }
 
-input:focus ~ label, input:valid ~ label, select:focus ~ label, select:valid ~ label {
-    top:-20px;
-    font-size:14px;
-    color:#d07e20;
-}
-
 .bar {
     position:relative;
     display:block;
     width:100%;
-}
-.bar:before, .bar:after {
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background:#d07e20;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-}
-.bar:before {
-    left:50%;
-}
-.bar:after {
-    right:50%;
-}
 
-input:focus ~ .bar:before, input:focus ~ .bar:after, select:focus ~ .bar:before, select:focus ~ .bar:after {
-    width:50%;
+    &:before,
+    &:after {
+        content:'';
+        height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        background:#d07e20;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+
+    &:before {
+        left: 50%;
+    }
+
+    &:after {
+        right: 50%;
+    }
 }
 
 .highlight {
@@ -205,12 +242,6 @@ input:focus ~ .bar:before, input:focus ~ .bar:after, select:focus ~ .bar:before,
     left:0;
     pointer-events:none;
     opacity:0.5;
-}
-
-input:focus ~ .highlight, select:focus ~ .highlight {
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
 }
 
 .button {
