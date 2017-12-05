@@ -8,7 +8,7 @@
             <i class="material-icons">menu</i>
         </button>
     @endif
-    <span class="header-title default">{{ $header }}</span>
+    <span class="header-title">{{ $header }}</span>
 </header>
 
 <div class="layout-dim"></div>
@@ -38,7 +38,7 @@
         </a>
     </nav>
     <nav class="drawer-navigation">
-        <a class="drawer-list-item drawer-icon-right" href="/logout">
+        <a class="drawer-list-item" href="/logout">
             <span>Uitloggen</span><i class="material-icons nav-icons">power_settings_new</i>
         </a>
     </nav>
