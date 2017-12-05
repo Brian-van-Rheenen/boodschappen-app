@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        'app\Console\Commands\CheckPrice',
         'app\Console\Commands\PeriodicGroceries'
     ];
 
@@ -24,8 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('boodschappen:store')
+        $schedule->command('boodschappen:check')
                  ->dailyAt('06:00');
+        $schedule->command('boodschappen:store')
+                 ->dailyAt('03:00');
     }
 
     /**

@@ -83,7 +83,6 @@ window.app = new Vue({
                             }
                         }
 
-
                         //Create AJAX post
                         axios.post('/boodschappen', {
                             productID: this.id,
