@@ -74,7 +74,7 @@ class GroceriesController extends Controller
         ]);
 
         //Add properties to the form data
-        $data = request(['productID', 'description', 'quantity', 'priceWas', 'priceNow']);
+        $data = request(['productID', 'description', 'quantity', 'priceWas', 'priceNow', 'discount']);
         $data['user'] = Auth::user()->getName();
         $data['completed'] = 0;
         $data['image'] = request('image');
@@ -110,6 +110,7 @@ class GroceriesController extends Controller
             $item['description'] = preg_replace('/[^\x00-\x7f]/', '', $data['description']);
             $item['priceWas'] = request('priceWas');
             $item['priceNow'] = request('priceNow');
+            $item['discount'] = request('discount');
             $item['image'] = $data['image'];
             $item['popularity'] = 1;
 

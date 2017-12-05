@@ -12,6 +12,7 @@ class PopularItem extends Model
         'description',
         'priceWas',
         'priceNow',
+        'discount',
         'image',
         'popularity'
     );
@@ -22,6 +23,7 @@ class PopularItem extends Model
         $this->description = ucfirst($data['description']);
         $this->priceWas = $data['priceWas'] ?? null;
         $this->priceNow = $data['priceNow'];
+        $this->discount = $data['discount'];
         $this->image = $data['image'] ?? null;
         $this->popularity++;
         $this->save();

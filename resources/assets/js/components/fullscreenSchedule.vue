@@ -56,7 +56,8 @@
                         <ul class="list-group ahGroupItem" v-if="this.$root.popularItems.length || this.$root.ahItems.length">
                             <div class="popularItems" v-if="this.$root.popularItems.length">
                                 <li class="list-group-item ahItem"><h4>Top 5 populairste items:</h4></li>
-                                <li class="list-group-item ahItem" v-for="item in this.$root.popularItems" @click="getValue(item.description,item.image,item.priceWas,item.priceNow)">
+                                <li class="list-group-item ahItem" v-for="item in this.$root.popularItems" @click="getValue(item.productID,item.description,item.image,item.priceWas,item.priceNow,item.discount)">
+                                    <div class="ribbon" v-if="item.priceWas || item.discount"><span>{{ item.discount }}</span></div>
                                     <div class="container">
                                         <img :src="item.image" v-if="item.image">
                                     </div>
@@ -66,7 +67,8 @@
                             </div>
                             <div class="ahItems" v-if="this.$root.ahItems.length">
                                 <li class="list-group-item ahItem"><h4>Suggesties:</h4></li>
-                                <li class="list-group-item ahItem" v-for="item in this.$root.ahItems" @click="getValue(item.description,item.image,item.priceWas,item.priceNow)">
+                                <li class="list-group-item ahItem" v-for="item in this.$root.ahItems" @click="getValue(item.productID,item.description,item.image,item.priceWas,item.priceNow,item.discount)">
+                                    <div class="ribbon" v-if="item.priceWas || item.discount"><span>{{ item.discount }}</span></div>
                                     <div class="container">
                                         <img :src="item.image" v-if="item.image">
                                     </div>
@@ -101,10 +103,12 @@
         props: ['schedule', 'show'],
         data() {
             return {
+                id: '',
                 description: '',
                 quantity: 1,
                 priceWas: 0,
                 priceNow: 0,
+                discount: '',
                 image: '',
                 timer: '',
                 showDialog: false,
@@ -219,7 +223,7 @@
                             for (var k in response)
                             {
                                 //Find a specific property inside the array that indicates that it is a grocery item
-                                if (response[k].context == 'SearchAndBrowse' && response[k]['_embedded']['product'].description.replace(/[^\x00-\x7F]/g, "") == this.description)
+                                if (response[k].context == 'SearchAndBrowse' && response[k]['_embedded']['product'].id == this.id)
                                 {
                                     //Save the fetched results into that array
                                     this.priceNow = response[k]['_embedded']['product']['priceLabel']['now'];
@@ -231,10 +235,12 @@
                             //Create AJAX post
                             axios.post('/planning', {
                                 day: this.selectedDate,
+                                productID: this.id,
                                 description: this.description,
                                 quantity: this.quantity,
                                 priceWas: this.priceWas,
                                 priceNow: this.priceNow,
+                                discount: this.discount,
                                 image: this.image
                             }).then((res) => {
 
@@ -242,7 +248,7 @@
                                 for (var i in this.schedule)
                                 {
                                     //If the added grocery matches any in the array
-                                    if (this.schedule[i].description == res.data.description && this.schedule[i].day == res.data.day)
+                                    if (this.schedule[i].id == res.data.id && this.schedule[i].day == res.data.day)
                                     {
                                         //Mark it as found and save the index
                                         var found = true;
@@ -261,7 +267,10 @@
                                 if (found)
                                 {
                                     //Update the values
-                                    this.schedule[index].quantity = res.data.quantity;
+                                    this.groceries[index].quantity = res.data.quantity;
+                                    this.groceries[index].priceWas = res.data.priceWas;
+                                    this.groceries[index].priceNow = res.data.priceNow;
+                                    this.groceries[index].discount = res.data.discount;
 
                                     //Reset the form
                                     this.resetForm();
@@ -357,10 +366,23 @@
                                         var item = {};
 
                                         //Save the fetched results into that array
+                                        item['productID'] = response[k]['_embedded']['product']['id'];
                                         item['description'] = response[k]['_embedded']['product']['description'].replace(/[^\x00-\x7F]/g, "");
                                         item['priceNow'] = response[k]['_embedded']['product']['priceLabel']['now'];
                                         item['priceWas'] = response[k]['_embedded']['product']['priceLabel']['was'];
                                         item['image'] = response[k]['_embedded']['product']['images'][3]['link']['href'];
+
+                                        if (response[k]['_embedded']['product']['discount'])
+                                        {
+                                            item['discount'] = response[k]['_embedded']['product']['discount']['label'];
+                                        }
+
+                                        //2 decimals after comma
+                                        if(item['priceWas'])
+                                        {
+                                            item['priceWas'] = item['priceWas'].toFixed(2);
+                                        }
+                                        item['priceNow'] = item['priceNow'].toFixed(2);
 
                                         //Push that array inside the ahItems array
                                         app.ahItems.push(item);
@@ -403,15 +425,20 @@
             },
             resetForm() {
                 //Reset the form
+                this.id = '';
                 this.description = '';
                 this.image = '';
                 this.quantity = 1;
                 this.priceWas = 0;
                 this.priceNow = 0;
+                this.discount = '';
                 app.popularItems = [];
                 app.ahItems = [];
             },
-            getValue(value, img, priceWas, priceNow) {
+            getValue(id, value, img, priceWas, priceNow, discount) {
+
+                //Set id
+                this.id = id;
 
                 //Set the description to the given value
                 this.description = value;
@@ -419,6 +446,9 @@
                 //Set the prices
                 this.priceWas = priceWas;
                 this.priceNow = priceNow;
+
+                //Set the discount label
+                this.discount = discount;
 
                 //Set the value of 'image' to the given value
                 this.image = img;

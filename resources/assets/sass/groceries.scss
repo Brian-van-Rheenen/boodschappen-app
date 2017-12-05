@@ -290,6 +290,7 @@ h4, .empty {
         box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
         position: absolute;
         top: 19px; left: -21px;
+        padding-left: 7px;
 
         &:before {
             content: "";

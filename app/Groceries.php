@@ -14,6 +14,7 @@ class Groceries extends Model
         'quantity',
         'priceWas',
         'priceNow',
+        'discount',
         'completed',
         'image'
     );
@@ -26,6 +27,7 @@ class Groceries extends Model
         $this->quantity = $this->quantity + $data['quantity'];
         $this->priceWas = $data['priceWas'] ?? null;
         $this->priceNow = $data['priceNow'];
+        $this->discount = $data['discount'];
         $this->completed = $data['completed'];
         $this->image = $data['image'] ?? null;
         $this->save();

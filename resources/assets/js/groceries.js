@@ -21,6 +21,7 @@ window.app = new Vue({
         quantity: 1,
         priceWas: 0,
         priceNow: 0,
+        discount: '',
         image: '',
         popularItems: [],
         ahItems: [],
@@ -90,6 +91,7 @@ window.app = new Vue({
                             quantity: this.quantity,
                             priceWas: this.priceWas,
                             priceNow: this.priceNow,
+                            discount: this.discount,
                             image: this.image
                         }).then((res) => {
 
@@ -119,6 +121,7 @@ window.app = new Vue({
                                 this.groceries[index].quantity = res.data.quantity;
                                 this.groceries[index].priceWas = res.data.priceWas;
                                 this.groceries[index].priceNow = res.data.priceNow;
+                                this.groceries[index].discount = res.data.discount;
 
                                 //Reset the form
                                 this.resetForm();
@@ -217,6 +220,11 @@ window.app = new Vue({
                                     item['priceWas'] = response[k]['_embedded']['product']['priceLabel']['was'];
                                     item['image'] = response[k]['_embedded']['product']['images'][3]['link']['href'];
 
+                                    if (response[k]['_embedded']['product']['discount'])
+                                    {
+                                        item['discount'] = response[k]['_embedded']['product']['discount']['label'];
+                                    }
+
                                     //2 decimals after comma
                                     if(item['priceWas'])
                                     {
@@ -271,10 +279,11 @@ window.app = new Vue({
             this.quantity = 1;
             this.priceWas = 0;
             this.priceNow = 0;
+            this.discount = '';
             this.popularItems = [];
             this.ahItems = [];
         },
-        getValue(id, value, img, priceWas, priceNow) {
+        getValue(id, value, img, priceWas, priceNow, discount) {
 
             //Set id
             this.id = id;
@@ -285,6 +294,9 @@ window.app = new Vue({
             //Set the prices
             this.priceWas = priceWas;
             this.priceNow = priceNow;
+
+            //Set the discount label
+            this.discount = discount;
 
             //Set the value of 'image' to the given value
             this.image = img;

@@ -26,7 +26,7 @@
     height: 48px;
     width: 48px;
 
-    > .material-icons {
+    > .material-icons, a > .material-icons {
         position: absolute;
         left: 50%;
         top: 50%;

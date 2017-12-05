@@ -31,7 +31,7 @@ class ScheduleController extends Controller
         ]);
 
         //Add properties to the form data
-        $data = request(['day', 'description', 'quantity', 'priceWas', 'priceNow', 'image']);
+        $data = request(['day', 'productID', 'description', 'quantity', 'priceWas', 'priceNow', 'discount', 'image']);
 
         //Find the grocery if it exists
         $grocery = Schedule::where('description', '=', request('description'))

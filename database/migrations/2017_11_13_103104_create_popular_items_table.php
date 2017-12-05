@@ -19,6 +19,7 @@ class CreatePopularItemsTable extends Migration
             $table->string('description');
             $table->double('priceWas')->nullable();
             $table->double('priceNow');
+            $table->string('discount')->nullable();
             $table->string('image')->nullable();
             $table->integer('popularity');
             $table->timestamp('created_at')->nullable();
