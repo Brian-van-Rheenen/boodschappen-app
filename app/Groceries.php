@@ -9,6 +9,7 @@ class Groceries extends Model
     protected $table = 'groceries';
     protected $fillable = array(
         'user',
+        'productID',
         'description',
         'quantity',
         'priceWas',
@@ -20,6 +21,7 @@ class Groceries extends Model
     public function setProperties($data)
     {
         $this->user = $data['user'];
+        $this->productID = $data['productID'];
         $this->description = ucfirst($data['description']);
         $this->quantity = $this->quantity + $data['quantity'];
         $this->priceWas = $data['priceWas'] ?? null;

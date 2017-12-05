@@ -74,13 +74,13 @@ class GroceriesController extends Controller
         ]);
 
         //Add properties to the form data
-        $data = request(['description', 'quantity', 'priceWas', 'priceNow']);
+        $data = request(['productID', 'description', 'quantity', 'priceWas', 'priceNow']);
         $data['user'] = Auth::user()->getName();
         $data['completed'] = 0;
         $data['image'] = request('image');
 
         //Find the grocery if it exists
-        $grocery = Groceries::where('description', '=', request('description'))->first();
+        $grocery = Groceries::where('productID', '=', request('productID'))->first();
 
         //If it does
         if ($grocery)
@@ -95,7 +95,7 @@ class GroceriesController extends Controller
         }
 
         //Find the grocery if it exists
-        $popularItem = PopularItem::where('description', '=', request('description'))->first();
+        $popularItem = PopularItem::where('productID', '=', request('productID'))->first();
 
         //If it does
         if ($popularItem)
@@ -106,6 +106,7 @@ class GroceriesController extends Controller
         else
         {
             //Temporary array to use
+            $item['productID'] = request('productID');
             $item['description'] = preg_replace('/[^\x00-\x7f]/', '', $data['description']);
             $item['priceWas'] = request('priceWas');
             $item['priceNow'] = request('priceNow');

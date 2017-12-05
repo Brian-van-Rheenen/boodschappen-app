@@ -4,9 +4,10 @@
             <h4>Nog te halen:</h4>
             <template v-if="incompletedGroceries.length">
                 <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in incompletedGroceries" :key="item.id">
+                    <div class="ribbon" v-if="item.priceWas"><span>KORTING</span></div>
                     <span class="user">{{ item.user }}</span>
                     <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
-                    <img :src="item.image" v-if="item.image">
+                        <img :src="item.image" v-if="item.image">
                     <div class="items">
                         <span v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
                         <div class="price" v-if="item.image">
@@ -24,6 +25,7 @@
             <h4>Al gehaald:</h4>
             <template v-if="completedGroceries.length">
             <li class="list-group-item" v-bind:class="{'done': item.completed}" v-for="item in completedGroceries" :key="item.id">
+                <div class="ribbon" v-if="item.priceWas"><span>KORTING</span></div>
                 <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
                 <div class="items">

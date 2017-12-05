@@ -15,6 +15,7 @@ class CreatePopularItemsTable extends Migration
     {
         Schema::create('popular_items', function (Blueprint $table) {
             $table->increments('id')->unique();
+            $table->string('productID');
             $table->string('description');
             $table->double('priceWas')->nullable();
             $table->double('priceNow');

@@ -16,6 +16,7 @@ window.app = new Vue({
     },
     data: {
         groceries: groceries,
+        id: '',
         description: '',
         quantity: 1,
         priceWas: 0,
@@ -73,7 +74,7 @@ window.app = new Vue({
                         for (var k in response)
                         {
                             //Find a specific property inside the array that indicates that it is a grocery item
-                            if (response[k].context == 'SearchAndBrowse' && response[k]['_embedded']['product'].description.replace(/[^\x00-\x7F]/g, "") == this.description)
+                            if (response[k].context == 'SearchAndBrowse' && response[k]['_embedded']['product'].id == this.id)
                             {
                                 //Save the fetched results into that array
                                 this.priceNow = response[k]['_embedded']['product']['priceLabel']['now'];
@@ -81,8 +82,10 @@ window.app = new Vue({
                             }
                         }
 
+
                         //Create AJAX post
                         axios.post('/boodschappen', {
+                            productID: this.id,
                             description: this.description,
                             quantity: this.quantity,
                             priceWas: this.priceWas,
@@ -94,7 +97,7 @@ window.app = new Vue({
                             for (var i in this.groceries)
                             {
                                 //If the added grocery matches any in the array
-                                if (this.groceries[i].description == res.data.description)
+                                if (this.groceries[i].id == res.data.id)
                                 {
                                     //Mark it as found and save the index
                                     var found = true;
@@ -208,6 +211,7 @@ window.app = new Vue({
                                     var item = {};
 
                                     //Save the fetched results into that array
+                                    item['productID'] = response[k]['_embedded']['product']['id'];
                                     item['description'] = response[k]['_embedded']['product']['description'].replace(/[^\x00-\x7F]/g, "");
                                     item['priceNow'] = response[k]['_embedded']['product']['priceLabel']['now'];
                                     item['priceWas'] = response[k]['_embedded']['product']['priceLabel']['was'];
@@ -261,6 +265,7 @@ window.app = new Vue({
         },
         resetForm() {
             //Reset the form
+            this.id = '';
             this.description = '';
             this.image = '';
             this.quantity = 1;
@@ -269,7 +274,10 @@ window.app = new Vue({
             this.popularItems = [];
             this.ahItems = [];
         },
-        getValue(value, img, priceWas, priceNow) {
+        getValue(id, value, img, priceWas, priceNow) {
+
+            //Set id
+            this.id = id;
 
             //Set the description to the given value
             this.description = value;
