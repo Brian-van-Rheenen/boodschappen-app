@@ -20,7 +20,7 @@ class CreateSchedulesTable extends Migration
             $table->string('description');
             $table->string('quantity');
             $table->double('priceWas')->nullable();
-            $table->double('priceNow');
+            $table->double('priceNow')->nullable();
             $table->string('discount')->nullable();
             $table->string('image')->nullable();
         });

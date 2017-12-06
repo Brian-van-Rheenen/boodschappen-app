@@ -25,10 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('boodschappen:check')
-                 ->dailyAt('06:00');
         $schedule->command('boodschappen:store')
                  ->dailyAt('03:00');
+        $schedule->command('boodschappen:check')
+                 ->dailyAt('06:00');
     }
 
     /**

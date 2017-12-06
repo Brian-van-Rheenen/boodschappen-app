@@ -20,7 +20,7 @@ class CreateGroceriesTable extends Migration
             $table->string('description');
             $table->integer('quantity');
             $table->double('priceWas')->nullable();
-            $table->double('priceNow');
+            $table->double('priceNow')->nullable();
             $table->string('discount')->nullable();
             $table->tinyInteger('completed')->default(0);
             $table->string('image')->nullable();
