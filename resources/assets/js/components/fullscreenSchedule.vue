@@ -122,7 +122,6 @@
         watch: {
             show() {
                 this.showDialog = this.show;
-                this.addItem('/planning', this.schedule);
             },
             selectedDate() {
                 if (this.selectedDate != '')
