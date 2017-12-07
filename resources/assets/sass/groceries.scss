@@ -204,6 +204,8 @@ h4, .empty {
 .complete {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     padding: 6px 0px;
     border-radius: 36px;
     font-size: 20px;
@@ -549,12 +551,6 @@ h4, .empty {
 
 .footer-buttons {
     font-size: 28px;
-}
-
-@media screen and (max-width: 362px) {
-    .header span {
-        font-size: 20px;
-    }
 }
 
 /*
