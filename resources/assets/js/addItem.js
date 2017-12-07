@@ -3,7 +3,7 @@ $(document).ready(function(){
     {
         if ($('.add').hasClass('btn-success'))
         {
-            app.addItem();
+            app.addItem('/boodschappen', app.groceries);
         }
         event.stopPropagation()
         $('.addNewItem').addClass('hideAddItem');

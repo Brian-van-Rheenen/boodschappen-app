@@ -81,7 +81,7 @@
                         <div class="itemWrapper">
                             <div class="inputItem">
                                 <input type="hidden" class="hiddenImg" name="image" v-model="image">
-                                <input type="text" class="newItem" name="description" autocomplete="off" v-model="description" v-on:keyup="getItems" placeholder="Voeg toe" @click="getItems" required></input>
+                                <input type="text" class="newItem" name="description" autocomplete="off" v-model="description" v-on:keyup="getItems('app')" placeholder="Voeg toe" @click="getItems('app')" required></input>
                                 <div class="clearBox"><i class="material-icons clear" v-on:click="clear">clear</i></div>
                             </div>
 
@@ -90,7 +90,7 @@
                                 <button type="button" class="btn btn-success addItemButton" @click="quantity += 1"><i class="material-icons">add</i></button>
                             </div>
                         </div>
-                        <input type="button" class="button" value="Boodschap toevoegen" v-bind:class="{ disabled: disabled }" v-on:click="addItem" :disabled="disabled">
+                        <input type="button" class="button" value="Boodschap toevoegen" v-bind:class="{ disabled: disabled }" v-on:click="addItem('/planning', this.schedule)" :disabled="disabled">
                     </form>
                 </section>
             </div>
@@ -98,6 +98,8 @@
     </div>
 </template>
 <script>
+    import groceriesDatabase from '../mixin/groceriesDatabase';
+
     export default {
         name: 'fullscreenSchedule',
         props: ['schedule', 'show'],
@@ -116,9 +118,11 @@
                 disabled: true
             }
         },
+        mixins: [groceriesDatabase],
         watch: {
             show() {
                 this.showDialog = this.show;
+                this.addItem('/planning', this.schedule);
             },
             selectedDate() {
                 if (this.selectedDate != '')
@@ -190,238 +194,6 @@
                 {
                     $('.clear').removeClass('pulse');
                 });
-            },
-            addItem() {
-                if (this.description)
-                {
-                    //AJAX GET call to ah.nl
-                    axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + this.description + '&searchType=product&_=1510216828382').then((res) => {
-
-                        //Fetch the specific property
-                        response = res.data['_embedded']['lanes'];
-
-                        //Loop through that property
-                        for (var i in response)
-                        {
-                            //Find a specific property inside the array
-                            if (response[i].type == 'SearchLane')
-                            {
-                                //Store the used index
-                                var index = i;
-                            }
-                        }
-
-                        try
-                        {
-                            //Fetch the specific property
-                            var response = res.data['_embedded']['lanes'][index]['_embedded']['items'];
-
-                            //Remove the last array object from the array
-                            response.pop();
-
-                            //Loop through the array
-                            for (var k in response)
-                            {
-                                //Find a specific property inside the array that indicates that it is a grocery item
-                                if (response[k].context == 'SearchAndBrowse' && response[k]['_embedded']['product'].id == this.id)
-                                {
-                                    //Save the fetched results into that array
-                                    this.priceNow = response[k]['_embedded']['product']['priceLabel']['now'];
-                                    this.priceWas = response[k]['_embedded']['product']['priceLabel']['was'];
-                                }
-                            }
-
-
-                            //Create AJAX post
-                            axios.post('/planning', {
-                                day: this.selectedDate,
-                                productID: this.id,
-                                description: this.description,
-                                quantity: this.quantity,
-                                priceWas: this.priceWas,
-                                priceNow: this.priceNow,
-                                discount: this.discount,
-                                image: this.image
-                            }).then((res) => {
-
-                                //Loop through all the schedule
-                                for (var i in this.schedule)
-                                {
-                                    //If the added grocery matches any in the array
-                                    if (this.schedule[i].id == res.data.id && this.schedule[i].day == res.data.day)
-                                    {
-                                        //Mark it as found and save the index
-                                        var found = true;
-                                        var index = i;
-
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        //Mark it as not found
-                                        var found = false;
-                                    }
-                                }
-
-                                //If the added grocery is already inside the array
-                                if (found)
-                                {
-                                    //Update the values
-                                    this.groceries[index].quantity = res.data.quantity;
-                                    this.groceries[index].priceWas = res.data.priceWas;
-                                    this.groceries[index].priceNow = res.data.priceNow;
-                                    this.groceries[index].discount = res.data.discount;
-
-                                    //Reset the form
-                                    this.resetForm();
-                                }
-                                else
-                                {
-                                    //Push the added item into the schedule array
-                                    this.schedule.push(res.data);
-
-                                    //Reset the form
-                                    this.resetForm();
-                                }
-                            });
-                        }
-                        catch(err) {
-                            //If it can't find any groceries, return
-                            return;
-                        }
-                    });
-                }
-                else
-                {
-                    return;
-                }
-            },
-            getItems() {
-
-                //Show the list
-                this.ahGroupItem = true;
-
-                //Clear the timeout
-                window.clearTimeout(this.timer);
-
-                //Reset the arrays
-                app.popularItems = [];
-                app.ahItems = [];
-
-                //If the user input is longer than 2 characters
-                if (this.description.length > 0)
-                {
-                    //Set a timer
-                    this.timer = window.setTimeout(function() {
-
-                        //Get all the popular items
-                        axios.get('/boodschappen/populair/' + this.description).then((res) => {
-
-                            //Get the data
-                            var response = res.data;
-
-                            //Loop through that data
-                            for (var i in response)
-                            {
-                                //Push all the items inside the array
-                                app.popularItems.push(response[i]);
-                            }
-
-                            //Set maximum shown items
-                            app.popularItems.splice(5, response.length);
-                        });
-
-                        //AJAX GET call to ah.nl
-                        axios.get('https://www.ah.nl/service/rest/delegate?url=/zoeken?rq=' + this.description + '&searchType=product&_=1510216828382').then((res) => {
-
-                            //Fetch the specific property
-                            response = res.data['_embedded']['lanes'];
-
-                            //Loop through that property
-                            for (var i in response)
-                            {
-                                //Find a specific property inside the array
-                                if (response[i].type == 'SearchLane')
-                                {
-                                    //Store the used index
-                                    var index = i;
-                                }
-                            }
-
-                            try
-                            {
-                                //Fetch the specific property
-                                var response = res.data['_embedded']['lanes'][index]['_embedded']['items'];
-
-                                //Remove the last array object from the array
-                                response.pop();
-
-                                //Loop through the array
-                                for (var k in response)
-                                {
-                                    //Find a specific property inside the array that indicates that it is a grocery item
-                                    if (response[k].context == 'SearchAndBrowse')
-                                    {
-                                        //Create a temporary array
-                                        var item = {};
-
-                                        //Save the fetched results into that array
-                                        item['productID'] = response[k]['_embedded']['product']['id'];
-                                        item['description'] = response[k]['_embedded']['product']['description'].replace(/[^\x00-\x7F]/g, "");
-                                        item['priceNow'] = response[k]['_embedded']['product']['priceLabel']['now'];
-                                        item['priceWas'] = response[k]['_embedded']['product']['priceLabel']['was'];
-                                        item['image'] = response[k]['_embedded']['product']['images'][3]['link']['href'];
-
-                                        if (response[k]['_embedded']['product']['discount'])
-                                        {
-                                            item['discount'] = response[k]['_embedded']['product']['discount']['label'];
-                                        }
-
-                                        //2 decimals after comma
-                                        if(item['priceWas'])
-                                        {
-                                            item['priceWas'] = item['priceWas'].toFixed(2);
-                                        }
-                                        item['priceNow'] = item['priceNow'].toFixed(2);
-
-                                        //Push that array inside the ahItems array
-                                        app.ahItems.push(item);
-                                    }
-                                }
-                            }
-                            catch(err) {
-                                //If it can't find any scheduled groceries, return
-                                return;
-                            }
-                        });
-                    }.bind(this), 500);
-                }
-                else
-                {
-                    //Reset the image
-                    this.image = '';
-
-                    //Set a timer
-                    this.timer = window.setTimeout(function() {
-
-                        //Get all the popular items
-                        axios.get('/boodschappen/populair').then((res) => {
-
-                            //Get the data
-                            var response = res.data;
-
-                            //Loop through that data
-                            for (var i in response)
-                            {
-                                //Push all the items inside the array
-                                app.popularItems.push(response[i]);
-                            }
-
-                            //Set maximum shown items
-                            app.popularItems.splice(5, response.length);
-                        });
-                    }.bind(this), 500);
-                }
             },
             resetForm() {
                 //Reset the form

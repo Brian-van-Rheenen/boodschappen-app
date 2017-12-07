@@ -12,7 +12,7 @@
         </ul>
 
         <input type="hidden" class="hiddenImg" name="image" v-model="image">
-        <input type="text" class="newItem" name="description" autocomplete="off" v-model="description" v-on:keyup="getItems" placeholder="Voeg toe" @click="getItems()" required></input>
+        <input type="text" class="newItem" name="description" autocomplete="off" v-model="description" v-on:keyup="getItems('this')" placeholder="Voeg toe" @click="getItems('this')" required></input>
         <i class="material-icons clear">clear</i>
         <input type="number" class="quantity" name="quantity" autocomplete="off" v-model="quantity" required></input>
         <button type="button" class="btn btn-success addItemButton" @click="quantity += 1"><i class="material-icons">add</i></button>
