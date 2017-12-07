@@ -6,7 +6,7 @@
                     <button class="header-drawer-toggle">
                         <i class="material-icons" v-on:click="dialog(false)">clear</i>
                     </button>
-                    <span class="header-title default">Boodschappen Toevoegen</span>
+                    <span class="header-title">Boodschappen Toevoegen</span>
                 </header>
 
                 <section class="dialogBody">
@@ -231,7 +231,7 @@
         }
     }
 </script>
-<style>
+<style lang="scss">
 .disableScroll {
     position: absolute;
     width: 100%;
@@ -293,9 +293,44 @@
     padding: 4px 0px 0px 5px;
 }
 
-select:focus {
-    outline:none;
-    border-color: #c6781d;
+input {
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px white inset;
+        -webkit-text-fill-color: #555 !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    &:focus ~ .bar:before,
+    &:focus ~ .bar:after {
+        width:50%;
+    }
+
+    &:focus ~ .highlight {
+        -webkit-animation:inputHighlighter 0.3s ease;
+        -moz-animation:inputHighlighter 0.3s ease;
+        animation:inputHighlighter 0.3s ease;
+    }
+}
+
+select {
+    &:focus {
+        outline:none;
+        border-color: #c6781d;
+    }
+
+    &:focus ~ .bar:before,
+    &:focus ~ .bar:after {
+        width:50%;
+    }
+
+    &:focus ~ .highlight {
+        -webkit-animation:inputHighlighter 0.3s ease;
+        -moz-animation:inputHighlighter 0.3s ease;
+        animation:inputHighlighter 0.3s ease;
+    }
 }
 
 label {
@@ -313,37 +348,31 @@ label {
     align-items: center;
 }
 
-input:focus ~ label, input:valid ~ label, select:focus ~ label, select:valid ~ label {
-    top:-20px;
-    font-size:14px;
-    color:#d07e20;
-}
-
 .bar {
     position:relative;
     display:block;
     width:100%;
-}
-.bar:before, .bar:after {
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background:#d07e20;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-}
-.bar:before {
-    left:50%;
-}
-.bar:after {
-    right:50%;
-}
 
-input:focus ~ .bar:before, input:focus ~ .bar:after, select:focus ~ .bar:before, select:focus ~ .bar:after {
-    width:50%;
+    &:before,
+    &:after {
+        content:'';
+        height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        background:#d07e20;
+        transition:0.2s ease all;
+        -moz-transition:0.2s ease all;
+        -webkit-transition:0.2s ease all;
+    }
+
+    &:before {
+        left: 50%;
+    }
+
+    &:after {
+        right: 50%;
+    }
 }
 
 .highlight {
@@ -354,12 +383,6 @@ input:focus ~ .bar:before, input:focus ~ .bar:after, select:focus ~ .bar:before,
     left:0;
     pointer-events:none;
     opacity:0.5;
-}
-
-input:focus ~ .highlight, select:focus ~ .highlight {
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
 }
 
 .dayFullscreen {
@@ -375,6 +398,15 @@ input:focus ~ .highlight, select:focus ~ .highlight {
 
 .list-group {
     padding: 0;
+
+    &.ahGroupItem {
+        position: relative;
+        width: 100%;
+        max-height: 370px;
+        overflow-y: auto;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+    }
 }
 
 .list-group-item {
@@ -385,25 +417,33 @@ input:focus ~ .highlight, select:focus ~ .highlight {
     justify-content: space-between;
     letter-spacing: normal;
     border: 1px solid #ddd;
+
+    &:first-child {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-top: none;
+    }
+
+    &:last-child {
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
 }
 
-.list-group-item img {
-    width: 50px;
-    height: 50px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 5%;
-}
+.ahItem {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 82px;
+    text-align: center;
+    cursor: pointer;
 
-.list-group-item:first-child {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-top: none;
-}
-
-.list-group-item:last-child {
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
+    img {
+        width: 50px;
+        height: 50px;
+        margin-left: 15px;
+        margin-right: auto;
+    }
 }
 
 .trashContainer {
@@ -499,31 +539,6 @@ input:focus ~ .highlight, select:focus ~ .highlight {
     box-shadow: 0px -1px 43px -7px rgba(0,0,0,0.1);
 }
 
-.ahGroupItem {
-    position: relative;
-    width: 100%;
-    max-height: 370px;
-    overflow-y: auto;
-    margin-bottom: 8px;
-    border: 1px solid #ccc;
-}
-
-.ahItem {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 82px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.ahItem img {
-    width: 50px;
-    height: 50px;
-    margin-left: 15px;
-    margin-right: auto;
-}
-
 .ahPrice {
     text-align: right;
     width: auto !important;
@@ -534,18 +549,18 @@ input:focus ~ .highlight, select:focus ~ .highlight {
 
 .priceWas {
     display: block;
-}
 
-.priceWas.bonus {
-    text-decoration: line-through;
+    &.bonus {
+        text-decoration: line-through;
+    }
 }
 
 .priceNow {
     display: block;
-}
 
-.priceNow.bonus {
-    color: #ff7900;
+    &.bonus {
+        color: #ff7900;
+    }
 }
 
 .ahItems li:first-child, .popularItems li:first-child {
@@ -588,19 +603,20 @@ input:focus ~ .highlight, select:focus ~ .highlight {
     background-color: #d07e20;
     border: none;
     border-bottom: 3px solid #a56418;
-}
 
-.button:focus, .button:hover {
-    color: #fff;
-    text-decoration: none;
-}
+    &:focus,
+    &:hover {
+        color: #fff;
+        text-decoration: none;
+    }
 
-.button:hover:enabled {
-    transform: translateY(-3px);
-}
+    &:hover:enabled {
+        transform: translateY(-3px);
+    }
 
-.disabled {
-    opacity: 0.45;
-    cursor: not-allowed !important;
+    &.disabled {
+        opacity: 0.45;
+        cursor: not-allowed !important;
+    }
 }
 </style>

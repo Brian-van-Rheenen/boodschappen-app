@@ -57,7 +57,7 @@
         }
     }
 </script>
-<style>
+<style lang="scss">
 .schedule {
     position: relative;
     height: 100%;
@@ -73,10 +73,10 @@
     margin-bottom: 8px;
     border-radius: 2px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
 
-.day:last-of-type {
-    margin: 0;
+    &:last-of-type {
+        margin: 0;
+    }
 }
 
 .dayTitle {
@@ -102,10 +102,18 @@
     letter-spacing: normal;
     border: none;
     padding: 11px 0px;
-}
 
-.schedule-group-item:last-child:not(:first-child) {
-    padding: 11px 0px 11px 0px;
+    img {
+        width: 50px;
+        height: 50px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 5%;
+    }
+
+    &:last-child:not(:first-child) {
+        padding: 11px 0px 11px 0px;
+    }
 }
 
 .container {
@@ -124,14 +132,6 @@
 .hoeveelheid, .items {
     display: flex;
     align-items: center;
-}
-
-.schedule-group-item img {
-    width: 50px;
-    height: 50px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 5%;
 }
 
 .items {
@@ -155,41 +155,41 @@
     line-height: 1.42857;
     outline: none;
     z-index: 4;
-}
 
-.btn-circle.btn-xl {
-    width: 56px;
-    height: 56px;
-    padding: 10px 16px;
-    border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: auto;
-    margin-bottom: auto;
-    box-shadow: 0 4px 8px rgba(0,0,0,.25);
-    border: 1px solid transparent;
-    color: #fff;
-}
+    &.btn-circle.btn-xl {
+        width: 56px;
+        height: 56px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: auto;
+        margin-bottom: auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,.25);
+        border: 1px solid transparent;
+        color: #fff;
 
-.add {
-    background-color: #92b558;
-    border-color: #83a24f;
-    margin-left: auto;
-    cursor: pointer;
-    outline: none !important;
-    transition:all 0.3s;
-    position: fixed;
-    bottom: 8px;
-    right: 8px;
+        &.add {
+            background-color: #92b558;
+            border-color: #83a24f;
+            margin-left: auto;
+            cursor: pointer;
+            outline: none !important;
+            transition:all 0.3s;
+            position: fixed;
+            bottom: 8px;
+            right: 8px;
 
-    &:active,
-    &:hover,
-    &:focus {
-        background-color: #749046;
-        border-color: #667e3d;
+            &:active,
+            &:hover,
+            &:focus {
+                background-color: #749046;
+                border-color: #667e3d;
+            }
+        }
     }
 }
 

@@ -90,7 +90,7 @@
         }
     }
 </script>
-<style>
+<style lang="scss">
 .shadow {
     height: 100%;
     position: fixed;
@@ -195,14 +195,14 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
 
-.confirmationButton:hover {
-    background-color: rgba(158,158,158,0.2);
-    text-decoration: none;
-}
+    &:hover {
+        background-color: rgba(158,158,158,0.2);
+        text-decoration: none;
+    }
 
-.confirmationButton span {
-    color: rgb(63,81,181);
+    span {
+        color: rgb(63,81,181);
+    }
 }
 </style>
