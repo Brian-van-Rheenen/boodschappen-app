@@ -76,11 +76,21 @@ class GroceriesController extends Controller
         //Add properties to the form data
         $data = request(['productID', 'description', 'quantity', 'priceWas', 'priceNow', 'discount']);
         $data['user'] = Auth::user()->getName();
+        $data['description'] = ucfirst(request('description'));
         $data['completed'] = 0;
         $data['image'] = request('image');
 
-        //Find the grocery if it exists
-        $grocery = Groceries::where('productID', '=', request('productID'))->first();
+        //If there is a productID
+        if (request('productID'))
+        {
+            //Find the grocery if it exists
+            $grocery = Groceries::where('productID', '=', request('productID'))->first();
+        }
+        else
+        {
+            //Find the grocery if it exists
+            $grocery = Groceries::where('description', '=', request('description'))->first();
+        }
 
         //If it does
         if ($grocery)
