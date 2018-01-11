@@ -343,6 +343,13 @@ h4, .empty {
     opacity: 1;
     animation: fade 0.5s;
 
+    @media (min-width:961px)  {
+        width: 400px;
+    }
+    @media (min-width:1025px) {
+        width: 500px;
+    }
+
     &.hideAddItem {
         display: flex;
     }

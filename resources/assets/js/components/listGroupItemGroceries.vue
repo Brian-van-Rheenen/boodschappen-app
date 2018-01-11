@@ -1,5 +1,5 @@
 <template>
-    <div class="changeHeight">
+    <div>
         <template v-if="groceries.length">
             <h4>Nog te halen:</h4>
             <template v-if="incompletedGroceries.length">
