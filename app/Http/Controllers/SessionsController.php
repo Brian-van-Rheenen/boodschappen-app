@@ -20,16 +20,18 @@ class SessionsController extends Controller
             'confirmed' => 1
         ];
         // Attempt to authenticate the user
-        if (! auth()->attempt($credentials))
+        if (auth()->attempt($credentials, true))
+        {
+            // Redirect to the home page
+            return redirect()->home();
+        }
+        else
         {
             // Not logged in, return back with errors
             return back()->withErrors([
                 'message' => 'Uw inloggegevens zijn incorrect of uw account is nog niet geverifieerd.'
             ]);
         }
-
-        // Redirect to the home page
-        return redirect()->home();
     }
 
     public function show($confirmation_code)
