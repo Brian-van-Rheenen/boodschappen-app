@@ -33,6 +33,7 @@ window.app = new Vue({
                     success['description'] = 'Er is een e-mail met daarin een link verstuurd om het wachtwoord te wijzigen.';
                     success['type'] = 'success'
                     this.flashMessages.push(success);
+                    $('.button').remove();
                 }
                 //Else
                 else
