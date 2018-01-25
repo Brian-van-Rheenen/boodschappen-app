@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-bind:class="{'changeHeight': !groceries.length}">
         <template v-if="groceries.length">
             <h4>Nog te halen:</h4>
             <template v-if="incompletedGroceries.length">
@@ -28,7 +28,7 @@
                 <div class="ribbon" v-if="item.priceWas || item.discount"><span>{{ item.discount }}</span></div>
                 <span class="hoeveelheid" v-bind:class="{'checked': item.completed}">{{ item.quantity }}x</span>
                 <img :src="item.image" v-if="item.image">
-                <div class="items">
+                <div class="items" v-bind:class="{'checked': item.completed}">
                     <span v-bind:class="{'checked': item.completed, 'centered': !item.image}">{{ item.description }}</span>
                     <div class="price" v-if="item.image">
                         <span class="priceWas" style="display: unset;" v-bind:class="{'bonus': item.priceNow}">{{ item.priceWas }}</span>

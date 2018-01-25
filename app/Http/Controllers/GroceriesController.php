@@ -84,19 +84,28 @@ class GroceriesController extends Controller
         if (request('productID'))
         {
             //Find the grocery if it exists
-            $grocery = Groceries::where('productID', '=', request('productID'))->first();
+            $grocery = Groceries::where('productID', '=', request('productID'))->where('completed', $data['completed'])->first();
         }
         else
         {
             //Find the grocery if it exists
-            $grocery = Groceries::where('description', '=', request('description'))->first();
+            $grocery = Groceries::where('description', '=', request('description'))->where('completed', $data['completed'])->first();
         }
 
         //If it does
         if ($grocery)
         {
-            //Update properties
-            $grocery->setProperties($data);
+            //If it is completed
+            if ($grocery->completed)
+            {
+                //Insert the grocery into the database
+                $grocery = Groceries::create($data);
+            }
+            else
+            {
+                //Update properties
+                $grocery->setProperties($data);
+            }
         }
         else
         {

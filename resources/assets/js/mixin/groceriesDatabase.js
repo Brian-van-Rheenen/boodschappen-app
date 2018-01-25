@@ -92,11 +92,23 @@ var groceriesDatabase = {
                         //If the added grocery is already inside the array
                         if (found)
                         {
-                            //Update the values
-                            this.groceries[index].quantity = res.data.quantity;
-                            this.groceries[index].priceWas = res.data.priceWas;
-                            this.groceries[index].priceNow = res.data.priceNow;
-                            this.groceries[index].discount = res.data.discount;
+                            //If the added grocery is already completed
+                            if(this.groceries[index].completed)
+                            {
+                                //Set quantity
+                                res.data['quantity'] = this.quantity;
+
+                                //Push the added item into the array
+                                array.push(res.data);
+                            }
+                            else
+                            {
+                                //Update the values
+                                this.groceries[index].quantity = res.data.quantity;
+                                this.groceries[index].priceWas = res.data.priceWas;
+                                this.groceries[index].priceNow = res.data.priceNow;
+                                this.groceries[index].discount = res.data.discount;
+                            }
 
                             //Reset the form
                             this.resetForm();

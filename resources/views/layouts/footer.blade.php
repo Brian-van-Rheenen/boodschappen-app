@@ -15,7 +15,7 @@
         <input type="text" class="newItem" name="description" autocomplete="off" v-model="description" v-on:keyup="getItems('this')" placeholder="Voeg toe" @click="getItems('this')" required></input>
         <i class="material-icons clear">clear</i>
         <input type="number" class="quantity" name="quantity" autocomplete="off" v-model="quantity" required></input>
-        <button type="button" class="btn btn-success addItemButton" @click="quantity += 1"><i class="material-icons">add</i></button>
+        <button type="button" class="btn btn-success addItemButton" @click="quantity++"><i class="material-icons">add</i></button>
     </form>
 
     <button type="button" class="btn-circle btn-xl reset"><i class="material-icons footer-buttons">clear</i></button>
